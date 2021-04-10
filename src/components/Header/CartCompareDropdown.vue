@@ -11,12 +11,11 @@
     <span class="count">9</span>
     <div class="dropdown-menu dropdown-menu-right" :class="[{ show: isOpen }]">
       <div class="wd-item-list">
-        <media></media>
-        <media></media>
-        <media></media>
-        <media></media>
-        <media></media>
-        <media></media>
+        <media
+          v-for="product in products"
+          :key="product.id"
+          :product="product"
+        ></media>
       </div>
       <div class="media text-center">
         <a href="compare-products.html" class="btn btn-primary go-compare-page"
@@ -34,6 +33,38 @@ import Media from "./Media.vue";
 @Component({ components: { Media } })
 export default class extends Vue {
   isOpen = false;
+
+  products = [
+    {
+      id: 1,
+      title: "San pham 1",
+      lowestPrice: "2.500.000 VND",
+      highestPrice: "4.000.000 VND",
+      rate: 4.5,
+    },
+    {
+      id: 1,
+      title: "San pham 1",
+      lowestPrice: "2.500.000 VND",
+      highestPrice: "4.000.000 VND",
+      rate: 4.5,
+    },
+    {
+      id: 1,
+      title: "San pham 1",
+      lowestPrice: "2.500.000 VND",
+      highestPrice: "4.000.000 VND",
+      rate: 4.5,
+    },
+    {
+      id: 1,
+      title: "San pham 1",
+      lowestPrice: "2.500.000 VND",
+      highestPrice: "4.000.000 VND",
+      rate: 4.5,
+    },
+  ];
+
   toggle(): void {
     this.isOpen = !this.isOpen;
     this.$emit("change", this.isOpen);
@@ -69,7 +100,7 @@ export default class extends Vue {
   }
 
   .dropdown-menu {
-    width: 233px !important;
+    width: 366px !important;
     border-radius: 0;
     padding: 0;
     border-color: #f3f3f3;
