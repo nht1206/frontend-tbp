@@ -1,0 +1,291 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,300i,400,500,500i,700,900");
+@import "./font-awesome.min.css";
+body {
+  font-family: "Roboto", sans-serif;
+  color: #333333;
+  font-size: 14px;
+}
+p {
+  margin: 0;
+}
+a {
+  transition: 0.5s;
+  text-decoration: none !important;
+}
+h1 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  margin: 0;
+  font-size: 50px;
+}
+h2 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  margin: 0;
+}
+h3 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  margin: 0;
+}
+h4 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  margin: 0;
+}
+h5 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 900;
+}
+h6 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  margin: 0;
+}
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+button {
+  &:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+img {
+  margin: 0 !important;
+  max-width: 100%;
+}
+.p0 {
+  padding: 0;
+}
+.pl-0 {
+  padding-left: 0;
+}
+.pr-0 {
+  padding-right: 0;
+}
+.pb-0 {
+  padding-bottom: 0;
+}
+.pt-0 {
+  padding-top: 0 !important;
+}
+.m0 {
+  margin: 0;
+}
+.mb-20 {
+  margin-bottom: 20px;
+}
+.red-bg {
+  background: #bf2228 !important;
+}
+.wd-opacity {
+  opacity: 0;
+}
+.info-section {
+  padding: 14px 20px;
+}
+.black-bg {
+  background: #333333 !important;
+}
+.orange-bg {
+  background: #f37020 !important;
+}
+.green-bg {
+  background: #86b816 !important;
+}
+.blue-bg {
+  background: #0065cd !important;
+}
+.green-color {
+  color: #86b816 !important;
+}
+.red-color {
+  color: #e57373 !important;
+}
+.black-color {
+  color: #333333 !important;
+}
+.bold-font {
+  font-weight: 900;
+}
+.wd-shop-btn {
+  background: #ff9800;
+  border: 0;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 11px 21px;
+  border: 1px solid;
+  border-color: transparent;
+  &:hover {
+    background: white;
+    color: #ff9800;
+    border-color: #fff;
+  }
+  i {
+    font-size: 15px;
+    margin-left: 8px;
+  }
+}
+.is-sticky {
+  z-index: 99999999999 !important;
+  .sticker-nav {
+    background: #ffffff;
+  }
+  .department {
+    display: none;
+  }
+}
+.csb-inner {
+  ul {
+    li {
+      padding: 6px 6px;
+    }
+  }
+}
+.reviews-load-more-full_grid {
+  display: none;
+}
+.reviews-load-more {
+  display: none;
+}
+.reviews-load-more-full_grid.display {
+  display: inline-block;
+}
+.reviews-load-more.display {
+  display: inline-block;
+}
+.sticker-nav {
+  z-index: 1025 !important;
+}
+.mob-sticky {
+  z-index: 2025 !important;
+}
+.modal-backdrop {
+  z-index: 1000;
+}
+.active-color {
+  color: #ff9800 !important;
+}
+.active-wishlist {
+  color: #ff4a4a;
+}
+figcaption {
+  .featured-bg-color {
+    background: #00cee8;
+  }
+}
+.bg-white {
+  background: #fff;
+}
+.mata-info {
+  li {
+    display: inline-block;
+    margin-right: 35px;
+    color: #999;
+    font-size: 14px;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+.width-auto {
+  width: auto !important;
+}
+.inline {
+  display: inline-block;
+}
+.wd-btn-search {
+  cursor: pointer;
+  i {
+    transition: 0.5s;
+  }
+  &:hover {
+    i {
+      color: #ff9800;
+    }
+  }
+}
+#scrollUp {
+  bottom: 60px;
+  right: 20px;
+  padding: 13px 0;
+  text-align: center;
+  width: 50px;
+  height: 50px;
+  background-color: #555;
+  color: #fff;
+  border-radius: 100%;
+  i {
+    font-size: 25px;
+  }
+  &:hover {
+    background: #ff9800;
+  }
+}
+body.second-home {
+  #scrollUp {
+    bottom: 36px;
+  }
+}
+
+.count {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 14px;
+  height: 14px;
+  background: #f44336;
+  text-align: center;
+  font-size: 10px;
+  color: #fff;
+  padding: 1px;
+  border-radius: 10px;
+  line-height: 12px;
+  margin-top: -7px;
+}
+
+.menu-dropdown-icon {
+  position: relative;
+}
+.pos-inherit {
+  position: inherit !important;
+}
+#main-slider {
+  .owl-theme {
+    .owl-nav [class*="owl-"] {
+      color: #fff;
+      font-size: 35px;
+      margin: 5px;
+      padding: 0px 14px;
+      background: none;
+      display: inline-block;
+      cursor: pointer;
+      border-radius: 0;
+    }
+    .owl-nav [class*="owl-"]:hover {
+      background: none;
+    }
+
+    .owl-nav {
+      margin-top: -25px;
+      position: absolute;
+      top: 50%;
+      width: 100%;
+
+      .owl-next {
+        position: absolute !important;
+        right: 50px !important;
+      }
+      .owl-prev {
+        position: absolute !important;
+        left: 50px !important;
+      }
+    }
+  }
+}

@@ -2,6 +2,21 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import { BootstrapVue } from "bootstrap-vue";
+
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
+import "@/assets/styles/app.scss";
+import clickOutside from "./directives/click-outside";
+
+import "owl.carousel/dist/assets/owl.carousel.css";
+import "owl.carousel";
+
+import "@/assets/styles/animate.css";
+
+Vue.use(BootstrapVue);
+
+Vue.directive("click-outside", clickOutside);
 
 Vue.config.productionTip = false;
 
