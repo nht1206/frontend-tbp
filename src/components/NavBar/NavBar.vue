@@ -2,7 +2,8 @@
   <div id="main-menu" class="sticker-nav">
     <div class="container">
       <div class="row">
-        <div class="col-2 col-md-6 col-lg-12">
+        <department-list></department-list>
+        <div class="col-2 col-md-6 col-lg-9">
           <div class="menu-container wd-megamenu">
             <div class="menu">
               <ul class="wd-megamenu-ul">
@@ -143,10 +144,13 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import DepartmentList from "../Header/DepartmentList.vue";
 import MegaSubMenu from "./MegaSubMenu.vue";
 import NormalSubMenu from "./NormalSubMenu.vue";
 
-@Component({ components: { NormalSubMenu, MegaSubMenu } })
+@Component({
+  components: { NormalSubMenu, MegaSubMenu, DepartmentList },
+})
 export default class extends Vue {}
 </script>
 

@@ -5,6 +5,7 @@
     <NavBar></NavBar>
     <MainSlider></MainSlider>
     <Service></Service>
+    <ProductViewModal></ProductViewModal>
     <TopDealSlider
       storeName="Gian hàng 1"
       :storeNumber="1"
@@ -26,6 +27,7 @@ import Footer from "@/components/Footer.vue";
 import Header from "@/components/Header/Header.vue";
 import HeaderTop from "@/components/HeaderTop/HeaderTop.vue";
 import MainSlider from "@/components/MainSlider/MainSlider.vue";
+import ProductViewModal from "@/components/modal/ProductViewModal.vue";
 import NavBar from "@/components/NavBar/NavBar.vue";
 import NewsLetter from "@/components/NewsLetter.vue";
 import Service from "@/components/Service/Service.vue";
@@ -44,6 +46,7 @@ import { Component, Vue } from "vue-property-decorator";
     Footer,
     NewsLetter,
     TrendingSlider,
+    ProductViewModal,
   },
 })
 export default class Home extends Vue {

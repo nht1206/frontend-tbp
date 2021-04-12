@@ -1,0 +1,114 @@
+<template>
+  <li
+    class="list-group-item"
+    :class="{ active: isShow }"
+    @mouseover="open"
+    @mouseleave="close"
+  >
+    <a>
+      <span class="sub-list-main-menu">Furniture</span>
+      <i class="fa fa-angle-right" aria-hidden="true"></i>
+    </a>
+    <div class="wd-sub-list">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <h6 class="black-color wd-sub-list-title">Cameras and photos</h6>
+            <ul class="wd-sub-menu">
+              <li>
+                <a href="shop-left-sidebar.html">Camera Electronice</a>
+              </li>
+              <li>
+                <a href="shop-left-sidebar.html">Camera Appereances</a>
+              </li>
+              <li><a href="shop-left-sidebar.html">DSLR</a></li>
+              <li>
+                <a href="shop-left-sidebar.html">Video cameras</a>
+              </li>
+              <li><a href="shop-left-sidebar.html">Top Cameras</a></li>
+              <li>
+                <a href="shop-left-sidebar.html">Cheap Cameras</a>
+              </li>
+              <li><a href="shop-left-sidebar.html">Best Cameras</a></li>
+              <li>
+                <a href="shop-left-sidebar.html">Luxury Cameras</a>
+              </li>
+              <li>
+                <a href="shop-left-sidebar.html">Simple Cameras</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <h6 class="black-color wd-sub-list-title">Cameras and photos</h6>
+            <ul class="wd-sub-menu">
+              <li>
+                <a href="shop-left-sidebar.html">Camera Electronice</a>
+              </li>
+              <li>
+                <a href="shop-left-sidebar.html">Camera Appereances</a>
+              </li>
+              <li><a href="shop-left-sidebar.html">DSLR</a></li>
+              <li>
+                <a href="shop-left-sidebar.html">Video cameras</a>
+              </li>
+              <li><a href="shop-left-sidebar.html">Top Cameras</a></li>
+              <li>
+                <a href="shop-left-sidebar.html">Cheap Cameras</a>
+              </li>
+              <li><a href="shop-left-sidebar.html">Best Cameras</a></li>
+              <li>
+                <a href="shop-left-sidebar.html">Luxury Cameras</a>
+              </li>
+              <li>
+                <a href="shop-left-sidebar.html">Simple Cameras</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <h6 class="black-color wd-sub-list-title">Cameras and photos</h6>
+            <ul class="wd-sub-menu">
+              <li>
+                <a href="shop-left-sidebar.html">Camera Electronice</a>
+              </li>
+              <li>
+                <a href="shop-left-sidebar.html">Camera Appereances</a>
+              </li>
+              <li><a href="shop-left-sidebar.html">DSLR</a></li>
+              <li>
+                <a href="shop-left-sidebar.html">Video cameras</a>
+              </li>
+              <li><a href="shop-left-sidebar.html">Top Cameras</a></li>
+              <li>
+                <a href="shop-left-sidebar.html">Cheap Cameras</a>
+              </li>
+              <li><a href="shop-left-sidebar.html">Best Cameras</a></li>
+              <li>
+                <a href="shop-left-sidebar.html">Luxury Cameras</a>
+              </li>
+              <li>
+                <a href="shop-left-sidebar.html">Simple Cameras</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+</template>
+
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+
+@Component
+export default class extends Vue {
+  isShow = false;
+
+  open(): void {
+    this.isShow = true;
+  }
+
+  close(): void {
+    this.isShow = false;
+  }
+}
+</script>

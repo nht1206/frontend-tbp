@@ -147,9 +147,9 @@ export default class extends Vue {}
       }
     }
   }
-  .stores-list {
-    padding-left: 50px;
-  }
+  // .stores-list {
+  //   padding-left: 50px;
+  // }
   .footer-about-logo {
     &:hover {
       &:before {

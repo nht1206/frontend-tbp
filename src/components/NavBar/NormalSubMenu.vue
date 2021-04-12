@@ -66,7 +66,7 @@ li {
     display: none;
     width: 100%;
     background: #f0f0f0;
-    padding: 20px;
+    padding: 15px 6px;
     position: absolute;
     z-index: 1024;
     left: 0;

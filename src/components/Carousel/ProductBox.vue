@@ -15,8 +15,7 @@
           <button
             type="button"
             class="btn btn-primary btn-sm"
-            data-toggle="modal"
-            data-target=".bd-example-modal-lg-product-1"
+            @click="openQuickView"
           >
             <i class="fa fa-eye" aria-hidden="true"></i> Xem nhanh
           </button>
@@ -80,6 +79,10 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 export default class extends Vue {
   @Prop({ type: Object, required: true })
   product!: any;
+
+  openQuickView(): void {
+    this.$bvModal.show("product-quick-view");
+  }
 }
 </script>
 

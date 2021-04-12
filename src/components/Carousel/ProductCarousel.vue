@@ -16,7 +16,7 @@ import ProductBox from "./ProductBox.vue";
 export default class extends Vue {
   @Prop({ type: Array, required: true })
   products!: Array<any>;
-  @Prop({ type: Number, required: true })
+  @Prop({ type: String, required: true })
   sliderId!: string;
 
   mounted(): void {

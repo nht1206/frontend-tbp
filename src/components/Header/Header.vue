@@ -15,7 +15,19 @@
         <div
           class="col-12 order-lg-2 col-md-5 col-lg-6 col-xl-5 d-none d-lg-block"
         >
-          <search-box></search-box>
+          <search-box
+            :items="[
+              'Apple',
+              'Banana',
+              'Orange',
+              'Mango',
+              'Pear',
+              'Peach',
+              'Grape',
+              'Tangerine',
+              'Pineapple',
+            ]"
+          ></search-box>
         </div>
         <div
           class="order-3 order-sm-3 col-10 col-sm-6 col-lg-4 col-md-4 col-xl-5"
