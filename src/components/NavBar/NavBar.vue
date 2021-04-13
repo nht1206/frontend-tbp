@@ -144,7 +144,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import DepartmentList from "../Header/DepartmentList.vue";
+import DepartmentList from "./DepartmentList.vue";
 import MegaSubMenu from "./MegaSubMenu.vue";
 import NormalSubMenu from "./NormalSubMenu.vue";
 

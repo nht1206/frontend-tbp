@@ -2,7 +2,7 @@
   <div class="col-xl-3 d-none d-xl-block">
     <div class="department" @click="toggle" v-click-outside="close">
       <img src="@/assets/img/menu-bar.png" alt="menu-bar" />
-      All Department
+      Danh mục sản phẩm
       <div
         id="department-list"
         class="department-list"

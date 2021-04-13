@@ -1,8 +1,5 @@
 <template>
-  <div class="home">
-    <HeaderTop></HeaderTop>
-    <Header></Header>
-    <NavBar></NavBar>
+  <div>
     <MainSlider></MainSlider>
     <Service></Service>
     <ProductViewModal></ProductViewModal>
@@ -17,19 +14,12 @@
       :products="productList"
     ></TopDealSlider>
     <TrendingSlider></TrendingSlider>
-    <NewsLetter></NewsLetter>
-    <Footer></Footer>
   </div>
 </template>
 
 <script lang="ts">
-import Footer from "@/components/Footer.vue";
-import Header from "@/components/Header/Header.vue";
-import HeaderTop from "@/components/HeaderTop/HeaderTop.vue";
 import MainSlider from "@/components/MainSlider/MainSlider.vue";
 import ProductViewModal from "@/components/modal/ProductViewModal.vue";
-import NavBar from "@/components/NavBar/NavBar.vue";
-import NewsLetter from "@/components/NewsLetter.vue";
 import Service from "@/components/Service/Service.vue";
 import TopDealSlider from "@/components/TopDeal/TopDealSlider.vue";
 import TrendingSlider from "@/components/Trending/TrendingSlider.vue";
@@ -37,14 +27,9 @@ import { Component, Vue } from "vue-property-decorator";
 
 @Component({
   components: {
-    HeaderTop,
-    Header,
-    NavBar,
     MainSlider,
     Service,
     TopDealSlider,
-    Footer,
-    NewsLetter,
     TrendingSlider,
     ProductViewModal,
   },

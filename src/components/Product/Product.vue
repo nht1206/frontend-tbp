@@ -1,6 +1,6 @@
 <template>
-  <div class="col-md-12">
-    <figure class="figure product-box wow fadeIn animated" data-wow-delay="0ms">
+  <figure class="figure product-box row">
+    <div class="col-12 col-md-12 col-lg-12 col-xl-12 p0">
       <div class="product-box-img">
         <a href="product-details.html">
           <img
@@ -21,19 +21,21 @@
           </button>
         </div>
       </div>
-      <figcaption class="figure-caption text-center">
-        <span
-          v-if="product.isNew"
-          class="badge badge-secondary wd-badge text-uppercase"
-          >Mới</span
-        >
-        <div class="wishlist">
-          <i
-            class="fa fa-heart"
-            :class="{ 'active-wishlist': true }"
-            aria-hidden="true"
-          ></i>
-        </div>
+      <span
+        v-if="product.isNew"
+        class="badge badge-secondary wd-badge text-uppercase"
+        >Mới</span
+      >
+      <div class="wishlist">
+        <i
+          class="fa fa-heart"
+          :class="{ 'active-wishlist': true }"
+          aria-hidden="true"
+        ></i>
+      </div>
+    </div>
+    <div class="col-12 col-md-12 col-lg-12 col-xl-12 p0">
+      <div class="figure-caption text-center">
         <div class="price-start">
           <p>
             Giá từ
@@ -49,33 +51,32 @@
           </p>
         </div>
         <div class="rating">
-          <a class="active-color" href="#"
-            ><i class="fa fa-star" aria-hidden="true"></i
+          <a href="#"
+            ><i class="fa fa-star active-color" aria-hidden="true"></i
           ></a>
-          <a class="active-color" href="#"
-            ><i class="fa fa-star" aria-hidden="true"></i
+          <a href="#"
+            ><i class="fa fa-star active-color" aria-hidden="true"></i
           ></a>
-          <a class="active-color" href="#"
-            ><i class="fa fa-star" aria-hidden="true"></i
+          <a href="#"
+            ><i class="fa fa-star active-color" aria-hidden="true"></i
           ></a>
           <a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a>
           <a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a>
         </div>
         <div class="compare-btn">
           <a class="btn btn-primary btn-sm" href="#"
-            ><i class="fa fa-exchange" aria-hidden="true"></i> Thêm để so
-            sánh</a
+            ><i class="fa fa-exchange" aria-hidden="true"></i> Add to compare</a
           >
         </div>
-      </figcaption>
-    </figure>
-  </div>
+      </div>
+    </div>
+  </figure>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 
-@Component
+@Component({ components: {} })
 export default class extends Vue {
   @Prop({ type: Object, required: true })
   product!: any;
@@ -87,4 +88,12 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.product-box {
+  margin-bottom: 50px;
+  .product-box-img {
+    img {
+      width: 100%;
+    }
+  }
+}
 </style>
