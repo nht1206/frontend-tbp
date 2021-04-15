@@ -1,5 +1,6 @@
 import Category from "@/models/category";
 import Option from "@/models/option";
+import Page from "@/models/Page";
 import Product from "@/models/product";
 
 export interface RootState {}
@@ -9,7 +10,7 @@ export interface CartState {
 }
 
 export interface ProductState {
-  products: Product[];
+  products: Page<Product>;
   selectedProduct: Product | null;
   currentOption: Option;
   isLoading: boolean;

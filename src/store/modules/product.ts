@@ -3,9 +3,12 @@ import { Module } from "vuex";
 import Product from "@/models/product";
 import productService from "@/service/product-service";
 import Option from "@/models/option";
+import Page from "@/models/Page";
 
 const state: ProductState = {
-  products: [] as Product[],
+  products: {
+    content: [],
+  },
   selectedProduct: null,
   currentOption: {},
   isLoading: false,
@@ -16,7 +19,7 @@ const namespaced = true;
 export const product: Module<ProductState, RootState> = {
   state,
   mutations: {
-    setProducts: (state, products: Product[]) => {
+    setProducts: (state, products: Page<Product>) => {
       state.products = products;
     },
     setSelectedProduct: (state, product: Product) => {
@@ -39,7 +42,7 @@ export const product: Module<ProductState, RootState> = {
     ) => {
       commit("setLoading", true);
       productService.searchProduct(option).then((res) => {
-        commit("setProducts", res.data.content);
+        commit("setProducts", res.data);
         commit("setCurrentOption", option);
         commit("setLoading", false);
       });

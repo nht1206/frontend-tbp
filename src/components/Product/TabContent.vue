@@ -1,6 +1,10 @@
 <template>
   <div class="row">
-    <div class="col-12 col-md-6 col-lg-4" v-for="p in products" :key="p.id">
+    <div
+      class="col-12 col-md-6 col-lg-4"
+      v-for="p in products.content"
+      :key="p.id"
+    >
       <product :product="p"></product>
     </div>
     <product-view-modal></product-view-modal>
@@ -27,5 +31,3 @@ export default class extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped></style>
