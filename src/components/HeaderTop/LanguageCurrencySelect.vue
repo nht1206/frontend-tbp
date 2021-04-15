@@ -22,5 +22,4 @@ import HeaderSelector from "./HeaderSelector.vue";
 export default class extends Vue {}
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

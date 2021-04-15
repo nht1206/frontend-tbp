@@ -58,5 +58,4 @@ import Item from "../Carousel/MainSliderItem.vue";
 export default class extends Vue {}
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

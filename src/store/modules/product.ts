@@ -1,43 +1,55 @@
+import { ProductState, RootState } from "./../types";
+import { Module } from "vuex";
 import Product from "@/models/product";
 import productService from "@/service/product-service";
-export default {
-  state: () => ({
-    products: [] as Product[],
-    selectedProduct: null,
-    currentOption: {
-      keyword: "",
-      catId: null,
-    },
-  }),
+import Option from "@/models/option";
+
+const state: ProductState = {
+  products: [] as Product[],
+  selectedProduct: null,
+  currentOption: {},
+  isLoading: false,
+};
+
+const namespaced = true;
+
+export const product: Module<ProductState, RootState> = {
+  state,
   mutations: {
-    setProducts: (state: any, products: Product[]) => {
+    setProducts: (state, products: Product[]) => {
       state.products = products;
     },
-    setSelectedProduct: (state: any, product: Product) => {
+    setSelectedProduct: (state, product: Product) => {
       state.selectedProduct = product;
     },
-    setCurrentOption: (state: any, option: any) => {
+    setCurrentOption: (state, option: Option) => {
       state.currentOption = option;
+    },
+    setLoading: (state, isLoading: boolean) => {
+      state.isLoading = isLoading;
     },
   },
   actions: {
     searchProducts: (
-      { commit }: any,
-      option: any = {
+      { commit },
+      option: Option = {
         keyword: "",
         catId: null,
       }
     ) => {
+      commit("setLoading", true);
       productService.searchProduct(option).then((res) => {
         commit("setProducts", res.data.content);
         commit("setCurrentOption", option);
+        commit("setLoading", false);
       });
     },
   },
   getters: {
-    products: (state: any) => state.products,
-    selectedProduct: (state: any) => state.selectedProduct,
-    currentOption: (state: any) => state.currentOption,
+    products: (state) => state.products,
+    selectedProduct: (state) => state.selectedProduct,
+    currentOption: (state) => state.currentOption,
+    isLoading: (state) => state.isLoading,
   },
-  namespaced: true,
+  namespaced,
 };

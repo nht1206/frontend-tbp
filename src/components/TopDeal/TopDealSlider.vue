@@ -17,6 +17,7 @@
 </template>
 
 <script lang="ts">
+import Product from "@/models/product";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import ProductBox from "../Carousel/ProductBox.vue";
 import ProductCarousel from "../Carousel/ProductCarousel.vue";
@@ -26,13 +27,13 @@ export default class extends Vue {
   @Prop({ type: String, required: true })
   storeName!: string;
   @Prop({ type: Array, required: true })
-  products!: Array<any>;
+  products!: Array<Product>;
   @Prop({ type: Number, required: true })
   storeNumber!: number;
 
   sliderId!: string;
 
-  created() {
+  created(): void {
     this.sliderId = "slider" + this.storeNumber;
   }
 }

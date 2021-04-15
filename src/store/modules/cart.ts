@@ -1,22 +1,26 @@
 import Product from "@/models/product";
-export default {
-  state: () => ({
-    cart: [] as Product[],
-  }),
+import { Module } from "vuex";
+import { CartState, RootState } from "../types";
+export const state: CartState = {
+  cart: [],
+};
+const namespaced = true;
+export const cart: Module<CartState, RootState> = {
+  state,
   mutations: {
-    addToCart(state: any, product: Product) {
+    addToCart(state, product: Product) {
       state.cart.push(product);
     },
-    removeProduct(state: any, id: string) {
+    removeProduct(state, id: string) {
       state.cart = state.cart.filter((p: Product) => p.id !== id);
     },
-    clear(state: any) {
+    clear(state) {
       state.cart = [];
     },
   },
   actions: {},
   getters: {
-    cart: (state: any) => state.cart,
+    cart: (state) => state.cart,
   },
-  namespaced: true,
+  namespaced,
 };

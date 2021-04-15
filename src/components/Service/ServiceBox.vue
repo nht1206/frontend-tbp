@@ -17,6 +17,7 @@ export default class extends Vue {
   @Prop({ type: String, default: "blue" })
   color!: string;
 
+  // eslint-disable-next-line
   getColor(): any {
     if (this.color === "blue") {
       return {
