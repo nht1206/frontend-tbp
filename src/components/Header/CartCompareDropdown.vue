@@ -1,9 +1,8 @@
 <template>
-  <div class="dropdown wd-compare-btn">
+  <div class="dropdown wd-compare-btn" v-click-outside="close">
     <button
       class="btn dropdown-toggle compare-btn"
       @click="toggle"
-      v-click-outside="close"
       type="button"
     >
       <i class="fa fa-balance-scale"></i>
@@ -19,7 +18,7 @@
       </div>
       <div class="media text-center">
         <a href="compare-products.html" class="btn btn-primary go-compare-page"
-          >Compare <i class="fa fa-arrow-right" aria-hidden="true"></i
+          >So sánh <i class="fa fa-arrow-right" aria-hidden="true"></i
         ></a>
       </div>
     </div>

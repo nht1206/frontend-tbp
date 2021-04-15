@@ -1,9 +1,10 @@
 import Category from "@/models/category";
+import Brand from "./brand";
 export default interface Product {
   id: string;
   title: string;
   category: Category;
-  brand: any;
+  brand: Brand;
   shortDescription: string;
   longDescription: string;
   images: string[];

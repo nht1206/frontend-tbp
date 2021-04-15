@@ -34,11 +34,11 @@
         ></i>
       </div> -->
     </div>
-    <div class="col-12 col-md-12 col-lg-12 col-xl-12 p0">
+    <div class="col-12 col-md-12 col-lg-12 col-xl-12 p-1">
       <div class="figure-caption text-center">
         <div class="price-start">
           <p>
-            Giá từ
+            Giá từ <br />
             <strong class="active-color"
               ><u>{{ formatPrice(product.lowestPrice) }} VNĐ</u> -
               <u>{{ formatPrice(product.highestPrice) }} VNĐ</u></strong
@@ -81,7 +81,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 @Component({ components: {} })
 export default class extends Vue {
   @Prop({ type: Object, required: true })
-  product!: any;
+  product!: Product;
 
   openQuickView(): void {
     this.$store.commit("product/setSelectedProduct", this.product);
@@ -93,8 +93,8 @@ export default class extends Vue {
   }
 
   shortenTitle(title: string): string {
-    if (title.length > 100) {
-      return title.substring(0, 99) + "...";
+    if (title.length > 50) {
+      return title.substring(0, 50) + "...";
     }
     return title;
   }
