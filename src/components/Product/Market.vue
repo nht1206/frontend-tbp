@@ -1,9 +1,11 @@
 <template>
   <div class="side-bar check-box">
-    <h5 class="title">Choose Market</h5>
+    <h5 class="title">Chọn cửa hàng</h5>
     <ul>
       <li>
-        <a href="#"><i class="fa fa-square-o" aria-hidden="true"></i> All </a>
+        <a href="#"
+          ><i class="fa fa-square-o" aria-hidden="true"></i> Tất cả
+        </a>
       </li>
       <li>
         <a href="#"

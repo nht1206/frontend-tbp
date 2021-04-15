@@ -1,27 +1,18 @@
 <template>
   <div id="product-view-model" class="product-view owl-carousel owl-theme">
-    <div class="item">
-      <img
-        src="@/assets/img/product-img/product-view-img-1.jpg"
-        class="img-fluid"
-        alt="Product Img"
-      />
-    </div>
-    <div class="item">
-      <img
-        src="@/assets/img/product-img/product-view-img-2.jpg"
-        class="img-fluid"
-        alt="Product Img"
-      />
+    <div class="item" v-for="(img, idx) in images" :key="idx">
+      <img :src="img" class="img-fluid" alt="Product Img" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
 export default class extends Vue {
+  @Prop({ required: true })
+  images!: string[];
   mounted(): void {
     ($(".product-view") as any).owlCarousel({
       loop: true,

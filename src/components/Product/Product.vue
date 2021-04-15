@@ -4,7 +4,7 @@
       <div class="product-box-img">
         <a href="product-details.html">
           <img
-            :src="product.img"
+            :src="product.images[0]"
             class="figure-img img-fluid"
             alt="Product Img"
           />
@@ -21,18 +21,18 @@
           </button>
         </div>
       </div>
-      <span
+      <!-- <span
         v-if="product.isNew"
         class="badge badge-secondary wd-badge text-uppercase"
         >Mới</span
-      >
-      <div class="wishlist">
+      > -->
+      <!-- <div class="wishlist">
         <i
           class="fa fa-heart"
           :class="{ 'active-wishlist': true }"
           aria-hidden="true"
         ></i>
-      </div>
+      </div> -->
     </div>
     <div class="col-12 col-md-12 col-lg-12 col-xl-12 p0">
       <div class="figure-caption text-center">
@@ -40,14 +40,14 @@
           <p>
             Giá từ
             <strong class="active-color"
-              ><u>{{ product.lowestPrice }}</u> -
-              <u>{{ product.highestPrice }}</u></strong
+              ><u>{{ formatPrice(product.lowestPrice) }} VNĐ</u> -
+              <u>{{ formatPrice(product.highestPrice) }} VNĐ</u></strong
             >
           </p>
         </div>
         <div class="content-excerpt">
           <p>
-            <a href=""> {{ product.shortDescription }}</a>
+            <a href=""> {{ shortenTitle(product.title) }}</a>
           </p>
         </div>
         <div class="rating">
@@ -65,7 +65,8 @@
         </div>
         <div class="compare-btn">
           <a class="btn btn-primary btn-sm" href="#"
-            ><i class="fa fa-exchange" aria-hidden="true"></i> Add to compare</a
+            ><i class="fa fa-exchange" aria-hidden="true"></i> Thêm vào so
+            sánh</a
           >
         </div>
       </div>
@@ -82,7 +83,19 @@ export default class extends Vue {
   product!: any;
 
   openQuickView(): void {
+    this.$store.commit("product/setSelectedProduct", this.product);
     this.$bvModal.show("product-quick-view");
+  }
+
+  shortenTitle(title: string): string {
+    if (title.length > 100) {
+      return title.substring(0, 99) + "...";
+    }
+    return title;
+  }
+
+  formatPrice(price: number): string {
+    return Intl.NumberFormat().format(price);
   }
 }
 </script>
@@ -93,6 +106,7 @@ export default class extends Vue {
   .product-box-img {
     img {
       width: 100%;
+      height: 258px;
     }
   }
 }

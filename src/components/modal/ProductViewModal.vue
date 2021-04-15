@@ -1,10 +1,18 @@
 <template>
-  <b-modal id="product-quick-view" hide-footer hide-header size="lg">
+  <b-modal
+    v-if="selectedProduct"
+    id="product-quick-view"
+    hide-footer
+    hide-header
+    size="lg"
+  >
     <div class="row">
       <div class="product-gallery col-12 col-md-12 col-lg-6">
         <div class="row">
           <div class="col-md-12 product-slider-details">
-            <product-image-carousel></product-image-carousel>
+            <product-image-carousel
+              :images="selectedProduct.images"
+            ></product-image-carousel>
           </div>
         </div>
       </div>
@@ -12,7 +20,7 @@
         <div class="product-details-gallery">
           <div class="list-group">
             <h4 class="list-group-item-heading product-title">
-              Vigo SP111-31N-P2GH Spin 1
+              {{ selectedProduct.title }}
             </h4>
             <div class="media">
               <div class="media-left media-middle">
@@ -43,82 +51,42 @@
           </div>
           <div class="list-group content-list">
             <p>
-              <i class="fa fa-dot-circle-o" aria-hidden="true"></i> 100%
-              Original product
-            </p>
-            <p>
-              <i class="fa fa-dot-circle-o" aria-hidden="true"></i> Manufacturer
-              Warranty
+              {{ selectedProduct.shortDescription }}
             </p>
           </div>
         </div>
         <div class="product-store row">
-          <div class="col-12 product-store-box">
+          <div
+            class="col-12 product-store-box"
+            v-for="(store, idx) in selectedProduct.listStores"
+            :key="idx"
+          >
             <div class="row">
-              <div class="col-3 p0 store-border-img">
+              <div class="col-3 p-3">
                 <img
-                  src="@/assets/img/product-store/product-store-img1.jpg"
-                  class="figure-img img-fluid"
-                  alt="Product Img"
-                />
-              </div>
-              <div class="col-5 store-border-price text-center">
-                <div class="price">
-                  <p>$234</p>
-                </div>
-              </div>
-              <div class="col-4 store-border-button">
-                <a href="#" class="btn btn-primary wd-shop-btn pull-right">
-                  Buy it now
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 product-store-box">
-            <div class="row">
-              <div class="col-3 p0 store-border-img">
-                <img
-                  src="@/assets/img/product-store/product-store-img2.jpg"
-                  class="figure-img img-fluid"
-                  alt="Product Img"
-                />
-              </div>
-              <div class="col-5 store-border-price text-center">
-                <div class="price">
-                  <p>$535</p>
-                </div>
-              </div>
-              <div class="col-4 store-border-button">
-                <a
-                  href="#"
-                  class="btn btn-primary wd-shop-btn pull-right red-bg"
-                >
-                  Buy it now
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 product-store-box">
-            <div class="row">
-              <div class="col-3 p0 store-border-img">
-                <img
-                  src="@/assets/img/product-store/product-store-img3.jpg"
-                  class="figure-img img-fluid"
+                  :src="store.store.logoImage"
+                  height="500"
+                  class="img-fluid"
                   alt="Product Img"
                 />
               </div>
               <div class="col-5 store-border-price">
-                <span class="badge wd-badge text-uppercase">Best</span>
-                <div class="price text-center">
-                  <p>$198</p>
+                <span
+                  v-show="isBestPrice(store.price)"
+                  class="badge wd-badge text-uppercase"
+                  >Giá tốt</span
+                >
+                <div class="price text-center mr-3">
+                  <p>{{ formatPrice(store.price) }} VNĐ</p>
                 </div>
               </div>
               <div class="col-4 store-border-button">
                 <a
-                  href="#"
+                  :href="store.url"
+                  :target="'_blank'"
                   class="btn btn-primary wd-shop-btn pull-right orange-bg"
                 >
-                  Buy it now
+                  Xem ngay
                 </a>
               </div>
             </div>
@@ -130,96 +98,118 @@
 </template>
 
 <script lang="ts">
+import Product from "@/models/product";
 import { Component, Vue } from "vue-property-decorator";
+import { mapGetters } from "vuex";
 import ProductImageCarousel from "../Carousel/ProductImageCarousel.vue";
 
-@Component({ components: { ProductImageCarousel } })
-export default class extends Vue {}
+@Component({
+  components: { ProductImageCarousel },
+  computed: {
+    ...mapGetters({
+      selectedProduct: "product/selectedProduct",
+    }),
+  },
+})
+export default class extends Vue {
+  selectedProduct!: Product;
+  isBestPrice(price: number): boolean {
+    return this.selectedProduct.lowestPrice === price;
+  }
+
+  formatPrice(price: number): string {
+    return Intl.NumberFormat().format(price);
+  }
+}
 </script>
 
 <style lang="scss">
-.product-gallery {
-  .product-slider-details {
-    img {
-      width: 100%;
-    }
-    .lSSlideOuter {
-      .lSPager.lSGallery {
-        li {
-          margin: 0 !important;
-          border: 1px solid #ececec;
-          border-radius: 0 !important;
+#product-quick-view {
+  .product-gallery {
+    .product-slider-details {
+      img {
+        width: 100%;
+      }
+      .lSSlideOuter {
+        .lSPager.lSGallery {
+          li {
+            margin: 0 !important;
+            border: 1px solid #ececec;
+            border-radius: 0 !important;
+          }
         }
       }
     }
   }
-}
-.product-details-gallery {
-  margin-top: 50px;
-  .product-ratings-text {
-    display: inline-block;
-    font-size: 14px;
-    font-weight: 300;
-  }
-  .product-title {
-    font-weight: 400;
-    font-size: 30px;
-    margin-bottom: 10px;
-  }
-  .rating {
-    padding-right: 7px;
-    border-right: 1px solid #c3c3c3;
-    margin-right: 7px;
-    i {
+  .product-details-gallery {
+    margin-top: 50px;
+    .product-ratings-text {
+      display: inline-block;
+      font-size: 14px;
+      font-weight: 300;
+    }
+    .product-title {
+      font-weight: 400;
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+    .rating {
+      padding-right: 7px;
+      border-right: 1px solid #c3c3c3;
+      margin-right: 7px;
+      i {
+        font-size: 20px;
+      }
+    }
+    .list-group {
+      padding-bottom: 22px;
+      border-bottom: 1px solid;
+      border-color: #c3c3c3;
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+    .media-body {
       font-size: 20px;
+      line-height: 1;
     }
-  }
-  .list-group {
-    padding-bottom: 22px;
-    border-bottom: 1px solid;
-    border-color: #c3c3c3;
-    &:last-child {
-      border-bottom: 0;
-    }
-  }
-  .media-body {
-    font-size: 20px;
-    line-height: 1;
-  }
-  .content-list {
-    padding-top: 20px;
-    padding-bottom: 30px;
-    color: #666666;
-    i {
-      margin-right: 5px;
-    }
-  }
-}
-.product-store {
-  .price {
-    margin: 15px 0;
-    margin-left: 25px;
-    p {
-      font-size: 15px;
-    }
-  }
-  .store-border-button {
-    padding: 7px;
-    a {
-      padding: 5px;
-      &:hover {
-        background: transparent !important;
-        border-color: #ff9800 !important;
+    .content-list {
+      padding-top: 20px;
+      padding-bottom: 30px;
+      color: #666666;
+      i {
+        margin-right: 5px;
       }
     }
   }
-  .wd-badge {
-    padding: 5px 3px;
-    top: 15px;
-    font-size: 12px;
-    font-weight: 400;
-    position: absolute;
-    background: #ff4a4a;
+  .product-store {
+    .price {
+      margin: 15px 0;
+      p {
+        font-size: 15px;
+      }
+    }
+
+    .store-border-button {
+      padding: 7px;
+      a {
+        padding: 5px;
+        &:hover {
+          background: transparent !important;
+          border-color: #ff9800 !important;
+        }
+      }
+    }
+
+    .wd-badge {
+      padding: 5px 3px;
+      top: -5px;
+      font-size: 12px;
+      font-weight: 400;
+      position: absolute;
+      background: #ff4a4a;
+      right: 0;
+    }
   }
 }
 </style>

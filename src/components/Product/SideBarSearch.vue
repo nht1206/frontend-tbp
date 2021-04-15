@@ -4,11 +4,16 @@
       <input
         type="text"
         class="form-control"
-        placeholder="Search ..."
+        placeholder="Tìm kiếm ..."
         aria-label="Search for..."
+        v-model="keyword"
       />
       <span class="input-group-btn">
-        <button class="btn btn-secondary wd-btn-search" type="button">
+        <button
+          class="btn btn-secondary wd-btn-search"
+          @click="search"
+          type="button"
+        >
           <i class="fa fa-search" aria-hidden="true"></i>
         </button>
       </span>
@@ -20,7 +25,13 @@
 import { Component, Vue } from "vue-property-decorator";
 
 @Component
-export default class extends Vue {}
+export default class extends Vue {
+  keyword = "";
+
+  search(): void {
+    this.$store.dispatch("product/searchProducts", { keyword: this.keyword });
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -51,6 +62,9 @@ export default class extends Vue {}
     color: #a5a5a5;
     &:hover {
       background: #ff9800;
+      i {
+        color: #ececec;
+      }
     }
   }
 }

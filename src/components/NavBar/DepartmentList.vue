@@ -9,52 +9,11 @@
         :class="{ active: isShow }"
       >
         <ul class="list-group">
-          <list-group-item></list-group-item>
-          <li class="list-group-item">
-            <a href="product-details-scroll.html">
-              <span class="sub-list-main-menu">Household</span></a
-            >
-          </li>
-          <li class="list-group-item">
-            <a href="product-details-scroll.html">
-              <span class="sub-list-main-menu">Clothes</span></a
-            >
-          </li>
-          <li class="list-group-item">
-            <a href="product-details-scroll.html">
-              <span class="sub-list-main-menu">Accessories</span></a
-            >
-          </li>
-          <li class="list-group-item">
-            <a href="product-details-scroll.html">
-              <span class="sub-list-main-menu">Electronics</span></a
-            >
-          </li>
-          <li class="list-group-item">
-            <a href="product-details-scroll.html">
-              <span class="sub-list-main-menu">Corporate staff</span></a
-            >
-          </li>
-          <li class="list-group-item">
-            <a href="product-details-scroll.html">
-              <span class="sub-list-main-menu">Sinking staff</span></a
-            >
-          </li>
-          <li class="list-group-item">
-            <a href="product-details-scroll.html">
-              <span class="sub-list-main-menu">Plant</span></a
-            >
-          </li>
-          <li class="list-group-item">
-            <a href="product-details-scroll.html">
-              <span class="sub-list-main-menu">Washing machine</span></a
-            >
-          </li>
-          <li class="list-group-item">
-            <a href="product-details-scroll.html">
-              <span class="sub-list-main-menu">Winding staff</span></a
-            >
-          </li>
+          <list-group-item
+            v-for="category in categories"
+            :key="category.id"
+            :category="category"
+          ></list-group-item>
         </ul>
       </div>
     </div>
@@ -63,9 +22,17 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { mapGetters } from "vuex";
 import ListGroupItem from "./ListGroupItem.vue";
 
-@Component({ components: { ListGroupItem } })
+@Component({
+  components: { ListGroupItem },
+  computed: {
+    ...mapGetters({
+      categories: "category/categories",
+    }),
+  },
+})
 export default class extends Vue {
   isShow = false;
 
@@ -75,6 +42,10 @@ export default class extends Vue {
 
   close(): void {
     this.isShow = false;
+  }
+
+  created(): void {
+    this.$store.dispatch("category/loadCategories");
   }
 }
 </script>
@@ -88,7 +59,6 @@ export default class extends Vue {
   position: relative;
   width: 249px;
   text-align: left;
-  z-index: 1024;
   cursor: pointer;
 
   .department-list {
@@ -131,7 +101,7 @@ export default class extends Vue {
           border-radius: 0;
         }
         .wd-sub-list {
-          width: 556px;
+          width: 250px;
           height: auto;
           background: #fff;
           position: absolute;
@@ -162,6 +132,9 @@ export default class extends Vue {
               }
             }
           }
+        }
+        .wd-sub-list.big {
+          width: 556px;
         }
       }
       .list-group-item.active {

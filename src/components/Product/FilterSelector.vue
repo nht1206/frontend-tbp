@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex filter-selector">
-    <p>Sort by:</p>
+    <p>Sắp xếp theo:</p>
     <button
       type="button"
       @click="toggle"

@@ -1,7 +1,7 @@
 <template>
   <div class="filter row">
     <div class="col-8 col-md-3">
-      <h6 class="result">Showing all 12 results</h6>
+      <h6 class="result">Hiển thị tất cả {{ products.length }} kết quả</h6>
     </div>
     <div class="col-6 col-md-6 filter-btn-area text-center">
       <div class="btn-group" role="group">
@@ -13,10 +13,16 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { mapGetters } from "vuex";
 import FilterSelector from "./FilterSelector.vue";
 
 @Component({
   components: { FilterSelector },
+  computed: {
+    ...mapGetters({
+      products: "product/products",
+    }),
+  },
 })
 export default class extends Vue {}
 </script>

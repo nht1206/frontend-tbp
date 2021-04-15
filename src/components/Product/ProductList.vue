@@ -2,7 +2,7 @@
   <div class="product-shop-page product-shop-full-grid">
     <div class="container">
       <div class="row">
-        <div class="col-12 p0">
+        <div class="col-12">
           <page-location></page-location>
         </div>
         <div class="order-sm-2 order-md-1 col-12 col-md-4 col-lg-3">
