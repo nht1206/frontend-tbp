@@ -64,7 +64,7 @@
           <a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a>
         </div>
         <div class="compare-btn">
-          <a class="btn btn-primary btn-sm" href="#"
+          <a class="btn btn-sm" @click="addToCart(product)"
             ><i class="fa fa-exchange" aria-hidden="true"></i> Thêm vào so
             sánh</a
           >
@@ -75,6 +75,7 @@
 </template>
 
 <script lang="ts">
+import Product from "@/models/product";
 import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component({ components: {} })
@@ -85,6 +86,10 @@ export default class extends Vue {
   openQuickView(): void {
     this.$store.commit("product/setSelectedProduct", this.product);
     this.$bvModal.show("product-quick-view");
+  }
+
+  addToCart(product: Product): void {
+    this.$store.commit("cart/addToCart", product);
   }
 
   shortenTitle(title: string): string {

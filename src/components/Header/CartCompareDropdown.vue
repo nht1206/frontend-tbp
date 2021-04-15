@@ -8,11 +8,11 @@
     >
       <i class="fa fa-balance-scale"></i>
     </button>
-    <span class="count">9</span>
+    <span class="count">{{ cart.length }}</span>
     <div class="dropdown-menu dropdown-menu-right" :class="[{ show: isOpen }]">
       <div class="wd-item-list">
         <media
-          v-for="product in products"
+          v-for="product in cart"
           :key="product.id"
           :product="product"
         ></media>
@@ -28,42 +28,19 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { mapGetters } from "vuex";
 import Media from "./Media.vue";
 
-@Component({ components: { Media } })
+@Component({
+  components: { Media },
+  computed: {
+    ...mapGetters({
+      cart: "cart/cart",
+    }),
+  },
+})
 export default class extends Vue {
   isOpen = false;
-
-  products = [
-    {
-      id: 1,
-      title: "San pham 1",
-      lowestPrice: "2.500.000 VND",
-      highestPrice: "4.000.000 VND",
-      rate: 4.5,
-    },
-    {
-      id: 2,
-      title: "San pham 1",
-      lowestPrice: "2.500.000 VND",
-      highestPrice: "4.000.000 VND",
-      rate: 4.5,
-    },
-    {
-      id: 3,
-      title: "San pham 1",
-      lowestPrice: "2.500.000 VND",
-      highestPrice: "4.000.000 VND",
-      rate: 4.5,
-    },
-    {
-      id: 4,
-      title: "San pham 1",
-      lowestPrice: "2.500.000 VND",
-      highestPrice: "4.000.000 VND",
-      rate: 4.5,
-    },
-  ];
 
   toggle(): void {
     this.isOpen = !this.isOpen;
@@ -136,7 +113,9 @@ export default class extends Vue {
       border-color: #ff9800;
     }
     .wd-item-list {
-      height: 242px;
+      max-height: 242px;
+      height: auto;
+      min-height: 50px;
       overflow-x: hidden;
     }
   }
