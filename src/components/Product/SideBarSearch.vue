@@ -48,6 +48,7 @@ export default class extends Vue {
     border-radius: 0;
     color: #a5a5a5;
     background: #fff;
+    height: auto;
     &:focus {
       color: #a5a5a5;
     }

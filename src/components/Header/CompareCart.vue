@@ -1,9 +1,9 @@
 <template>
   <div class="header-cart">
-    <a class="header-wishlist" href="wishlist.html">
+    <!-- <a class="header-wishlist" href="wishlist.html">
       <i class="fa fa-heart-o" aria-hidden="true"></i>
       <span class="count">8</span>
-    </a>
+    </a> -->
     <cart-compare-dropdown></cart-compare-dropdown>
   </div>
 </template>
