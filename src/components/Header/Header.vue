@@ -13,24 +13,12 @@
           </div>
         </div>
         <div
-          class="col-12 order-lg-2 col-md-5 col-lg-6 col-xl-5 d-none d-lg-block"
+          class="col-12 order-lg-2 col-md-5 col-lg-8 col-xl-7 d-none d-lg-block"
         >
-          <search-box
-            :items="[
-              'Apple',
-              'Banana',
-              'Orange',
-              'Mango',
-              'Pear',
-              'Peach',
-              'Grape',
-              'Tangerine',
-              'Pineapple',
-            ]"
-          ></search-box>
+          <search-box :items="suggestions"></search-box>
         </div>
         <div
-          class="order-3 order-sm-3 col-10 col-sm-6 col-lg-4 col-md-4 col-xl-5"
+          class="order-3 order-sm-3 col-10 col-sm-6 col-lg-2 col-md-4 col-xl-3"
         >
           <account></account>
         </div>
@@ -49,7 +37,16 @@ import SearchBox from "./SearchBox.vue";
 @Component({
   components: { SearchBox, Account, CompareCart, MobileMenu },
 })
-export default class extends Vue {}
+export default class extends Vue {
+  suggestions = [
+    "LAPTOP ACER SWIFT 3 SF314-42-R0TR",
+    "LAPTOP ACER NITRO 5 AN515-55-5923",
+    "Laptop Acer Aspire 3 A315 56 502X",
+    "Laptop",
+    "Acer",
+    "SWIFT",
+  ];
+}
 </script>
 
 <style lang="scss" scoped>

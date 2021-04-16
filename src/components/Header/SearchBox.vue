@@ -23,7 +23,7 @@
       </li>
     </ul>
     <span class="input-group-btn">
-      <button class="btn" type="button">
+      <button @click="onSearch" class="btn" type="button">
         <i class="fa fa-search" aria-hidden="true"></i>
       </button>
     </span>
@@ -54,20 +54,43 @@ export default class extends Vue {
     }
   }
 
+  onSearch(): void {
+    if (this.$route.path !== "/product-list") {
+      this.$router.push("/product-list");
+    }
+    this.$store.dispatch("product/searchProducts", {
+      keyword: this.search,
+    });
+  }
+
   setResult(result: string): void {
     this.search = result;
     this.isOpen = false;
   }
 
   onArrowDown(): void {
+    if (this.arrowCounter === this.results.length - 1) {
+      this.arrowCounter = 0;
+      return;
+    }
     if (this.arrowCounter < this.results.length) {
       this.arrowCounter = this.arrowCounter + 1;
+      return;
     }
   }
 
   onArrowUp(): void {
     if (this.arrowCounter > 0) {
       this.arrowCounter = this.arrowCounter - 1;
+      return;
+    }
+    if (this.arrowCounter === -1 || this.arrowCounter === 0) {
+      this.arrowCounter = this.results.length - 1;
+      return;
+    }
+    if (this.arrowCounter === this.results.length - 1) {
+      this.arrowCounter = 0;
+      return;
     }
   }
 
@@ -75,6 +98,7 @@ export default class extends Vue {
     this.search = this.results[this.arrowCounter];
     this.arrowCounter = -1;
     this.isOpen = false;
+    this.onSearch();
   }
 
   clickOutSide(): void {
@@ -118,14 +142,13 @@ export default class extends Vue {
   .autocomplete-result {
     list-style: none;
     text-align: left;
-    padding: 4px 2px;
+    padding: 10px;
     cursor: pointer;
   }
 
   .autocomplete-result.is-active,
   .autocomplete-result:hover {
-    background-color: #4aae9b;
-    color: white;
+    color: #ff9800;
   }
 }
 .btn {

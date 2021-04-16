@@ -5,7 +5,7 @@
     @mouseover="open"
     @mouseleave="close"
   >
-    <a>
+    <a @click="click(category.id)">
       <span class="sub-list-main-menu">{{ category.title }}</span>
       <i
         v-if="haveSubCategories"
@@ -19,7 +19,7 @@
           <div class="col-auto">
             <ul class="wd-sub-menu">
               <li v-for="c in category.categories" :key="c.id">
-                <a>{{ c.title }}</a>
+                <a @click="click(c.id)">{{ c.title }}</a>
               </li>
             </ul>
           </div>
@@ -76,6 +76,15 @@ export default class extends Vue {
 
   close(): void {
     this.isShow = false;
+  }
+
+  click(catId: number) {
+    if (this.$route.path !== "/product-list") {
+      this.$router.push("/product-list");
+    }
+    this.$store.dispatch("product/searchProducts", {
+      catId,
+    });
   }
 }
 </script>
