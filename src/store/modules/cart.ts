@@ -11,7 +11,7 @@ export const cart: Module<CartState, RootState> = {
     addToCart(state, product: Product) {
       state.cart.push(product);
     },
-    removeProduct(state, id: string) {
+    removeProduct(state, id: number) {
       state.cart = state.cart.filter((p: Product) => p.id !== id);
     },
     clear(state) {

@@ -3,33 +3,34 @@
     <h5 class="title">Chọn cửa hàng</h5>
     <ul>
       <li>
-        <a href="#"
-          ><i class="fa fa-square-o" aria-hidden="true"></i> Tất cả
+        <a @click="selectAll"
+          ><i
+            class="fa"
+            :class="[
+              {
+                'fa-square-o': !isSelectedAll,
+                'fa-check-square-o': isSelectedAll,
+              },
+            ]"
+            aria-hidden="true"
+          >
+          </i>
+          Tất cả
         </a>
       </li>
-      <li>
-        <a href="#"
-          ><i class="fa fa-square-o" aria-hidden="true"></i> Market 1</a
-        >
-      </li>
-      <li>
-        <a href="#"
-          ><i class="fa fa-square-o" aria-hidden="true"></i> Market 2</a
-        >
-      </li>
-      <li>
-        <a href="#"
-          ><i class="fa fa-square-o" aria-hidden="true"></i> Market 3</a
-        >
-      </li>
-      <li>
-        <a href="#"
-          ><i class="fa fa-square-o" aria-hidden="true"></i> Market 4</a
-        >
-      </li>
-      <li>
-        <a href="#"
-          ><i class="fa fa-square-o" aria-hidden="true"></i> Market 5</a
+      <li v-for="r in retailers" :key="r.id">
+        <a @click="select(r.id)"
+          ><i
+            class="fa"
+            :class="[
+              {
+                'fa-square-o': !isIdSelected(r.id),
+                'fa-check-square-o': isIdSelected(r.id),
+              },
+            ]"
+            aria-hidden="true"
+          ></i>
+          {{ r.name }}</a
         >
       </li>
     </ul>
@@ -37,10 +38,61 @@
 </template>
 
 <script lang="ts">
+import Retailer from "@/models/retailer";
 import { Component, Vue } from "vue-property-decorator";
+import { mapGetters } from "vuex";
 
-@Component
-export default class extends Vue {}
+@Component({
+  computed: {
+    ...mapGetters({
+      retailers: "retailer/retailers",
+    }),
+  },
+})
+export default class extends Vue {
+  retailers!: Retailer[];
+  isSelectedAll = false;
+  mounted(): void {
+    this.$store.dispatch("retailer/loadRetailers");
+  }
+
+  private selectedRetailerIds: number[] = [];
+
+  selectAll(): void {
+    this.isSelectedAll = !this.isSelectedAll;
+    if (this.isSelectedAll) {
+      this.selectedRetailerIds = this.retailers.map((r) => r.id);
+    } else {
+      this.selectedRetailerIds = [];
+    }
+    this.filter();
+  }
+
+  isIdSelected(id: number): boolean {
+    if (this.isSelectedAll) {
+      return true;
+    }
+    const idx = this.selectedRetailerIds.indexOf(id);
+    if (idx !== -1) {
+      return true;
+    }
+    return false;
+  }
+  select(id: number): void {
+    if (this.isIdSelected(id)) {
+      this.selectedRetailerIds = this.selectedRetailerIds.filter(
+        (sId) => sId !== id
+      );
+    } else {
+      this.selectedRetailerIds.push(id);
+    }
+    this.filter();
+  }
+
+  filter(): void {
+    console.log(this.selectedRetailerIds);
+  }
+}
 </script>
 
 <style lang="scss" scoped>

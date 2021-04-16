@@ -1,32 +1,30 @@
 <template>
   <div class="side-bar color-box">
-    <h5 class="title">Color Option</h5>
+    <h5 class="title">Màu</h5>
     <ul>
       <li>
         <a href="#"
-          ><i class="fa fa-square color-black" aria-hidden="true"></i> Black
+          ><i class="fa fa-square color-black" aria-hidden="true"></i> Đen
         </a>
       </li>
       <li>
         <a href="#"
-          ><i class="fa fa-square color-red" aria-hidden="true"></i> Red</a
+          ><i class="fa fa-square color-red" aria-hidden="true"></i> Đỏ</a
         >
       </li>
       <li>
         <a href="#"
-          ><i class="fa fa-square color-purple" aria-hidden="true"></i>
-          Purple</a
+          ><i class="fa fa-square color-purple" aria-hidden="true"></i> Tím</a
         >
       </li>
       <li>
         <a href="#"
-          ><i class="fa fa-square color-yellow" aria-hidden="true"></i>
-          Yellow</a
+          ><i class="fa fa-square color-yellow" aria-hidden="true"></i> Vàng</a
         >
       </li>
       <li>
         <a href="#"
-          ><i class="fa fa-square color-cyan" aria-hidden="true"></i> Cyan</a
+          ><i class="fa fa-square color-cyan" aria-hidden="true"></i> Xanh</a
         >
       </li>
     </ul>
