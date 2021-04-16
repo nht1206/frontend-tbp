@@ -2,7 +2,7 @@
   <div class="page-location">
     <ul>
       <li>
-        <router-link to="/" v-slot="{ navigate, href }">
+        <router-link to="/" v-slot="{ navigate, href }" custom>
           <a :href="href" @click="navigate">
             Home <span class="divider">/</span>
           </a>
