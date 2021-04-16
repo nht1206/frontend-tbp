@@ -1,7 +1,10 @@
 <template>
   <div class="filter row">
     <div class="col-8 col-md-3">
-      <h6 class="result">Hiển thị tất cả {{ products.length }} kết quả</h6>
+      <h6 class="result">
+        Hiển thị tất cả {{ products.numberOfElements }} trong
+        {{ products.totalElements }} kết quả
+      </h6>
     </div>
     <div class="col-6 col-md-6 filter-btn-area text-center">
       <div class="btn-group" role="group">

@@ -20,12 +20,14 @@
               <filter-bar></filter-bar>
             </div>
             <div class="tab-content col-12">
-              <div class="row">
-                <tab-content></tab-content>
-              </div>
+              <tab-content></tab-content>
+              <loading :isLoading="isLoadingProduct"></loading>
             </div>
-            <div class="col-12 text-center">
-              <a href="#" class="btn wd-shop-btn"> Show more </a>
+            <div
+              v-if="!products.last && !isLoadingProduct"
+              class="col-12 text-center"
+            >
+              <a @click="loadMore" class="btn wd-shop-btn"> Show more </a>
             </div>
           </div>
         </div>
@@ -36,6 +38,8 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { mapGetters } from "vuex";
+import Loading from "../Loading.vue";
 import PageLocation from "../PageLocation.vue";
 import Category from "./Category.vue";
 import Color from "./Color.vue";
@@ -55,9 +59,20 @@ import Tag from "./Tag.vue";
     Tag,
     FilterBar,
     TabContent,
+    Loading,
+  },
+  computed: {
+    ...mapGetters({
+      products: "product/products",
+      isLoadingProduct: "product/isLoading",
+    }),
   },
 })
-export default class extends Vue {}
+export default class extends Vue {
+  loadMore(): void {
+    this.$store.dispatch("product/loadMore");
+  }
+}
 </script>
 
 <style lang="scss" scoped>

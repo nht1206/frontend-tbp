@@ -1,6 +1,6 @@
 import Category from "@/models/category";
 import Option from "@/models/option";
-import Page from "@/models/Page";
+import Page from "@/models/page";
 import Product from "@/models/product";
 
 export interface RootState {}
