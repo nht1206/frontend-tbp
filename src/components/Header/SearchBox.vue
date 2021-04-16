@@ -1,11 +1,12 @@
 <template>
-  <div class="input-group" v-click-outside="clickOutSide">
+  <div class="input-group">
     <input
       v-model="search"
       @input="onChange"
       @keydown.down="onArrowDown"
       @keydown.up="onArrowUp"
       @keydown.enter="onEnter"
+      v-click-outside="clickOutSide"
       type="text"
       class="form-control"
       placeholder="Tìm kiếm ..."

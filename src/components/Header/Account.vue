@@ -15,6 +15,8 @@
         <input
           class="search-input"
           :class="{ active: isMiniSearchShow }"
+          v-model="keyword"
+          @keydown.enter="search"
           placeholder="Search"
           type="text"
         />
@@ -30,12 +32,22 @@ import CompareCart from "./CompareCart.vue";
 
 @Component({ components: { CompareCart } })
 export default class extends Vue {
+  keyword = "";
   isMiniSearchShow = false;
   openMiniSearch(): void {
     this.isMiniSearchShow = !this.isMiniSearchShow;
   }
   closeMiniSearch(): void {
     this.isMiniSearchShow = false;
+  }
+
+  search(): void {
+    if (this.$route.path !== "/product-list") {
+      this.$router.push("/product-list");
+    }
+    this.$store.dispatch("product/searchProducts", {
+      keyword: this.keyword,
+    });
   }
 }
 </script>

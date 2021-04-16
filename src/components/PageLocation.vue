@@ -2,7 +2,11 @@
   <div class="page-location">
     <ul>
       <li>
-        <a href="#"> Home <span class="divider">/</span> </a>
+        <router-link to="/" v-slot="{ navigate, href }">
+          <a :href="href" @click="navigate">
+            Home <span class="divider">/</span>
+          </a>
+        </router-link>
       </li>
       <li>
         <a class="page-location-active" href="#">
