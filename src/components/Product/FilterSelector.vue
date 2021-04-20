@@ -10,8 +10,8 @@
       Default
     </button>
     <div class="dropdown-menu" :class="{ show: isOpen }">
-      <a class="dropdown-item" href="#">Camara</a>
-      <a class="dropdown-item" href="#">Joystick</a>
+      <a class="dropdown-item" href="#">Giá tăng dần</a>
+      <a class="dropdown-item" href="#">Giá giảm dần</a>
     </div>
   </div>
 </template>

@@ -8,7 +8,7 @@ function searchProduct(
   option: Option,
   pageNumber = 0
 ): Promise<AxiosResponse<Page<Product>>> {
-  return http.post<Page<Product>>(`filter?page=${pageNumber}&size=3`, option);
+  return http.post<Page<Product>>(`filter?page=${pageNumber}`, option);
 }
 
 export default {

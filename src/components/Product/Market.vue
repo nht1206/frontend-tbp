@@ -38,6 +38,7 @@
 </template>
 
 <script lang="ts">
+import Option from "@/models/option";
 import Retailer from "@/models/retailer";
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
@@ -46,29 +47,31 @@ import { mapGetters } from "vuex";
   computed: {
     ...mapGetters({
       retailers: "retailer/retailers",
+      option: "product/currentOption",
     }),
   },
 })
 export default class extends Vue {
   retailers!: Retailer[];
+  option!: Option;
   isSelectedAll = false;
   mounted(): void {
     this.$store.dispatch("retailer/loadRetailers");
   }
 
-  private selectedRetailerIds: number[] = [];
+  private selectedRetailerIds: string[] = [];
 
   selectAll(): void {
     this.isSelectedAll = !this.isSelectedAll;
     if (this.isSelectedAll) {
-      this.selectedRetailerIds = this.retailers.map((r) => r.id);
+      this.selectedRetailerIds = this.retailers.map((r) => r.id + "");
     } else {
       this.selectedRetailerIds = [];
     }
     this.filter();
   }
 
-  isIdSelected(id: number): boolean {
+  isIdSelected(id: string): boolean {
     if (this.isSelectedAll) {
       return true;
     }
@@ -78,7 +81,7 @@ export default class extends Vue {
     }
     return false;
   }
-  select(id: number): void {
+  select(id: string): void {
     if (this.isIdSelected(id)) {
       this.selectedRetailerIds = this.selectedRetailerIds.filter(
         (sId) => sId !== id
@@ -90,7 +93,10 @@ export default class extends Vue {
   }
 
   filter(): void {
-    console.log(this.selectedRetailerIds);
+    this.$store.dispatch("product/searchProducts", {
+      ...this.option,
+      retailerIds: this.selectedRetailerIds,
+    });
   }
 }
 </script>

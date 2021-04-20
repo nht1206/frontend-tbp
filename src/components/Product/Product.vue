@@ -77,11 +77,21 @@
 <script lang="ts">
 import Product from "@/models/product";
 import { Component, Prop, Vue } from "vue-property-decorator";
+import { mapGetters } from "vuex";
 
-@Component({ components: {} })
+@Component({
+  components: {},
+  computed: {
+    ...mapGetters({
+      cart: "cart/cart",
+    }),
+  },
+})
 export default class extends Vue {
   @Prop({ type: Object, required: true })
   product!: Product;
+
+  cart!: Product[];
 
   openQuickView(): void {
     this.$store.commit("product/setSelectedProduct", this.product);
@@ -89,7 +99,9 @@ export default class extends Vue {
   }
 
   addToCart(product: Product): void {
-    this.$store.commit("cart/addToCart", product);
+    if (!this.isInCart(product.id)) {
+      this.$store.commit("cart/addToCart", product);
+    }
   }
 
   shortenTitle(title: string): string {
@@ -101,6 +113,15 @@ export default class extends Vue {
 
   formatPrice(price: number): string {
     return Intl.NumberFormat().format(price);
+  }
+
+  isInCart(productId: number): boolean {
+    for (let i = 0; i < this.cart.length; i++) {
+      if (this.cart[i].id === productId) {
+        return true;
+      }
+    }
+    return false;
   }
 }
 </script>

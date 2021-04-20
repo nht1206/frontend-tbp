@@ -41,7 +41,7 @@ export default class extends Vue {
   }
 }
 .loader {
-  max-width: 4rem;
+  max-width: 3rem;
   width: 100%;
   height: auto;
   stroke-linecap: round;

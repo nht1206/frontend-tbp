@@ -51,14 +51,15 @@
           </div>
           <div class="list-group content-list">
             <p>
-              {{ selectedProduct.shortDescription }}
+              <pre>{{ selectedProduct.shortDescription }}</pre>
+              
             </p>
           </div>
         </div>
         <div class="product-store row">
           <div
             class="col-12 product-store-box"
-            v-for="(store, idx) in selectedProduct.listStores"
+            v-for="(store, idx) in selectedProduct.prices"
             :key="idx"
           >
             <div class="row">
