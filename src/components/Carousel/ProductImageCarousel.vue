@@ -13,8 +13,9 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 export default class extends Vue {
   @Prop({ required: true })
   images!: string[];
+
   mounted(): void {
-    ($(".product-view") as any).owlCarousel({
+    ($("#product-view-model") as any).owlCarousel({
       loop: true,
       nav: true,
       items: 1,

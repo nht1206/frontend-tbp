@@ -4,9 +4,8 @@
       class="sidebar-dropdown"
       v-click-outside="close"
       :class="{ show: isOpen }"
-      @click="toggle"
     >
-      <p>
+      <p @click="toggle">
         <i class="fa fa-angle-double-right" aria-hidden="true"></i>
         {{ category.title }}
       </p>
