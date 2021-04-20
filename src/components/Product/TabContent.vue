@@ -7,18 +7,16 @@
     >
       <product :product="p"></product>
     </div>
-    <product-view-modal></product-view-modal>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import ProductViewModal from "../modal/ProductViewModal.vue";
 import Product from "./Product.vue";
 
 @Component({
-  components: { Product, ProductViewModal },
+  components: { Product },
   computed: {
     ...mapGetters({
       products: "product/products",

@@ -2,7 +2,6 @@
   <div>
     <MainSlider></MainSlider>
     <Service></Service>
-    <ProductViewModal></ProductViewModal>
     <TopDealSlider
       storeName="Gian hàng 1"
       :storeNumber="1"
@@ -19,7 +18,6 @@
 
 <script lang="ts">
 import MainSlider from "@/components/MainSlider/MainSlider.vue";
-import ProductViewModal from "@/components/modal/ProductViewModal.vue";
 import Service from "@/components/Service/Service.vue";
 import TopDealSlider from "@/components/TopDeal/TopDealSlider.vue";
 import TrendingSlider from "@/components/Trending/TrendingSlider.vue";
@@ -31,7 +29,6 @@ import { Component, Vue } from "vue-property-decorator";
     Service,
     TopDealSlider,
     TrendingSlider,
-    ProductViewModal,
   },
 })
 export default class Home extends Vue {
