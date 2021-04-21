@@ -449,3 +449,10 @@ body.second-home {
 .product-box-img {
   overflow: hidden;
 }
+
+.circle-progress {
+  canvas {
+    width: 60px !important;
+    height: 60px !important;
+  }
+}
