@@ -6,11 +6,14 @@
           <page-location></page-location>
         </div>
         <div class="col-12">
+          <loading :isLoading="isLoading"></loading>
+        </div>
+        <div class="col-12" v-if="!isLoading">
           <div class="row">
             <div class="col-12 col-md-12 col-lg-6">
               <div class="row">
                 <div class="col-md-12 product-slider-details">
-                  <light-slider></light-slider>
+                  <light-slider :images="product.images"></light-slider>
                 </div>
               </div>
             </div>
@@ -18,7 +21,7 @@
               <div class="product-details-gallery">
                 <div class="list-group">
                   <h4 class="list-group-item-heading product-title">
-                    Vigo SP111-31N-P2GH Spin 1
+                    {{ product.title }}
                   </h4>
                   <div class="media">
                     <div class="media-left media-middle">
@@ -57,80 +60,39 @@
                     </div>
                   </div>
                 </div>
-                <div class="list-group content-list">
-                  <pre></pre>
-                </div>
+                <div
+                  v-html="renderDescription()"
+                  class="list-group content-list"
+                ></div>
               </div>
               <div class="product-store row">
-                <div class="col-12 product-store-box">
+                <div
+                  v-for="(p, idx) in product.prices"
+                  :key="idx"
+                  class="col-12 product-store-box"
+                >
                   <div class="row">
                     <div class="col-3 p-3 store-border-img">
                       <img
-                        src="@/assets/img/product-store/product-store-img1.jpg"
+                        :src="p.store.logoImage"
                         class="figure-img img-fluid"
                         alt="Product Img"
                       />
                     </div>
                     <div class="col-5 store-border-price text-center">
-                      <span class="badge wd-badge text-uppercase">Giá tốt</span>
-                      <div class="price">
-                        <p>10.000.000 VNĐ</p>
-                      </div>
-                    </div>
-                    <div class="col-4 store-border-button">
-                      <a
-                        href="https://www.amazon.com/"
-                        target="_blank"
-                        class="btn btn-primary wd-shop-btn pull-right orange-bg"
+                      <span
+                        v-if="isBestPrice(p.price)"
+                        class="badge wd-badge text-uppercase"
+                        >Giá tốt</span
                       >
-                        Xem ngay
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 product-store-box">
-                  <div class="row">
-                    <div class="col-3 p-3 store-border-img">
-                      <img
-                        src="@/assets/img/product-store/product-store-img1.jpg"
-                        class="figure-img img-fluid"
-                        alt="Product Img"
-                      />
-                    </div>
-                    <div class="col-5 store-border-price text-center">
                       <div class="price">
-                        <p>10.000.000 VNĐ</p>
+                        <p>{{ p.price }} VNĐ</p>
                       </div>
                     </div>
                     <div class="col-4 store-border-button">
                       <a
-                        href="https://www.amazon.com/"
-                        target="_blank"
-                        class="btn btn-primary wd-shop-btn pull-right orange-bg"
-                      >
-                        Xem ngay
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 product-store-box">
-                  <div class="row">
-                    <div class="col-3 p-3 store-border-img">
-                      <img
-                        src="@/assets/img/product-store/product-store-img1.jpg"
-                        class="figure-img img-fluid"
-                        alt="Product Img"
-                      />
-                    </div>
-                    <div class="col-5 store-border-price text-center">
-                      <div class="price">
-                        <p>10.000.000 VNĐ</p>
-                      </div>
-                    </div>
-                    <div class="col-4 store-border-button">
-                      <a
-                        href="https://www.amazon.com/"
-                        target="_blank"
+                        :href="p.url"
+                        :target="'_blank'"
                         class="btn btn-primary wd-shop-btn pull-right orange-bg"
                       >
                         Xem ngay
@@ -142,8 +104,10 @@
             </div>
           </div>
         </div>
-        <div class="col-12">
-          <price-history></price-history>
+        <div class="col-12" v-if="!isLoading">
+          <price-history
+            :specification="product.longDescription"
+          ></price-history>
         </div>
       </div>
     </div>
@@ -155,11 +119,43 @@ import { Component, Vue } from "vue-property-decorator";
 import LightSlider from "../../LightSlider/LightSlider.vue";
 import PageLocation from "../../PageLocation.vue";
 import PriceHistory from "./PriceHistory.vue";
+import produceService from "@/service/product-service";
+import Product from "@/models/product";
+import Loading from "@/components/Loading.vue";
 
 @Component({
-  components: { PageLocation, LightSlider, PriceHistory },
+  components: { PageLocation, LightSlider, PriceHistory, Loading },
 })
-export default class extends Vue {}
+export default class extends Vue {
+  id!: string;
+  product!: Product;
+  isLoading = false;
+  isBestPrice(price: number): boolean {
+    return this.product.lowestPrice === price;
+  }
+  created(): void {
+    this.id = this.$route.params["id"];
+    this.isLoading = true;
+    produceService.findById(this.id).then((res) => {
+      this.product = res.data;
+      this.isLoading = false;
+    });
+  }
+
+  renderDescription(): string {
+    let desc = "";
+    const listDesc = this.product.shortDescription.split("\n");
+    listDesc.forEach((d) => {
+      if (d) {
+        desc += `<p>
+                    <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                    ${d}
+                  </p>`;
+      }
+    });
+    return desc;
+  }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -49,12 +49,10 @@
               </div>
             </div>
           </div>
-          <div class="list-group content-list">
-            <p>
-              <pre>{{ selectedProduct.shortDescription }}</pre>
-              
-            </p>
-          </div>
+          <div
+            class="list-group content-list"
+            v-html="renderDescription()"
+          ></div>
         </div>
         <div class="product-store row">
           <div
@@ -120,6 +118,20 @@ export default class extends Vue {
 
   formatPrice(price: number): string {
     return Intl.NumberFormat().format(price);
+  }
+
+  renderDescription(): string {
+    let desc = "";
+    const listDesc = this.selectedProduct.shortDescription.split("\n");
+    listDesc.forEach((d) => {
+      if (d) {
+        desc += `<p>
+                    <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                    ${d}
+                  </p>`;
+      }
+    });
+    return desc;
   }
 }
 </script>

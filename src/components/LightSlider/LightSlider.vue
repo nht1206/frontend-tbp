@@ -1,76 +1,20 @@
 <template>
   <ul id="lightSlider">
-    <li data-thumb="https://www.w3schools.com/w3css/img_lights.jpg">
-      <img
-        class="figure-img img-fluid"
-        src="https://www.w3schools.com/w3css/img_lights.jpg"
-        alt="product-img"
-      />
-    </li>
-    <li data-thumb="https://www.w3schools.com/w3css/img_lights.jpg">
-      <img
-        class="figure-img img-fluid"
-        src="https://www.w3schools.com/w3css/img_lights.jpg"
-        alt="product-img"
-      />
-    </li>
-    <li data-thumb="https://www.w3schools.com/w3css/img_lights.jpg">
-      <img
-        class="figure-img img-fluid"
-        src="https://www.w3schools.com/w3css/img_lights.jpg"
-        alt="product-img"
-      />
-    </li>
-    <li data-thumb="https://www.w3schools.com/w3css/img_lights.jpg">
-      <img
-        class="figure-img img-fluid"
-        src="https://www.w3schools.com/w3css/img_lights.jpg"
-        alt="product-img"
-      />
-    </li>
-    <li data-thumb="https://www.w3schools.com/w3css/img_lights.jpg">
-      <img
-        class="figure-img img-fluid"
-        src="https://www.w3schools.com/w3css/img_lights.jpg"
-        alt="product-img"
-      />
-    </li>
-    <li data-thumb="https://www.w3schools.com/w3css/img_lights.jpg">
-      <img
-        class="figure-img img-fluid"
-        src="https://www.w3schools.com/w3css/img_lights.jpg"
-        alt="product-img"
-      />
-    </li>
-    <li data-thumb="https://www.w3schools.com/w3css/img_lights.jpg">
-      <img
-        class="figure-img img-fluid"
-        src="https://www.w3schools.com/w3css/img_lights.jpg"
-        alt="product-img"
-      />
-    </li>
-    <li data-thumb="https://www.w3schools.com/w3css/img_lights.jpg">
-      <img
-        class="figure-img img-fluid"
-        src="https://www.w3schools.com/w3css/img_lights.jpg"
-        alt="product-img"
-      />
-    </li>
-    <li data-thumb="https://www.w3schools.com/w3css/img_lights.jpg">
-      <img
-        class="figure-img img-fluid"
-        src="https://www.w3schools.com/w3css/img_lights.jpg"
-        alt="product-img"
-      />
+    <li v-for="(image, idx) in images" :key="idx" :data-thumb="image">
+      <img class="figure-img img-fluid" :src="image" alt="product-img" />
     </li>
   </ul>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
 export default class extends Vue {
+  @Prop({
+    required: true,
+  })
+  images!: string[];
   mounted(): void {
     ($("#lightSlider") as any).lightSlider({
       gallery: true,

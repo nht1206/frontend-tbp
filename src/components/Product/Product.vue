@@ -3,13 +3,19 @@
     <figure class="figure product-box row">
       <div class="col-12 col-md-12 col-lg-12 col-xl-12 p0">
         <div class="product-box-img">
-          <a href="product-details.html">
-            <img
-              :src="product.images[0]"
-              class="figure-img img-fluid"
-              alt="Product Img"
-            />
-          </a>
+          <router-link
+            :to="'product-detail/' + product.id"
+            custom
+            v-slot="{ navigate }"
+          >
+            <a @click="navigate">
+              <img
+                :src="product.images[0]"
+                class="figure-img img-fluid"
+                alt="Product Img"
+              />
+            </a>
+          </router-link>
         </div>
         <div class="quick-view-btn">
           <div class="compare-btn">

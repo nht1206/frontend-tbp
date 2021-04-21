@@ -11,6 +11,11 @@ function searchProduct(
   return http.post<Page<Product>>(`filter?page=${pageNumber}`, option);
 }
 
+function findById(id: string): Promise<AxiosResponse<Product>> {
+  return http.get<Product>(`product/${id}`);
+}
+
 export default {
   searchProduct,
+  findById,
 };

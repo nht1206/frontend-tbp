@@ -2,16 +2,15 @@
   <div class="specifiction-section">
     <div class="row">
       <div class="col-12 col-md-5">
-        <h2 class="specifiction-title">Thông số kỹ thuật</h2>
-        <ul class="list-group specifiction-list">
-          <li class="list-group-item">
-            <pre></pre>
-          </li>
-        </ul>
+        <h2 class="specifiction-title">Thông số kĩ thuật</h2>
+        <ul
+          v-html="renderSpecification()"
+          class="list-group specifiction-list"
+        ></ul>
       </div>
       <div class="col-12 col-md-7 price-history-section">
-        <h2 class="price-history-title">Lịch sử giá</h2>
-        <p class="price-history-subtitle">Phần trăm thay đổi giá</p>
+        <h2 class="price-history-title">Lịch sử thay đổi giá</h2>
+        <p class="price-history-subtitle">Tỉ lệ thay đổi giá</p>
         <div class="col-12">
           <div class="row">
             <price-box
@@ -37,13 +36,28 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import PriceBox from "./PriceBox.vue";
 
 @Component({
   components: { PriceBox },
 })
-export default class extends Vue {}
+export default class extends Vue {
+  @Prop({
+    required: true,
+  })
+  specification!: string;
+  renderSpecification(): string {
+    let spec = "";
+    const listSpec = this.specification.split("\n");
+    for (let i = 0; i < listSpec.length; i++) {
+      if (listSpec[i]) {
+        spec += `<li class="list-group-item">${listSpec[i]}</li>`;
+      }
+    }
+    return spec;
+  }
+}
 </script>
 
 <style lang="scss" scoped>
