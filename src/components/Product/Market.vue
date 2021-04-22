@@ -19,13 +19,13 @@
         </a>
       </li>
       <li v-for="r in retailers" :key="r.id">
-        <a @click="select(r.id)"
+        <a @click="select(r.id.toString())"
           ><i
             class="fa"
             :class="[
               {
-                'fa-square-o': !isIdSelected(r.id),
-                'fa-check-square-o': isIdSelected(r.id),
+                'fa-square-o': !isIdSelected(r.id.toString()),
+                'fa-check-square-o': isIdSelected(r.id.toString()),
               },
             ]"
             aria-hidden="true"
@@ -72,9 +72,6 @@ export default class extends Vue {
   }
 
   isIdSelected(id: string): boolean {
-    if (this.isSelectedAll) {
-      return true;
-    }
     const idx = this.selectedRetailerIds.indexOf(id);
     if (idx !== -1) {
       return true;
@@ -86,9 +83,13 @@ export default class extends Vue {
       this.selectedRetailerIds = this.selectedRetailerIds.filter(
         (sId) => sId !== id
       );
+      if (this.isSelectedAll) {
+        this.isSelectedAll = false;
+      }
     } else {
       this.selectedRetailerIds.push(id);
     }
+    console.log(this.selectedRetailerIds);
     this.filter();
   }
 
