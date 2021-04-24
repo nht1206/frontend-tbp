@@ -3,7 +3,9 @@
     <div class="container">
       <div class="row">
         <div class="col-12 p0">
-          <page-location></page-location>
+          <page-location
+            :pageLocation="[!isLoading ? product.title : '']"
+          ></page-location>
         </div>
         <div class="col-12">
           <loading :isLoading="isLoading"></loading>

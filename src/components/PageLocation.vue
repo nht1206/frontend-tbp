@@ -4,13 +4,13 @@
       <li>
         <router-link to="/" v-slot="{ navigate, href }" custom>
           <a :href="href" @click="navigate">
-            Home <span class="divider">/</span>
+            Trang chủ <span class="divider">/</span>
           </a>
         </router-link>
       </li>
-      <li>
-        <a class="page-location-active" href="#">
-          Shop
+      <li v-for="(l, idx) in pageLocation" :key="idx">
+        <a class="page-location-active">
+          {{ l }}
           <span class="divider">/</span>
         </a>
       </li>
@@ -19,10 +19,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
-export default class extends Vue {}
+export default class extends Vue {
+  @Prop({ default: [] })
+  pageLocation!: string[];
+}
 </script>
 
 <style lang="scss" scoped>
@@ -31,17 +34,19 @@ export default class extends Vue {}
   li {
     display: inline-block;
     margin-right: 3px;
+    &:last-child {
+      a {
+        color: #333333;
+        .divider {
+          display: none;
+        }
+      }
+    }
   }
   a {
     color: #999999;
     &:hover {
       color: #ff9800;
-    }
-  }
-  .page-location-active {
-    color: #333333;
-    .divider {
-      display: none;
     }
   }
 }

@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-12">
-          <page-location></page-location>
+          <page-location :pageLocation="['Danh sách sản phẩm']"></page-location>
         </div>
         <div class="order-sm-2 order-md-1 col-12 col-md-4 col-lg-3">
           <side-bar-search></side-bar-search>
