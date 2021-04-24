@@ -6,9 +6,9 @@
           <router-link
             :to="'product-detail/' + product.id"
             custom
-            v-slot="{ navigate }"
+            v-slot="{ navigate, href }"
           >
-            <a @click="navigate">
+            <a :href="href" @click="navigate">
               <img
                 :src="product.images[0]"
                 class="figure-img img-fluid"
@@ -58,9 +58,9 @@
               <router-link
                 :to="'product-detail/' + product.id"
                 custom
-                v-slot="{ navigate }"
+                v-slot="{ navigate, href }"
               >
-                <a @click="navigate">
+                <a :href="href" @click="navigate">
                   {{ shortenTitle(product.title) }}
                 </a>
               </router-link>
