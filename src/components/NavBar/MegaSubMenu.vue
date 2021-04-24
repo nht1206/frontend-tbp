@@ -153,4 +153,16 @@ li:hover {
     width: 315px;
   }
 }
+@media (min-width: 992px) {
+  .main-menu-list {
+    padding: 15px 5px;
+    font-size: 12px;
+  }
+}
+@media (min-width: 1024px) {
+  .main-menu-list {
+    font-size: 15px;
+    padding: 15px;
+  }
+}
 </style>

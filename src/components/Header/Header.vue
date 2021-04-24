@@ -12,14 +12,10 @@
             </a>
           </div>
         </div>
-        <div
-          class="col-12 order-lg-2 col-md-5 col-lg-8 col-xl-7 d-none d-lg-block"
-        >
+        <div class="col-12 order-lg-2 col-md-5 col-lg-7 d-none d-lg-block">
           <search-box :items="suggestions"></search-box>
         </div>
-        <div
-          class="order-3 order-sm-3 col-10 col-sm-6 col-lg-2 col-md-4 col-xl-3"
-        >
+        <div class="order-3 order-sm-3 col-10 col-sm-6 col-lg-3 col-md-4">
           <account></account>
         </div>
       </div>
@@ -65,8 +61,15 @@ export default class extends Vue {
   border-radius: 0px;
   box-shadow: inset 0 0 16px #ff9800;
 }
+@media (max-width: 991px) {
+  .tpb-logo {
+    img {
+      width: 109px;
+    }
+  }
+}
 @media (min-width: 768px) {
-  .blrub-logo {
+  .tpb-logo {
     text-align: center;
     margin: 20px 0;
   }

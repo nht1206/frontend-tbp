@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <department-list></department-list>
-        <div class="col-2 col-md-6 col-lg-9">
+        <div class="col-2 col-md-12 col-lg-9">
           <div class="menu-container wd-megamenu">
             <div class="menu">
               <ul class="wd-megamenu-ul">
@@ -211,6 +211,11 @@ export default class extends Vue {}
     .show-on-mobile {
       display: block;
     }
+  }
+}
+@media (max-width: 991px) {
+  #main-menu {
+    display: none;
   }
 }
 </style>
