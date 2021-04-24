@@ -26,6 +26,7 @@
 </template>
 
 <script lang="ts">
+import Product from "@/models/product";
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import Media from "./Media.vue";
@@ -40,10 +41,13 @@ import Media from "./Media.vue";
 })
 export default class extends Vue {
   isOpen = false;
+  cart!: Product[];
 
   toggle(): void {
-    this.isOpen = !this.isOpen;
-    this.$emit("change", this.isOpen);
+    if (this.cart.length !== 0) {
+      this.isOpen = !this.isOpen;
+      this.$emit("change", this.isOpen);
+    }
   }
   close(): void {
     this.isOpen = false;
