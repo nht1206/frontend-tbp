@@ -75,7 +75,7 @@ export default class extends Vue {
   }
 }
 @media (max-width: 575px) {
-  .blrub-logo {
+  .tpb-logo {
     text-align: center;
     margin: 20px 0;
   }
