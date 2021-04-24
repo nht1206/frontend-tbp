@@ -55,7 +55,15 @@
           </div>
           <div class="content-excerpt">
             <p>
-              <a href=""> {{ shortenTitle(product.title) }}</a>
+              <router-link
+                :to="'product-detail/' + product.id"
+                custom
+                v-slot="{ navigate }"
+              >
+                <a @click="navigate">
+                  {{ shortenTitle(product.title) }}
+                </a>
+              </router-link>
             </p>
           </div>
           <div class="rating">

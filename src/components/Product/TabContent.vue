@@ -11,6 +11,7 @@
 </template>
 
 <script lang="ts">
+import Page from "@/models/page";
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import Product from "./Product.vue";
@@ -20,12 +21,16 @@ import Product from "./Product.vue";
   computed: {
     ...mapGetters({
       products: "product/products",
+      isLoading: "product/isLoading",
     }),
   },
 })
 export default class extends Vue {
+  isLoading!: boolean;
   mounted(): void {
-    this.$store.dispatch("product/searchProducts");
+    if (!this.isLoading) {
+      this.$store.dispatch("product/searchProducts");
+    }
   }
 }
 </script>

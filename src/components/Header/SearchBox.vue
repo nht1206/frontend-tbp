@@ -96,9 +96,11 @@ export default class extends Vue {
   }
 
   onEnter(): void {
-    this.search = this.results[this.arrowCounter];
-    this.arrowCounter = -1;
-    this.isOpen = false;
+    if (this.arrowCounter !== -1) {
+      this.search = this.results[this.arrowCounter];
+      this.arrowCounter = -1;
+      this.isOpen = false;
+    }
     this.onSearch();
   }
 
