@@ -1,6 +1,6 @@
 <template>
   <div class="filter row">
-    <div class="col-8 col-md-3">
+    <div class="col-8 col-md-6">
       <h6 class="result">
         Hiển thị tất cả {{ products.numberOfElements }} trong
         {{ products.totalElements }} kết quả
@@ -42,6 +42,21 @@ export default class extends Vue {}
     font-weight: 300;
     padding-top: 7px;
     font-style: italic;
+  }
+}
+@media (max-width: 768px) {
+  .filter-btn-area {
+    display: none;
+  }
+}
+@media (min-width: 768px) {
+  .filter-btn-area {
+    display: block;
+  }
+}
+@media (max-width: 991px) {
+  .filter {
+    padding: 10px;
   }
 }
 </style>
