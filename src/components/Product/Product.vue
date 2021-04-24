@@ -80,9 +80,16 @@
             <a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a>
           </div>
           <div class="compare-btn">
-            <a class="btn btn-sm" @click="addToCart"
+            <a
+              v-if="!isInCart(product.id)"
+              class="btn btn-sm"
+              @click="addToCart"
               ><i class="fa fa-exchange" aria-hidden="true"></i> Thêm vào so
               sánh</a
+            >
+            <a v-if="isInCart(product.id)" class="btn btn-sm disabled"
+              ><i class="fa fa fa-check-square-o" aria-hidden="true"></i> Đã
+              thêm vào so sánh</a
             >
           </div>
         </div>
@@ -151,5 +158,9 @@ export default class extends Vue {
       height: 258px;
     }
   }
+}
+a.disabled {
+  pointer-events: none;
+  cursor: default;
 }
 </style>
