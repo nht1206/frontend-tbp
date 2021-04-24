@@ -1,5 +1,6 @@
 import Category from "@/models/category";
 import Brand from "./brand";
+import Store from "./store";
 export default interface Product {
   id: number;
   title: string;
@@ -10,5 +11,9 @@ export default interface Product {
   images: string[];
   lowestPrice: number;
   highestPrice: number;
-  listStores: any[];
+  prices: {
+    url: string;
+    price: number;
+    store: Store;
+  };
 }

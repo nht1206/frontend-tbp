@@ -11,7 +11,6 @@
 </template>
 
 <script lang="ts">
-import Page from "@/models/page";
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import Product from "./Product.vue";

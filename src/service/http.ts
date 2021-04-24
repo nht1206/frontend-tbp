@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 
 axios.defaults.baseURL = "https://thebestpricedtu.herokuapp.com/api/v1/";
 

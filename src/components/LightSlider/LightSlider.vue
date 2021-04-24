@@ -16,6 +16,7 @@ export default class extends Vue {
   })
   images!: string[];
   mounted(): void {
+    // eslint-disable-next-line
     ($("#lightSlider") as any).lightSlider({
       gallery: true,
       item: 1,

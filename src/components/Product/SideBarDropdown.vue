@@ -23,6 +23,7 @@
 
 <script lang="ts">
 import Category from "@/models/category";
+import Option from "@/models/option";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 
@@ -38,7 +39,7 @@ export default class extends Vue {
   category!: Category;
   isOpen = false;
 
-  option!: any;
+  option!: Option;
 
   filter(catId: number): void {
     this.$store.dispatch("product/searchProducts", {

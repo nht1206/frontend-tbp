@@ -78,7 +78,7 @@ export default class extends Vue {
     this.isShow = false;
   }
 
-  click(catId: number) {
+  click(catId: number): void {
     if (this.$route.path !== "/product-list") {
       this.$router.push("/product-list");
     }

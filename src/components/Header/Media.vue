@@ -29,14 +29,15 @@
 </template>
 
 <script lang="ts">
+import Product from "@/models/product";
 import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
 export default class extends Vue {
   @Prop({ type: Object, required: true })
-  product!: any;
+  product!: Product;
 
-  remove(id: string): void {
+  remove(): void {
     this.$store.commit("cart/removeProduct", this.product.id);
   }
 
