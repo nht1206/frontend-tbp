@@ -40,6 +40,7 @@ export default class extends Vue {}
     transform: translateY(37px);
     position: relative;
     z-index: 10;
+    text-align: center;
   }
   .wd-shop-btn {
     padding: 8px 21px;
@@ -58,6 +59,29 @@ export default class extends Vue {}
     &:hover {
       border-color: #ff9800;
     }
+  }
+}
+@media (max-width: 575px) {
+  .subscribe-body {
+    padding: 20px 0;
+  }
+  .subscribe-btn {
+    margin-top: 10px;
+  }
+}
+@media (max-width: 991px) {
+  .subscribe-title {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+}
+@media (max-width: 767px) {
+  .subscribe-title {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+  .subscribe-btn {
+    margin-top: 15px;
   }
 }
 </style>
