@@ -6,7 +6,9 @@
           <social-media></social-media>
         </div>
         <div class="col-sm-12 col-md-4 col-lg-5 col-xl-6 d-none d-md-block">
-          <offer-text></offer-text>
+          <offer-text
+            offerText="Philong giảm giá tất cả sản phẩm 50%"
+          ></offer-text>
         </div>
         <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
           <language-currency-select></language-currency-select>

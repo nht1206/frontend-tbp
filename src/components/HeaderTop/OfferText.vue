@@ -1,14 +1,17 @@
 <template>
   <div class="offer-text text-center">
-    <p class="text-uppercase">Shopee giảm giá 50% các sản phẩm</p>
+    <p class="text-uppercase">{{ offerText }}</p>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
-export default class extends Vue {}
+export default class extends Vue {
+  @Prop({ required: true })
+  offerText!: string;
+}
 </script>
 
 <style lang="scss" scoped>

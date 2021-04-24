@@ -1,9 +1,9 @@
 <template>
   <div class="language-and-currency-btn">
-    <img src="@/assets/img/flag-icon.jpg" alt="flag-icon" />
+    <img src="@/assets/img/vn-flag.svg" alt="flag-icon" />
     <header-selector title="Tiếng Việt" :right="true">
       <a class="dropdown-item" href="#"
-        ><img src="@/assets/img/flag-icon-2.png" alt="flag-icon" />Tiếng Anh</a
+        ><img src="@/assets/img/uk.svg" alt="flag-icon" />Tiếng Anh</a
       >
     </header-selector>
     <header-selector title="Tiền tệ">
@@ -22,4 +22,11 @@ import HeaderSelector from "./HeaderSelector.vue";
 export default class extends Vue {}
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.language-and-currency-btn {
+  img {
+    max-width: 20px;
+    max-height: 12px;
+  }
+}
+</style>
