@@ -9,7 +9,7 @@
         </router-link>
       </li>
       <li v-for="(l, idx) in pageLocation" :key="idx">
-        <a class="page-location-active">
+        <a>
           {{ l }}
           <span class="divider">/</span>
         </a>
