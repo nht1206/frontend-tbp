@@ -163,4 +163,48 @@ export default class extends Vue {}
     border-color: #ff9800;
   }
 }
+@media (max-width: 768px) {
+  .footer-about {
+    text-align: center;
+  }
+}
+
+@media (max-width: 991px) {
+  .footer {
+    padding: 50px 0 70px;
+    .footer-about {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    .stores-list {
+      padding: 0;
+    }
+    .footer-subtitle {
+      margin-bottom: 10px;
+    }
+    .footer-nav {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .footer {
+    .footer-about {
+      text-align: left;
+    }
+    .footer-subtitle {
+      text-align: left;
+    }
+    .footer-nav {
+      text-align: left;
+    }
+    .wb-social-media {
+      a {
+        display: inline-block;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
 </style>
