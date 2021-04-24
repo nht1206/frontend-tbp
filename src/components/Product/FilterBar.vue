@@ -1,6 +1,6 @@
 <template>
   <div class="filter row">
-    <div class="col-8 col-md-6">
+    <div class="col-12 col-md-6">
       <h6 class="result">
         Hiển thị tất cả {{ products.numberOfElements }} trong
         {{ products.totalElements }} kết quả
