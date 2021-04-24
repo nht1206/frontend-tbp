@@ -9,17 +9,19 @@
 </template>
 
 <script lang="ts">
+import Product from "@/models/product";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import ProductBox from "./ProductBox.vue";
 
 @Component({ components: { ProductBox } })
 export default class extends Vue {
   @Prop({ type: Array, required: true })
-  products!: Array<any>;
+  products!: Array<Product>;
   @Prop({ type: String, required: true })
   sliderId!: string;
 
   mounted(): void {
+    // eslint-disable-next-line
     ($("#" + this.sliderId) as any).owlCarousel({
       loop: true,
       nav: true,

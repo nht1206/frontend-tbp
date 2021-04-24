@@ -13,7 +13,7 @@ import { Component, Vue } from "vue-property-decorator";
 
 @Component
 export default class extends Vue {
-  intervalId!: any;
+  intervalId!: number;
   visible = false;
   scrollTop(): void {
     this.intervalId = setInterval(() => {
@@ -23,13 +23,13 @@ export default class extends Vue {
       window.scroll(0, window.pageYOffset - 50);
     }, 20);
   }
-  scrollListener(e: Event) {
+  scrollListener(): void {
     this.visible = window.scrollY > 150;
   }
   mounted(): void {
     window.addEventListener("scroll", this.scrollListener);
   }
-  beforeDestroy() {
+  beforeDestroy(): void {
     window.removeEventListener("scroll", this.scrollListener);
   }
 }

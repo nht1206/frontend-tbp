@@ -15,6 +15,7 @@ export default class extends Vue {
   images!: string[];
 
   mounted(): void {
+    // eslint-disable-next-line
     ($("#product-view-model") as any).owlCarousel({
       loop: true,
       nav: true,

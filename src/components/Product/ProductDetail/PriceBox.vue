@@ -32,6 +32,7 @@ export default class extends Vue {
   sinceText!: string;
 
   mounted(): void {
+    // eslint-disable-next-line
     ($("#" + this.id) as any).circleProgress({
       value: this.value / 100,
       fill: {

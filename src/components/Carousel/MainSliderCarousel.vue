@@ -67,6 +67,7 @@ export default class extends Vue {
     });
   }
   mounted(): void {
+    // eslint-disable-next-line
     ($("#main-review-slider") as any).owlCarousel({
       loop: this.loop,
       nav: this.nav,
