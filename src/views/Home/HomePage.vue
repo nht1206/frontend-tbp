@@ -7,6 +7,7 @@
     <product-view-modal></product-view-modal>
     <NewsLetter></NewsLetter>
     <Footer></Footer>
+    <ScrollUp></ScrollUp>
   </div>
 </template>
 
@@ -17,6 +18,7 @@ import HeaderTop from "@/components/HeaderTop/HeaderTop.vue";
 import ProductViewModal from "@/components/modal/ProductViewModal.vue";
 import NavBar from "@/components/NavBar/NavBar.vue";
 import NewsLetter from "@/components/NewsLetter.vue";
+import ScrollUp from "@/components/ScrollUp.vue";
 import { Component, Vue } from "vue-property-decorator";
 
 @Component({
@@ -27,6 +29,7 @@ import { Component, Vue } from "vue-property-decorator";
     Footer,
     NewsLetter,
     ProductViewModal,
+    ScrollUp,
   },
 })
 export default class Home extends Vue {}

@@ -155,6 +155,7 @@ export default class extends Vue {
     background: #cecece;
     color: #fff;
     padding: 8px 12px;
+    margin-bottom: 25px;
     &:hover {
       background: #fff;
       color: #ff9800;
