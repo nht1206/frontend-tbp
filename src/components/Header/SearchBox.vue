@@ -14,13 +14,13 @@
     />
     <ul class="autocomplete-results" :class="{ show: isOpen }">
       <li
-        v-for="(result, idx) in results"
+        v-for="(s, idx) in suggestions"
         :key="idx"
         class="autocomplete-result"
-        @click="setResult(result)"
+        @click="setResult(s.title)"
         :class="{ 'is-active': idx === arrowCounter }"
       >
-        {{ result }}
+        {{ s.title }}
       </li>
     </ul>
     <span class="input-group-btn">
@@ -32,6 +32,8 @@
 </template>
 
 <script lang="ts">
+import Suggestion from "@/models/suggestion";
+import productService from "@/service/product-service";
 import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
@@ -40,6 +42,7 @@ export default class extends Vue {
   results: Array<string> = [];
   isOpen = false;
   arrowCounter = -1;
+  suggestions: Suggestion[] = [];
 
   @Prop({ type: Array, required: true })
   items!: Array<string>;
@@ -53,6 +56,9 @@ export default class extends Vue {
     } else {
       this.isOpen = false;
     }
+    productService.getSuggestion(this.search).then((res) => {
+      this.suggestions = res.data;
+    });
   }
 
   onSearch(): void {
