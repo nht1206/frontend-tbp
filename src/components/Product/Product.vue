@@ -151,7 +151,7 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .product-box {
-  margin-bottom: 50px;
+  margin: 0 0 50px 0;
   .product-box-img {
     img {
       width: 100%;
