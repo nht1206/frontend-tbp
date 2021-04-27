@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <department-list></department-list>
-        <div class="col-2 col-md-12 col-xl-9">
+        <!-- <div class="col-2 col-md-12 col-lg-9">
           <div class="menu-container wd-megamenu">
             <div class="menu">
               <ul class="wd-megamenu-ul">
@@ -136,7 +136,7 @@
               </ul>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="col-xl-3 d-none d-xl-block">
+  <div class="col-lg-3 d-none d-lg-block p0">
     <div class="department" @click="toggle" v-click-outside="close">
       <img src="@/assets/img/menu-bar.png" alt="menu-bar" />
       Danh mục sản phẩm
@@ -159,11 +159,6 @@ export default class extends Vue {
   }
   .department-list.active {
     display: block;
-  }
-}
-@media (max-width: 1200px) {
-  .department {
-    display: none;
   }
 }
 

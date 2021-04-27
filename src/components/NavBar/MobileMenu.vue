@@ -15,43 +15,38 @@
         <li class="mob-logo">
           <a href="index.html"><img src="img/logo.png" alt="" /></a>
         </li>
-        <mobile-sub-menu title="Home">
+        <mobile-sub-menu
+          v-for="category in categories"
+          :key="category.id"
+          :title="category.title"
+        >
           <template v-slot:submenu-item>
-            <li><a href="index.html">Home one</a></li>
-            <li><a href="index-01-02.html">Home one Fullwidth</a></li>
-            <li><a href="index-second-home.html">Home two</a></li>
-            <li><a href="index-third-home.html">Home three</a></li>
-            <li><a href="magazine.html">Home Page Magazine </a></li>
-          </template>
-        </mobile-sub-menu>
-        <mobile-sub-menu title="Comparison Product">
-          <template v-slot:submenu-item>
-            <li><a href="compare-products.html">Comparison Product</a></li>
-            <li>
-              <a href="compare-products-single.html">Compare Products Single</a>
-            </li>
-            <li>
-              <a href="compare-products-choose-market.html"
-                >Compare Products Choose Market</a
-              >
+            <li v-for="sc in category.categories" :key="sc.id">
+              <a @click="click(sc.id)">{{ sc.title }}</a>
             </li>
           </template>
         </mobile-sub-menu>
-        <li class="out-link"><a class="" href="contact-us.html">Contact</a></li>
-        <li class="out-link"><a class="" href="coupon.html">Coupon</a></li>
       </ul>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import Category from "@/models/category";
 import { Component, Vue } from "vue-property-decorator";
+import { mapGetters } from "vuex";
 import MobileSubMenu from "./MobileSubMenu.vue";
 
 @Component({
   components: { MobileSubMenu },
+  computed: {
+    ...mapGetters({
+      categories: "category/categories",
+    }),
+  },
 })
 export default class extends Vue {
+  categories!: Category[];
   isOpen = false;
 
   open(): void {
@@ -60,6 +55,16 @@ export default class extends Vue {
 
   close(): void {
     this.isOpen = false;
+  }
+
+  click(catId: number): void {
+    this.close();
+    if (this.$route.path !== "/product-list") {
+      this.$router.push("/product-list");
+    }
+    this.$store.dispatch("product/searchProducts", {
+      catId,
+    });
   }
 }
 </script>
