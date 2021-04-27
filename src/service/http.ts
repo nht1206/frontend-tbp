@@ -1,5 +1,5 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "https://thebestpricedtu.herokuapp.com/api/v1/";
+axios.defaults.baseURL = process.env.VUE_APP_API_ENDPOINT;
 
 export default axios;

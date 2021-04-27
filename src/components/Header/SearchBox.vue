@@ -2,11 +2,11 @@
   <div class="input-group">
     <input
       v-model="search"
-      @input="onChange"
       @keydown.down="onArrowDown"
       @keydown.up="onArrowUp"
       @keydown.enter="onEnter"
       v-click-outside="clickOutSide"
+      v-debounce:2s="getSuggestion"
       type="text"
       class="form-control"
       placeholder="Tìm kiếm ..."
@@ -14,13 +14,23 @@
     />
     <ul class="autocomplete-results" :class="{ show: isOpen }">
       <li
-        v-for="(result, idx) in results"
+        v-for="(s, idx) in suggestions"
         :key="idx"
         class="autocomplete-result"
-        @click="setResult(result)"
+        @click="setResult(s)"
         :class="{ 'is-active': idx === arrowCounter }"
       >
-        {{ result }}
+        <div class="row">
+          <div class="col-7">
+            {{ s.title }}
+          </div>
+          <div class="col-5 price">
+            giá: <span>{{ formatPrice(s.price) }}</span> VNĐ ({{
+              s.totalStore
+            }}
+            nơi bán)
+          </div>
+        </div>
       </li>
     </ul>
     <span class="input-group-btn">
@@ -32,28 +42,19 @@
 </template>
 
 <script lang="ts">
+import Suggestion from "@/models/suggestion";
+import productService from "@/service/product-service";
 import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
 export default class extends Vue {
   search = "";
-  results: Array<string> = [];
   isOpen = false;
   arrowCounter = -1;
+  suggestions: Suggestion[] = [];
 
   @Prop({ type: Array, required: true })
   items!: Array<string>;
-
-  onChange(): void {
-    this.results = this.items.filter(
-      (item) => item.toLowerCase().indexOf(this.search.toLowerCase()) > -1
-    );
-    if (this.results.length !== 0 && this.search !== "") {
-      this.isOpen = true;
-    } else {
-      this.isOpen = false;
-    }
-  }
 
   onSearch(): void {
     if (this.$route.path !== "/product-list") {
@@ -64,17 +65,30 @@ export default class extends Vue {
     });
   }
 
-  setResult(result: string): void {
-    this.search = result;
+  getSuggestion(): void {
+    productService.getSuggestion(this.search).then((res) => {
+      this.suggestions = res.data;
+      if (this.suggestions.length !== 0 && this.search !== "") {
+        this.isOpen = true;
+      } else {
+        this.isOpen = false;
+      }
+    });
+  }
+
+  setResult(result: Suggestion): void {
+    if (result.id) {
+      this.$router.push("product-detail/" + result.id);
+    }
     this.isOpen = false;
   }
 
   onArrowDown(): void {
-    if (this.arrowCounter === this.results.length - 1) {
+    if (this.arrowCounter === this.suggestions.length - 1) {
       this.arrowCounter = 0;
       return;
     }
-    if (this.arrowCounter < this.results.length) {
+    if (this.arrowCounter < this.suggestions.length) {
       this.arrowCounter = this.arrowCounter + 1;
       return;
     }
@@ -86,10 +100,10 @@ export default class extends Vue {
       return;
     }
     if (this.arrowCounter === -1 || this.arrowCounter === 0) {
-      this.arrowCounter = this.results.length - 1;
+      this.arrowCounter = this.suggestions.length - 1;
       return;
     }
-    if (this.arrowCounter === this.results.length - 1) {
+    if (this.arrowCounter === this.suggestions.length - 1) {
       this.arrowCounter = 0;
       return;
     }
@@ -97,11 +111,21 @@ export default class extends Vue {
 
   onEnter(): void {
     if (this.arrowCounter !== -1) {
-      this.search = this.results[this.arrowCounter];
-      this.arrowCounter = -1;
-      this.isOpen = false;
+      const suggestion = this.suggestions[this.arrowCounter];
+      if (!suggestion.id) {
+        this.search = suggestion.title;
+        this.arrowCounter = -1;
+        this.onSearch();
+      } else {
+        this.$router.push("product-detail/" + suggestion.id);
+        this.arrowCounter = -1;
+      }
     }
-    this.onSearch();
+    this.isOpen = false;
+  }
+
+  formatPrice(price: number): string {
+    return Intl.NumberFormat().format(price);
   }
 
   clickOutSide(): void {
@@ -147,6 +171,12 @@ export default class extends Vue {
     text-align: left;
     padding: 10px;
     cursor: pointer;
+    font-size: 13px;
+    .price {
+      span {
+        color: red;
+      }
+    }
   }
 
   .autocomplete-result.is-active,

@@ -4,13 +4,8 @@ export default interface Page<T> {
   totalElements?: number;
   last?: boolean;
   first?: boolean;
-  sort?: {
-    sorted?: boolean;
-    unsorted?: boolean;
-    empty?: boolean;
-  };
-  numberOfElements: number;
   size?: number;
   number: number;
   empty?: boolean;
+  numberOfElements: number;
 }
