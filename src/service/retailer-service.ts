@@ -1,4 +1,4 @@
-import Retailer from "@/models/retailer";
+import Retailer from "@/models/Retailer";
 import http from "@/service/http";
 import { AxiosResponse } from "axios";
 

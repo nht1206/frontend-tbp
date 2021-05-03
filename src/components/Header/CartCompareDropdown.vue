@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import Product from "@/models/product";
+import Product from "@/models/Product";
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import Media from "./Media.vue";

@@ -25,9 +25,7 @@
             {{ s.title }}
           </div>
           <div class="col-5 price">
-            giá: <span>{{ formatPrice(s.price) }}</span> VNĐ ({{
-              s.totalStore
-            }}
+            giá: <span>{{ formatPrice(s.price) }}</span> VNĐ ({{ s.totalStore }}
             nơi bán)
           </div>
         </div>
@@ -42,7 +40,7 @@
 </template>
 
 <script lang="ts">
-import Suggestion from "@/models/suggestion";
+import Suggestion from "@/models/Suggestion";
 import productService from "@/service/product-service";
 import { Component, Prop, Vue } from "vue-property-decorator";
 

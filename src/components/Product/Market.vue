@@ -38,8 +38,8 @@
 </template>
 
 <script lang="ts">
-import Option from "@/models/option";
-import Retailer from "@/models/retailer";
+import Option from "@/models/Option";
+import Retailer from "@/models/Retailer";
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 

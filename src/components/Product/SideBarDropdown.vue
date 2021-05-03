@@ -22,8 +22,8 @@
 </template>
 
 <script lang="ts">
-import Category from "@/models/category";
-import Option from "@/models/option";
+import Category from "@/models/Category";
+import Option from "@/models/Option";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 

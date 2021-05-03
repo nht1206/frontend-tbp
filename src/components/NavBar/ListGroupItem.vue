@@ -56,7 +56,7 @@
 </template>
 
 <script lang="ts">
-import Category from "@/models/category";
+import Category from "@/models/Category";
 import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component

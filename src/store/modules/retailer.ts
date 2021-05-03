@@ -2,7 +2,7 @@ import { RootState } from "./../types";
 import { Module } from "vuex";
 import { RetailerState } from "../types";
 import retailerService from "@/service/retailer-service";
-import Retailer from "@/models/retailer";
+import Retailer from "@/models/Retailer";
 
 export const state: RetailerState = {
   retailers: [],

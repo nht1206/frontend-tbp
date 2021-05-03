@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts">
-import Category from "@/models/category";
+import Category from "@/models/Category";
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import MobileSubMenu from "./MobileSubMenu.vue";

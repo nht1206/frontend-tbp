@@ -1,9 +1,9 @@
 import { ProductState, RootState } from "./../types";
 import { Module } from "vuex";
-import Product from "@/models/product";
+import Product from "@/models/Product";
 import productService from "@/service/product-service";
-import Option from "@/models/option";
-import Page from "@/models/page";
+import Option from "@/models/Option";
+import Page from "@/models/Page";
 
 const state: ProductState = {
   products: {

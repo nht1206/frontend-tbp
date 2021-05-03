@@ -1,4 +1,4 @@
-import Product from "@/models/product";
+import Product from "@/models/Product";
 import { Module } from "vuex";
 import { CartState, RootState } from "../types";
 export const state: CartState = {

@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import Product from "@/models/product";
+import Product from "@/models/Product";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import ProductBox from "../Carousel/ProductBox.vue";
 import ProductCarousel from "../Carousel/ProductCarousel.vue";

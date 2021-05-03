@@ -1,6 +1,6 @@
-import Category from "@/models/category";
-import Brand from "./brand";
-import Store from "./store";
+import Category from "@/models/Category";
+import Brand from "./Brand";
+import Store from "./Store";
 export default interface Product {
   id: number;
   title: string;

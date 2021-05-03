@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import Product from "@/models/product";
+import Product from "@/models/Product";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import ProductBox from "./ProductBox.vue";
 

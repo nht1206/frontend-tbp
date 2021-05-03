@@ -1,8 +1,8 @@
-import Category from "@/models/category";
-import Option from "@/models/option";
-import Page from "@/models/page";
-import Product from "@/models/product";
-import Retailer from "@/models/retailer";
+import Category from "@/models/Category";
+import Option from "@/models/Option";
+import Page from "@/models/Page";
+import Product from "@/models/Product";
+import Retailer from "@/models/Retailer";
 
 export interface RootState {}
 

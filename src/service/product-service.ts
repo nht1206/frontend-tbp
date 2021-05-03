@@ -1,7 +1,7 @@
-import Option from "@/models/option";
-import Page from "@/models/page";
-import Product from "@/models/product";
-import Suggestion from "@/models/suggestion";
+import Option from "@/models/Option";
+import Page from "@/models/Page";
+import Product from "@/models/Product";
+import Suggestion from "@/models/Suggestion";
 import http from "@/service/http";
 import { AxiosResponse } from "axios";
 
