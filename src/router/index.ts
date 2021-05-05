@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
+import adminRoutes from "./routes/admin";
 import homeRoutes from "./routes/home";
 
 Vue.use(VueRouter);
@@ -10,6 +11,14 @@ const routes: Array<RouteConfig> = [
     component: () =>
       import(/* webpackChunkName: "homePage" */ "../views/Home/HomePage.vue"),
     children: homeRoutes,
+  },
+  {
+    path: "/admin",
+    component: () =>
+      import(
+        /* webpackChunkName: "dashboard" */ "../views/Admin/Dashboard.vue"
+      ),
+    children: adminRoutes,
   },
   {
     path: "/about",

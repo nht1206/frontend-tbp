@@ -39,8 +39,8 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import Loading from "../Loading.vue";
-import PageLocation from "../PageLocation.vue";
+import Loading from "@/components/Home/Loading.vue";
+import PageLocation from "@/components/Home/PageLocation.vue";
 import Category from "./Category.vue";
 import Color from "./Color.vue";
 import FilterBar from "./FilterBar.vue";

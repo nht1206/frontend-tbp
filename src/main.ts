@@ -10,16 +10,6 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 import "./assets/styles/app.scss";
 import clickOutside from "./directives/click-outside";
 
-import "owl.carousel/dist/assets/owl.carousel.css";
-import "owl.carousel";
-
-import "lightslider/dist/css/lightslider.css";
-import "lightslider/dist/js/lightslider";
-
-import "jquery-circle-progress/dist/circle-progress";
-
-import "./assets/styles/animate.css";
-
 Vue.use(BootstrapVue);
 
 Vue.use(vueDebounce, {

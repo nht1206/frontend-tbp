@@ -1,7 +1,7 @@
 import { RouteConfig } from "vue-router";
 import MainPage from "@/views/Home/MainPage.vue";
-import ProductList from "@/components/Product/ProductList.vue";
-import ProductDetail from "@/components/Product/ProductDetail/ProductDetail.vue";
+import ProductList from "@/components/Home/Product/ProductList.vue";
+import ProductDetail from "@/components/Home/Product/ProductDetail/ProductDetail.vue";
 
 export default [
   {

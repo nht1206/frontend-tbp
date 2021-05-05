@@ -118,12 +118,12 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import LightSlider from "../../LightSlider/LightSlider.vue";
-import PageLocation from "../../PageLocation.vue";
+import LightSlider from "@/components/Home/LightSlider/LightSlider.vue";
+import PageLocation from "@/components/Home/PageLocation.vue";
 import PriceHistory from "./PriceHistory.vue";
 import produceService from "@/service/product-service";
 import Product from "@/models/Product";
-import Loading from "@/components/Loading.vue";
+import Loading from "@/components/Home/Loading.vue";
 
 @Component({
   components: { PageLocation, LightSlider, PriceHistory, Loading },

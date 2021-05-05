@@ -17,10 +17,10 @@
 </template>
 
 <script lang="ts">
-import MainSlider from "@/components/MainSlider/MainSlider.vue";
-import Service from "@/components/Service/Service.vue";
-import TopDealSlider from "@/components/TopDeal/TopDealSlider.vue";
-import TrendingSlider from "@/components/Trending/TrendingSlider.vue";
+import MainSlider from "@/components/Home/MainSlider/MainSlider.vue";
+import Service from "@/components/Home/Service/Service.vue";
+import TopDealSlider from "@/components/Home/TopDeal/TopDealSlider.vue";
+import TrendingSlider from "@/components/Home/Trending/TrendingSlider.vue";
 import { Component, Vue } from "vue-property-decorator";
 
 @Component({

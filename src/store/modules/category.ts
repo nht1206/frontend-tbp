@@ -1,5 +1,5 @@
 import { Module } from "vuex";
-import Category from "@/models/category";
+import Category from "@/models/Category";
 import categoryService from "@/service/category-service";
 import { CategoryState, RootState } from "../types";
 const state: CategoryState = {
