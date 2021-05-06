@@ -25,5 +25,4 @@ import "@/assets/js/sb-admin-2.min";
 export default class extends Vue {}
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

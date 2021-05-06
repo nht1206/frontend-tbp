@@ -33,37 +33,7 @@
               >
                 <div class="login-section text-center">
                   <div class="login-form text-left">
-                    <div>
-                      <div class="form-group">
-                        <label for="inputUsername">Tên tài khoản</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="inputUsername"
-                        />
-                      </div>
-                      <div class="form-group">
-                        <label for="inputPassword">Mật khẩu</label>
-                        <input
-                          type="password"
-                          class="form-control"
-                          id="inputPassword"
-                        />
-                      </div>
-                      <button
-                        type="submit"
-                        class="btn btn-primary wd-login-btn"
-                      >
-                        Đăng nhập
-                      </button>
-
-                      <div class="form-check">
-                        <label class="form-check-label">
-                          <input type="checkbox" class="form-check-input" />
-                          Lưu mật khẩu
-                        </label>
-                      </div>
-                    </div>
+                    <login-form></login-form>
                   </div>
                 </div>
               </div>
@@ -99,6 +69,24 @@
                         />
                       </div>
                       <div class="form-group">
+                        <label for="inputAddress-signup">Địa chỉ</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="inputAddress-signup"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="inputPhoneNumber-signup"
+                          >Số điện thoại</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="inputPhoneNumber-signup"
+                        />
+                      </div>
+                      <div class="form-group">
                         <label for="inputPassword-signup">Mật khẩu</label>
                         <input
                           type="password"
@@ -126,8 +114,11 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import LoginForm from "./LoginForm.vue";
 
-@Component
+@Component({
+  components: { LoginForm },
+})
 export default class extends Vue {
   login = true;
   signup = false;
@@ -144,77 +135,78 @@ export default class extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
-.login-section {
-  padding: 25px;
-}
-.nav-tabs {
-  .nav-link.active {
-    border-color: transparent;
-    box-shadow: none;
-    border-left: 1px solid #ececec;
-    border-right: 1px solid #ececec;
+<style lang="scss">
+#sigin-signup {
+  .login-section {
+    padding: 25px;
   }
-}
-.login-form {
-  margin-top: 36px;
-  color: #666666;
-  .form-control {
-    border-radius: 0;
-    padding: 16px;
-    background: #f6f6f6;
-    border-color: #ececec;
-    font-size: 14px;
-  }
-  .wd-login-btn {
-    width: 100%;
-    padding: 12px !important;
-    background: #ff9800 !important;
-    color: #fff !important;
-    font-size: 16px;
-    margin-bottom: 17px;
-    border-radius: 0;
-    cursor: pointer;
-    text-transform: uppercase;
-    &:hover {
-      background: #fff !important;
-      color: #ff9800 !important;
-      border-color: #ff9800 !important;
+  .nav-tabs {
+    .nav-link.active {
+      border-color: transparent;
+      box-shadow: none;
+      border-left: 1px solid #ececec;
+      border-right: 1px solid #ececec;
     }
   }
-  .form-check {
-    margin-bottom: 20px;
+  .login-form {
+    margin-top: 36px;
+    color: #666666;
+    .form-control {
+      border-radius: 0;
+      padding: 16px;
+      background: #f6f6f6;
+      font-size: 14px;
+    }
+    .wd-login-btn {
+      width: 100%;
+      padding: 12px !important;
+      background: #ff9800 !important;
+      color: #fff !important;
+      font-size: 16px;
+      margin-bottom: 17px;
+      border-radius: 0;
+      cursor: pointer;
+      text-transform: uppercase;
+      &:hover {
+        background: #fff !important;
+        color: #ff9800 !important;
+        border-color: #ff9800 !important;
+      }
+    }
+    .form-check {
+      margin-bottom: 20px;
+      font-weight: 300;
+    }
+  }
+  .sign-up-section {
+    padding: 50px 49px 30px 30px;
+    .form-control {
+      padding: 10px 16px;
+      font-size: 14px;
+    }
+  }
+  .wd-policy {
     font-weight: 300;
   }
-}
-.sign-up-section {
-  padding: 50px 49px 30px 30px;
-  .form-control {
-    padding: 10px 16px;
-    font-size: 14px;
+  .wd-modal-tabs {
+    position: relative;
   }
-}
-.wd-policy {
-  font-weight: 300;
-}
-.wd-modal-tabs {
-  position: relative;
-}
-.wd-modal-tab-menu {
-  z-index: 10;
-  background: #f4f4f4;
-  a {
-    padding: 23px 0;
-    font-size: 20px;
-    color: #999999;
-    width: 199px;
-    text-transform: uppercase;
+  .wd-modal-tab-menu {
+    z-index: 10;
+    background: #f4f4f4;
+    a {
+      padding: 23px 0;
+      font-size: 20px;
+      color: #999999;
+      width: 199px;
+      text-transform: uppercase;
+    }
+    .active {
+      color: #000000 !important;
+    }
   }
-  .active {
-    color: #000000 !important;
+  .nav-link {
+    cursor: pointer;
   }
-}
-.nav-link {
-  cursor: pointer;
 }
 </style>

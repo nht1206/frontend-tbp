@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 import { BootstrapVue } from "bootstrap-vue";
 import vueDebounce from "vue-debounce";
+import VueCompositionAPI from "@vue/composition-api";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
@@ -11,6 +12,7 @@ import "./assets/styles/app.scss";
 import clickOutside from "./directives/click-outside";
 
 Vue.use(BootstrapVue);
+Vue.use(VueCompositionAPI);
 
 Vue.use(vueDebounce, {
   listenTo: ["input", "keyup"],
@@ -19,6 +21,13 @@ Vue.use(vueDebounce, {
 Vue.directive("click-outside", clickOutside);
 
 Vue.config.productionTip = false;
+
+declare module "vue" {
+  // eslint-disable-next-line
+  interface ComponentOptions<V> {
+    validations?: any;
+  }
+}
 
 new Vue({
   router,

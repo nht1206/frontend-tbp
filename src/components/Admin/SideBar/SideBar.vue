@@ -73,5 +73,4 @@ import CollapseMenu from "./CollapseMenu.vue";
 export default class extends Vue {}
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

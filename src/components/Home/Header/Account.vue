@@ -25,7 +25,7 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import AuthenticationModal from "../modal/AuthenticationModal.vue";
+import AuthenticationModal from "../modal/AuthenticationModal/AuthenticationModal.vue";
 import CompareCart from "./CompareCart.vue";
 
 @Component({ components: { CompareCart, AuthenticationModal } })
