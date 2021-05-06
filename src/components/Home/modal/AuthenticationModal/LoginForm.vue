@@ -8,10 +8,10 @@
       <input
         type="text"
         class="form-control"
-        :class="[{ 'is-invalid': isUsernameInvalid }]"
+        :class="[{ 'is-invalid': isInvalid(v$.loginForm.username) }]"
         id="inputUsername"
         v-model="v$.loginForm.username.$model"
-        @focus="resetUsernameError"
+        @focus="reset(v$.loginForm.username)"
       />
       <div class="invalid-feedback">
         <template v-for="error of v$.loginForm.username.$errors">
@@ -24,9 +24,9 @@
       <input
         type="password"
         class="form-control"
-        :class="[{ 'is-invalid': isPasswordInvalid }]"
+        :class="[{ 'is-invalid': isInvalid(v$.loginForm.password) }]"
         id="inputPassword"
-        @focus="resetPasswordError"
+        @focus="reset(v$.loginForm.password)"
         v-model="v$.loginForm.password.$model"
       />
       <div class="invalid-feedback">
@@ -72,13 +72,13 @@ interface LoginForm {
       loginForm: {
         username: {
           required: helpers.withMessage(
-            "Tài khoản không được để trống",
+            "Tài khoản không được để trống!",
             required
           ),
         },
         password: {
           required: helpers.withMessage(
-            "Mật khẩu không được để trống",
+            "Mật khẩu không được để trống!",
             required
           ),
         },
@@ -94,24 +94,12 @@ export default class extends Vue {
     password: "",
   };
 
-  get isUsernameInvalid(): boolean {
-    return (
-      this.v$.loginForm.username.$invalid && this.v$.loginForm.username.$dirty
-    );
+  isInvalid(field: { $invalid: boolean; $dirty: boolean }): boolean {
+    return field.$invalid && field.$dirty;
   }
 
-  get isPasswordInvalid(): boolean {
-    return (
-      this.v$.loginForm.password.$invalid && this.v$.loginForm.password.$dirty
-    );
-  }
-
-  resetUsernameError(): void {
-    this.v$.loginForm.username.$reset();
-  }
-
-  resetPasswordError(): void {
-    this.v$.loginForm.password.$reset();
+  reset(field: { $reset: () => void }): void {
+    field.$reset();
   }
 
   loginHandle(): void {
@@ -122,6 +110,3 @@ export default class extends Vue {
   }
 }
 </script>
-
-<style scoped>
-</style>

@@ -43,64 +43,7 @@
               >
                 <div class="sign-up-section text-center">
                   <div class="login-form text-left">
-                    <div>
-                      <div class="form-group">
-                        <label for="inputUsername-signup">Tên tài khoản</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="inputUsername-signup"
-                        />
-                      </div>
-                      <div class="form-group">
-                        <label for="inputName-signup">Họ và tên</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="inputName-signup"
-                        />
-                      </div>
-                      <div class="form-group">
-                        <label for="inputEmail-signup">Email</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="inputEmail-signup"
-                        />
-                      </div>
-                      <div class="form-group">
-                        <label for="inputAddress-signup">Địa chỉ</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="inputAddress-signup"
-                        />
-                      </div>
-                      <div class="form-group">
-                        <label for="inputPhoneNumber-signup"
-                          >Số điện thoại</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="inputPhoneNumber-signup"
-                        />
-                      </div>
-                      <div class="form-group">
-                        <label for="inputPassword-signup">Mật khẩu</label>
-                        <input
-                          type="password"
-                          class="form-control"
-                          id="nputPassword-signup"
-                        />
-                      </div>
-                      <button
-                        type="submit"
-                        class="btn btn-primary wd-login-btn"
-                      >
-                        Đăng ký
-                      </button>
-                    </div>
+                    <signup-form></signup-form>
                   </div>
                 </div>
               </div>
@@ -115,9 +58,10 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import LoginForm from "./LoginForm.vue";
+import SignupForm from "./SignupForm.vue";
 
 @Component({
-  components: { LoginForm },
+  components: { LoginForm, SignupForm },
 })
 export default class extends Vue {
   login = true;
@@ -179,7 +123,7 @@ export default class extends Vue {
     }
   }
   .sign-up-section {
-    padding: 50px 49px 30px 30px;
+    padding: 30px;
     .form-control {
       padding: 10px 16px;
       font-size: 14px;
