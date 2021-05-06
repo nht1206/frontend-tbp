@@ -1,13 +1,10 @@
 <template>
   <div class="acc-header-wrapper">
     <div class="account-section">
-      <button
-        class="btn btn-primary"
-        data-toggle="modal"
-        data-target=".bd-example-modal-lg2"
-      >
+      <button class="btn btn-primary" v-b-modal.sigin-signup>
         <i class="fa fa-sign-in" aria-hidden="true"></i
         ><span>Đăng nhập/Đăng ký</span>
+        <authentication-modal></authentication-modal>
       </button>
     </div>
     <div class="search-wrapper" v-click-outside="closeMiniSearch">
@@ -28,9 +25,10 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import AuthenticationModal from "../modal/AuthenticationModal.vue";
 import CompareCart from "./CompareCart.vue";
 
-@Component({ components: { CompareCart } })
+@Component({ components: { CompareCart, AuthenticationModal } })
 export default class extends Vue {
   keyword = "";
   isMiniSearchShow = false;
