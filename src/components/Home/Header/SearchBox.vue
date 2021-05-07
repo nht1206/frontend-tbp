@@ -6,7 +6,8 @@
       @keydown.up="onArrowUp"
       @keydown.enter="onEnter"
       v-click-outside="clickOutSide"
-      v-debounce:2s="getSuggestion"
+      v-debounce:1500ms="getSuggestion"
+      @change="openSuggestion"
       type="text"
       class="form-control"
       placeholder="Tìm kiếm ..."
@@ -68,15 +69,19 @@ export default class extends Vue {
     });
   }
 
+  openSuggestion(): void {
+    this.isOpen = true;
+  }
+
   getSuggestion(): void {
-    productService.getSuggestion(this.search).then((res) => {
-      this.suggestions = res.data;
-      if (this.suggestions.length !== 0 && this.search !== "") {
-        this.isOpen = true;
-      } else {
-        this.isOpen = false;
-      }
-    });
+    if (this.search) {
+      productService.getSuggestion(this.search).then((res) => {
+        this.suggestions = res.data;
+        if (!(this.suggestions.length !== 0 && this.search !== "")) {
+          this.isOpen = false;
+        }
+      });
+    }
   }
 
   setResult(result: Suggestion): void {
