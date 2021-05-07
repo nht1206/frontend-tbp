@@ -4,10 +4,10 @@ export interface SubscribePayload {
   email: string;
 }
 
-function subsribde(payload: SubscribePayload): Promise<AxiosResponse<any>> {
-  return http.post("subsriber/post", payload);
+function subscribe(payload: SubscribePayload): Promise<AxiosResponse<any>> {
+  return http.post("subscriber/post", payload);
 }
 
 export default {
-  subsribde,
+  subscribe,
 };
