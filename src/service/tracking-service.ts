@@ -11,8 +11,8 @@ function trackingKeyword(
   return http.post("tracking/search", payload);
 }
 
-function trackingProduct(): Promise<AxiosResponse<any>> {
-  return http.post("tracking/product");
+function trackingProduct(id: string): Promise<AxiosResponse<any>> {
+  return http.post(`tracking/product?id=${id}`);
 }
 
 export default {

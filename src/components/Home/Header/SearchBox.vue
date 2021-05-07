@@ -43,6 +43,7 @@
 import Suggestion from "@/models/Suggestion";
 import productService from "@/service/product-service";
 import { Component, Prop, Vue } from "vue-property-decorator";
+import trackingService from "@/service/tracking-service";
 
 @Component
 export default class extends Vue {
@@ -59,6 +60,10 @@ export default class extends Vue {
       this.$router.push("/product-list");
     }
     this.$store.dispatch("product/searchProducts", {
+      keyword: this.search,
+    });
+
+    trackingService.trackingKeyword({
       keyword: this.search,
     });
   }

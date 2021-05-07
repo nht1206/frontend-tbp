@@ -124,6 +124,7 @@ import PriceHistory from "./PriceHistory.vue";
 import produceService from "@/service/product-service";
 import Product from "@/models/Product";
 import Loading from "@/components/Home/Loading.vue";
+import trackingService from "@/service/tracking-service";
 
 @Component({
   components: { PageLocation, LightSlider, PriceHistory, Loading },
@@ -142,6 +143,8 @@ export default class extends Vue {
       this.product = res.data;
       this.isLoading = false;
     });
+
+    trackingService.trackingProduct(this.id);
   }
 
   renderDescription(): string {
