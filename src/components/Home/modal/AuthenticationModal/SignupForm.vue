@@ -1,7 +1,10 @@
 <template>
   <div>
-    <div class="alert alert-danger" role="alert">
-      Tài khoản hoặc mật khẩu không chính xác!
+    <div v-if="error" class="alert alert-danger" role="alert">
+      {{ error }}
+    </div>
+    <div v-if="successMessage" class="alert alert-success" role="alert">
+      {{ successMessage }}
     </div>
     <div class="form-group">
       <label for="inputUsername-signup">Tên tài khoản</label>
@@ -110,6 +113,7 @@
 </template>
 
 <script lang="ts">
+import authService from "@/service/auth-service";
 import useVuelidate from "@vuelidate/core";
 import { helpers, required } from "@vuelidate/validators";
 import { Component, Vue } from "vue-property-decorator";
@@ -167,6 +171,11 @@ interface SignupForm {
 })
 export default class extends Vue {
   v$!: any;
+
+  error: Error | null = null;
+
+  successMessage: string | null = "";
+
   signupForm: SignupForm = {
     username: "",
     fullName: "",
@@ -187,7 +196,15 @@ export default class extends Vue {
   signupHandle(): void {
     this.v$.signupForm.$touch();
     if (!this.v$.$invalid) {
-      console.log(this.signupForm);
+      authService
+        .signup(this.signupForm)
+        .then((res) => {
+          this.successMessage = res.data.message + "";
+          this.error = null;
+        })
+        .catch((err) => {
+          this.error = err.response.data.message;
+        });
     }
   }
 }

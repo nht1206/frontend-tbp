@@ -21,7 +21,7 @@ export const auth: Module<AuthState, RootState> = {
         state.user = null;
       }
     },
-    setError: (state, err: Error) => {
+    setError: (state, err: Error | null) => {
       state.error = err;
     },
   },
