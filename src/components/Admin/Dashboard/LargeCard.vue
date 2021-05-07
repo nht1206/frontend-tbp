@@ -31,9 +31,7 @@
     </div>
     <!-- Card Body -->
     <div class="card-body">
-      <div class="chart-area">
-        <slot name="content"></slot>
-      </div>
+      <slot name="content"></slot>
     </div>
   </div>
 </template>

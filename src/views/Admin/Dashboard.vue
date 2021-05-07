@@ -10,16 +10,18 @@
     </div>
     <list-card></list-card>
     <visit-chart></visit-chart>
+    <keyword-table></keyword-table>
   </div>
 </template>
 
 <script lang="ts">
+import KeywordTable from "@/components/Admin/Dashboard/KeywordTable.vue";
 import ListCard from "@/components/Admin/Dashboard/ListCard.vue";
 import VisitChart from "@/components/Admin/Dashboard/VisitChart.vue";
 import { Component, Vue } from "vue-property-decorator";
 
 @Component({
-  components: { ListCard, VisitChart },
+  components: { ListCard, VisitChart, KeywordTable },
 })
 export default class extends Vue {}
 </script>
