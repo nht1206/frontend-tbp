@@ -3,6 +3,7 @@ import Option from "@/models/Option";
 import Page from "@/models/Page";
 import Product from "@/models/Product";
 import Retailer from "@/models/Retailer";
+import User from "@/models/User";
 
 export interface RootState {}
 
@@ -23,4 +24,9 @@ export interface CategoryState {
 
 export interface RetailerState {
   retailers: Retailer[];
+}
+
+export interface AuthState {
+  user: User | null;
+  error: Error | null;
 }

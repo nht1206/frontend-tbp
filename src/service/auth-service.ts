@@ -6,7 +6,11 @@ export interface LoginPayload {
   password: string;
 }
 
-function login(payload: LoginPayload): Promise<AxiosResponse<any>> {
+export interface LoginResponse {
+  accessToken: string;
+}
+
+function login(payload: LoginPayload): Promise<AxiosResponse<LoginResponse>> {
   return http.post("auth/login", payload);
 }
 

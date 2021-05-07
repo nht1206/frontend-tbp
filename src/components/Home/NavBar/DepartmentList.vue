@@ -67,7 +67,7 @@ export default class extends Vue {
     top: 100%;
     left: 0;
     width: 100%;
-    z-index: 10;
+    z-index: 9999;
     transform: translateY(2px);
 
     li {

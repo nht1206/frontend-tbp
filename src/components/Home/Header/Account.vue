@@ -1,10 +1,18 @@
 <template>
   <div class="acc-header-wrapper">
     <div class="account-section">
-      <button class="btn btn-primary" v-b-modal.sigin-signup>
+      <button
+        v-if="!user"
+        class="btn btn-primary btn-login"
+        v-b-modal.sigin-signup
+      >
         <i class="fa fa-sign-in" aria-hidden="true"></i
         ><span>Đăng nhập/Đăng ký</span>
         <authentication-modal></authentication-modal>
+      </button>
+      <button v-if="user" class="btn btn-primary btn-logout">
+        <span v-if="user">@{{ user.username }} </span>
+        <i class="fa fa-sign-out"></i>
       </button>
     </div>
     <div class="search-wrapper" v-click-outside="closeMiniSearch">
@@ -24,13 +32,23 @@
   </div>
 </template>
 <script lang="ts">
+import User from "@/models/User";
 import { Component, Vue } from "vue-property-decorator";
+import { mapGetters } from "vuex";
 import AuthenticationModal from "../modal/AuthenticationModal/AuthenticationModal.vue";
 import CompareCart from "./CompareCart.vue";
 
-@Component({ components: { CompareCart, AuthenticationModal } })
+@Component({
+  components: { CompareCart, AuthenticationModal },
+  computed: {
+    ...mapGetters({
+      user: "auth/user",
+    }),
+  },
+})
 export default class extends Vue {
   keyword = "";
+  user!: User;
   isMiniSearchShow = false;
   openMiniSearch(): void {
     this.isMiniSearchShow = !this.isMiniSearchShow;
@@ -46,6 +64,10 @@ export default class extends Vue {
     this.$store.dispatch("product/searchProducts", {
       keyword: this.keyword,
     });
+  }
+
+  mounted(): void {
+    this.$store.commit("auth/loadUser");
   }
 }
 </script>
@@ -80,7 +102,7 @@ export default class extends Vue {
     button:first-child {
       margin-right: 11px;
     }
-    button:hover {
+    .btn-login:hover {
       color: #f44336;
       background: transparent;
       border-color: transparent;

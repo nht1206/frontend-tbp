@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="alert alert-danger" role="alert">
-      Tài khoản hoặc mật khẩu không chính xác!
+    <div v-if="error" class="alert alert-danger" role="alert">
+      {{ error }}
     </div>
     <div class="form-group">
       <label for="inputUsername">Tên tài khoản</label>
@@ -56,6 +56,7 @@
 import useVuelidate from "@vuelidate/core";
 import { Component, Vue } from "vue-property-decorator";
 import { required, helpers } from "@vuelidate/validators";
+import { mapGetters } from "vuex";
 
 interface LoginForm {
   username: string;
@@ -85,9 +86,16 @@ interface LoginForm {
       },
     };
   },
+  computed: {
+    ...mapGetters({
+      error: "auth/error",
+    }),
+  },
 })
 export default class extends Vue {
   v$!: any;
+
+  error!: Error;
 
   loginForm: LoginForm = {
     username: "",
@@ -100,12 +108,13 @@ export default class extends Vue {
 
   reset(field: { $reset: () => void }): void {
     field.$reset();
+    this.$store.commit("auth/setError", null);
   }
 
   loginHandle(): void {
     this.v$.loginForm.$touch();
     if (!this.v$.$invalid) {
-      console.log(this.loginForm);
+      this.$store.dispatch("auth/login", this.loginForm);
     }
   }
 }
