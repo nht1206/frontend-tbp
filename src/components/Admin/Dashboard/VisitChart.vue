@@ -1,18 +1,18 @@
 <template>
   <div class="row">
     <div class="col-xl-8 col-lg-7">
-      <chart-card title="Tổng quan lược truy cập">
-        <template v-slot:chart>
+      <LargeCard title="Tổng quan lược truy cập">
+        <template v-slot:content>
           <line-chart :options="options" :chartData="lineData"></line-chart>
         </template>
-      </chart-card>
+      </LargeCard>
     </div>
     <div class="col-xl-4 col-lg-5">
-      <chart-card title="Tỉ lệ người truy cập có tài khoản">
-        <template v-slot:chart>
+      <LargeCard title="Tỉ lệ người truy cập có tài khoản">
+        <template v-slot:content>
           <pie-chart :options="options" :chartData="pieData"></pie-chart>
         </template>
-      </chart-card>
+      </LargeCard>
     </div>
   </div>
 </template>
@@ -22,9 +22,9 @@ import { ChartData, ChartOptions } from "chart.js";
 import { Component, Vue } from "vue-property-decorator";
 import LineChart from "../Chart/LineChart.vue";
 import PieChart from "../Chart/PieChart.vue";
-import ChartCard from "./ChartCard.vue";
+import LargeCard from "./LargeCard.vue";
 
-@Component({ components: { ChartCard, LineChart, PieChart } })
+@Component({ components: { LargeCard, LineChart, PieChart } })
 export default class extends Vue {
   options: ChartOptions = {
     responsive: true,

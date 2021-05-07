@@ -32,7 +32,7 @@
     <!-- Card Body -->
     <div class="card-body">
       <div class="chart-area">
-        <slot name="chart"></slot>
+        <slot name="content"></slot>
       </div>
     </div>
   </div>
