@@ -131,7 +131,7 @@ import { LoginForm } from "@/mixins/LoginMixin";
             minLength(8)
           ),
           maxLength: helpers.withMessage(
-            "Mật khẩu chỉ có tối đa 16 ký tự",
+            "Mật chỉ có tối đa 16 ký tự",
             maxLength(16)
           ),
         },

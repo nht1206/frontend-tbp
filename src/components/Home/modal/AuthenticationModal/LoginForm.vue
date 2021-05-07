@@ -55,7 +55,7 @@
 <script lang="ts">
 import useVuelidate from "@vuelidate/core";
 import { Component, Vue } from "vue-property-decorator";
-import { required, helpers } from "@vuelidate/validators";
+import { required, helpers, maxLength, minLength } from "@vuelidate/validators";
 import { mapGetters } from "vuex";
 import { LoginForm } from "@/mixins/LoginMixin";
 
@@ -72,11 +72,27 @@ import { LoginForm } from "@/mixins/LoginMixin";
             "Tài khoản không được để trống!",
             required
           ),
+          minLength: helpers.withMessage(
+            "Tài khoản phải từ 8 ký tự",
+            minLength(8)
+          ),
+          maxLength: helpers.withMessage(
+            "Tài khoản chỉ có tối đa 16 ký tự",
+            maxLength(16)
+          ),
         },
         password: {
           required: helpers.withMessage(
             "Mật khẩu không được để trống!",
             required
+          ),
+          minLength: helpers.withMessage(
+            "Mật khẩu phải từ 8 ký tự",
+            minLength(8)
+          ),
+          maxLength: helpers.withMessage(
+            "Mật chỉ có tối đa 16 ký tự",
+            maxLength(16)
           ),
         },
       },
