@@ -9,18 +9,17 @@
       >
     </div>
     <list-card></list-card>
+    <visit-chart></visit-chart>
   </div>
 </template>
 
 <script lang="ts">
 import ListCard from "@/components/Admin/Dashboard/ListCard.vue";
+import VisitChart from "@/components/Admin/Dashboard/VisitChart.vue";
 import { Component, Vue } from "vue-property-decorator";
 
 @Component({
-  components: { ListCard },
+  components: { ListCard, VisitChart },
 })
 export default class extends Vue {}
 </script>
-
-<style scoped>
-</style>
