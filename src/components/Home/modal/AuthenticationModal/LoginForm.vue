@@ -57,11 +57,7 @@ import useVuelidate from "@vuelidate/core";
 import { Component, Vue } from "vue-property-decorator";
 import { required, helpers } from "@vuelidate/validators";
 import { mapGetters } from "vuex";
-
-interface LoginForm {
-  username: string;
-  password: string;
-}
+import { LoginForm } from "@/mixins/LoginMixin";
 
 @Component({
   setup() {

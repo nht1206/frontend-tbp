@@ -2,33 +2,15 @@
   <nav
     class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"
   >
-    <!-- Sidebar Toggle (Topbar) -->
     <button
       id="sidebarToggleTop"
+      @click="toggleSidebar"
       class="btn btn-link d-md-none rounded-circle mr-3"
     >
       <i class="fa fa-bars"></i>
     </button>
 
-    <!-- Topbar Search -->
-    <form
-      class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
-    >
-      <div class="input-group">
-        <input
-          type="text"
-          class="form-control bg-light border-0 small"
-          placeholder="Search for..."
-          aria-label="Search"
-          aria-describedby="basic-addon2"
-        />
-        <div class="input-group-append">
-          <button class="btn btn-primary" type="button">
-            <i class="fa fa-search fa-sm"></i>
-          </button>
-        </div>
-      </div>
-    </form>
+    <search-box></search-box>
 
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
@@ -70,25 +52,12 @@
       </li>
 
       <!-- Nav Item - Alerts -->
-      <li class="nav-item dropdown no-arrow mx-1">
-        <a
-          class="nav-link dropdown-toggle"
-          href="#"
-          id="alertsDropdown"
-          role="button"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
+      <dropdown-nav-item :menuClasses="['dropdown-list']">
+        <template v-slot:title>
           <i class="fa fa-bell fa-fw"></i>
-          <!-- Counter - Alerts -->
           <span class="badge badge-danger badge-counter">3+</span>
-        </a>
-        <!-- Dropdown - Alerts -->
-        <div
-          class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-          aria-labelledby="alertsDropdown"
-        >
+        </template>
+        <template v-slot:items>
           <h6 class="dropdown-header">Alerts Center</h6>
           <a class="dropdown-item d-flex align-items-center" href="#">
             <div class="mr-3">
@@ -129,29 +98,16 @@
           <a class="dropdown-item text-center small text-gray-500" href="#"
             >Show All Alerts</a
           >
-        </div>
-      </li>
+        </template>
+      </dropdown-nav-item>
 
       <!-- Nav Item - Messages -->
-      <li class="nav-item dropdown no-arrow mx-1">
-        <a
-          class="nav-link dropdown-toggle"
-          href="#"
-          id="messagesDropdown"
-          role="button"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
+      <dropdown-nav-item :menuClasses="['dropdown-list']">
+        <template v-slot:title>
           <i class="fa fa-envelope fa-fw"></i>
-          <!-- Counter - Messages -->
           <span class="badge badge-danger badge-counter">7</span>
-        </a>
-        <!-- Dropdown - Messages -->
-        <div
-          class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-          aria-labelledby="messagesDropdown"
-        >
+        </template>
+        <template v-slot:items>
           <h6 class="dropdown-header">Message Center</h6>
           <a class="dropdown-item d-flex align-items-center" href="#">
             <div class="dropdown-list-image mr-3">
@@ -224,69 +180,70 @@
           <a class="dropdown-item text-center small text-gray-500" href="#"
             >Read More Messages</a
           >
-        </div>
-      </li>
+        </template>
+      </dropdown-nav-item>
 
-      <div class="topbar-divider d-none d-sm-block"></div>
+      <nav-bar-divider></nav-bar-divider>
 
       <!-- Nav Item - User Information -->
-      <li class="nav-item dropdown no-arrow">
-        <a
-          class="nav-link dropdown-toggle"
-          href="#"
-          id="userDropdown"
-          role="button"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
-          <span class="mr-2 d-none d-lg-inline text-gray-600 small"
-            >Douglas McGee</span
-          >
+      <dropdown-nav-item v-if="user">
+        <template v-slot:title>
+          <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{
+            user.fullName
+          }}</span>
           <img
             class="img-profile rounded-circle"
             src="@/assets/img/undraw_profile.svg"
           />
-        </a>
-        <!-- Dropdown - User Information -->
-        <div
-          class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-          aria-labelledby="userDropdown"
-        >
+        </template>
+        <template v-slot:items>
           <a class="dropdown-item" href="#">
             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-            Profile
+            Hồ sơ cá nhân
           </a>
           <a class="dropdown-item" href="#">
             <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-            Settings
-          </a>
-          <a class="dropdown-item" href="#">
-            <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-            Activity Log
+            Cài đặt
           </a>
           <div class="dropdown-divider"></div>
-          <a
-            class="dropdown-item"
-            href="#"
-            data-toggle="modal"
-            data-target="#logoutModal"
-          >
+          <button v-b-modal.logout-modal class="dropdown-item">
             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-            Logout
-          </a>
-        </div>
-      </li>
+            Đăng xuất
+          </button>
+          <logout-modal></logout-modal>
+        </template>
+      </dropdown-nav-item>
     </ul>
   </nav>
   <!-- End of Topbar -->
 </template>
 
 <script lang="ts">
+import User from "@/models/User";
 import { Component, Vue } from "vue-property-decorator";
+import { mapGetters } from "vuex";
+import LogoutModal from "../Modal/LogoutModal.vue";
+import DropdownNavItem from "./DropdownNavItem.vue";
+import NavBarDivider from "./NavBarDivider.vue";
+import SearchBox from "./SearchBox.vue";
 
-@Component
-export default class extends Vue {}
+@Component({
+  components: { DropdownNavItem, NavBarDivider, SearchBox, LogoutModal },
+  computed: {
+    ...mapGetters({
+      user: "auth/user",
+    }),
+  },
+})
+export default class extends Vue {
+  user!: User;
+
+  toggleSidebar(): void {
+    this.$root.$emit("toggleSidebar");
+  }
+
+  mounted(): void {
+    this.$store.commit("auth/loadUser");
+  }
+}
 </script>
-
-<style scoped></style>

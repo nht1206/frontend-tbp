@@ -1,28 +1,26 @@
 <template>
   <div>
-    <div id="wrapper">
-      <side-bar></side-bar>
-      <div id="content-wrapper" class="d-flex flex-column">
-        <div id="content">
-          <nav-bar></nav-bar>
-        </div>
-      </div>
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+      <a
+        href="#"
+        class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+        ><i class="fas fa-download fa-sm text-white-50"></i> Xuất báo cáo</a
+      >
     </div>
+    <list-card></list-card>
   </div>
 </template>
 
 <script lang="ts">
-import NavBar from "@/components/Admin/NavBar.vue";
-import SideBar from "@/components/Admin/SideBar/SideBar.vue";
+import ListCard from "@/components/Admin/Dashboard/ListCard.vue";
 import { Component, Vue } from "vue-property-decorator";
 
-import "@/assets/styles/sb-admin-2.min.css";
-import "@/assets/js/sb-admin-2.min";
-
 @Component({
-  components: { SideBar, NavBar },
+  components: { ListCard },
 })
 export default class extends Vue {}
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

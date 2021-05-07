@@ -1,3 +1,5 @@
+import authService from "@/service/auth-service";
+import storageService from "@/service/storage-service";
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import adminRoutes from "./routes/admin";
@@ -16,15 +18,47 @@ const routes: Array<RouteConfig> = [
     path: "/admin",
     component: () =>
       import(
-        /* webpackChunkName: "dashboard" */ "../views/Admin/Dashboard.vue"
+        /* webpackChunkName: "adminPage" */ "../views/Admin/AdminPage.vue"
       ),
     children: adminRoutes,
+    beforeEnter: (to, from, next) => {
+      authService
+        .validateToken()
+        .then(() => {
+          const user = storageService.extractUser();
+          if (user) {
+            if (user?.role.indexOf("ROLE_ADMIN") !== -1) {
+              next();
+            } else {
+              next({ path: "/" });
+            }
+          }
+          next();
+        })
+        .catch(() => {
+          next({ path: "/login" });
+        });
+    },
   },
   {
     path: "/about",
     name: "About",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/LoginAdmin.vue"),
+    beforeEnter: (to, from, next) => {
+      const token = storageService.getToken();
+      if (token) {
+        next({ path: from.path });
+      } else {
+        next();
+      }
+    },
   },
   {
     path: "*",

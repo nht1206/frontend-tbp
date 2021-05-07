@@ -1,7 +1,13 @@
 <template>
   <li class="nav-item">
-    <a class="nav-link" @click="toggle" :class="[{ collapsed: !open }]">
-      <i class="fa fa-fw fa-cog"></i>
+    <a
+      class="nav-link"
+      @click="toggle"
+      toggle="collapse"
+      :class="[{ collapsed: !open }]"
+    >
+      <slot name="icon"></slot>
+
       <span>{{ title }}</span>
     </a>
     <div id="collapseTwo" class="collapse" :class="{ show: open }">

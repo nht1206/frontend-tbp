@@ -27,7 +27,17 @@ function signup(payload: SignupPayload): Promise<AxiosResponse<any>> {
   return http.post("auth/registerGuest", payload);
 }
 
+function logout(): Promise<AxiosResponse<any>> {
+  return http.post("auth/logout");
+}
+
+function validateToken(): Promise<AxiosResponse<any>> {
+  return http.post("auth/validateToken");
+}
+
 export default {
   login,
   signup,
+  logout,
+  validateToken,
 };

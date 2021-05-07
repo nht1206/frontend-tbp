@@ -9,6 +9,7 @@
     "watch": "webpack --mode=development --watch"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "5.15.3",
     "@types/jquery": "^3.5.5",
     "@vue/composition-api": "^1.0.0-rc.8",
     "@vuelidate/core": "^2.0.0-alpha.16",

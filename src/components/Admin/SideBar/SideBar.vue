@@ -2,6 +2,7 @@
   <!-- Sidebar -->
   <ul
     class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+    :class="{ toggled }"
     id="accordionSidebar"
   >
     <!-- Sidebar - Brand -->
@@ -16,50 +17,76 @@
     <hr class="sidebar-divider my-0" />
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
-      <a class="nav-link" href="index.html">
-        <i class="fa fa-fw fa-tachometer"></i>
-        <span>Dashboard</span></a
-      >
-    </li>
+    <router-link to="/admin" custom v-slot="{ href, navigate, isActive }">
+      <li class="nav-item" :class="{ active: isActive }">
+        <a class="nav-link" @click="navigate" :href="href">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a
+        >
+      </li>
+    </router-link>
 
     <!-- Divider -->
     <hr class="sidebar-divider" />
 
     <!-- Heading -->
-    <div class="sidebar-heading">Interface</div>
+    <div class="sidebar-heading">Website</div>
 
-    <collapse-menu title="Components" subTitle="Custom components">
+    <collapse-menu title="Cài đặt" subTitle="Cài đặt trang web">
+      <template v-slot:icon>
+        <i class="fas fa-fw fa-cog"></i>
+      </template>
       <template v-slot:items>
-        <a class="collapse-item" href="buttons.html">Buttons</a>
-        <a class="collapse-item" href="cards.html">Cards</a>
+        <router-link
+          to="admin/category"
+          custom
+          v-slot="{ href, navigate, isActive }"
+        >
+          <a
+            class="collapse-item"
+            :class="{ active: isActive }"
+            :href="href"
+            @click="navigate"
+            >Quản lý danh mục</a
+          >
+        </router-link>
+        <a class="collapse-item" href="#.html">Quản lý banner</a>
+        <a class="collapse-item" href="#.html">Quản lý nhà bán lẽ</a>
       </template>
     </collapse-menu>
-    <collapse-menu title="Utilities" subTitle="Custom Utilities:">
+    <collapse-menu
+      title="Tài khoản người dùng"
+      subTitle="Quản lý tài khoản người dùng"
+    >
+      <template v-slot:icon>
+        <i class="fas fa-users"></i>
+      </template>
       <template v-slot:items>
-        <a class="collapse-item" href="utilities-color.html">Colors</a>
-        <a class="collapse-item" href="utilities-border.html">Borders</a>
-        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-        <a class="collapse-item" href="utilities-other.html">Other</a>
+        <a class="collapse-item" href="#.html">Quản lý người dùng</a>
+        <a class="collapse-item" href="#.html">Quản lý chủ cửa hàng</a>
       </template>
     </collapse-menu>
 
     <!-- Divider -->
-    <hr class="sidebar-divider" />
+    <!-- <hr class="sidebar-divider" /> -->
     <!-- Nav Item - Tables -->
-    <li class="nav-item">
+    <!-- <li class="nav-item">
       <a class="nav-link" href="tables.html">
         <i class="fa fa-fw fa-table"></i>
         <span>Tables</span></a
       >
-    </li>
+    </li> -->
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block" />
 
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
-      <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      <button
+        @click="toggle"
+        class="rounded-circle border-0"
+        id="sidebarToggle"
+      ></button>
     </div>
   </ul>
   <!-- End of Sidebar -->
@@ -70,7 +97,23 @@ import { Component, Vue } from "vue-property-decorator";
 import CollapseMenu from "./CollapseMenu.vue";
 
 @Component({ components: { CollapseMenu } })
-export default class extends Vue {}
+export default class extends Vue {
+  toggled = false;
+
+  toggle(): void {
+    this.toggled = !this.toggled;
+  }
+
+  mounted(): void {
+    this.$root.$on("toggleSidebar", this.toggle);
+  }
+}
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.navbar-nav {
+  background-color: #ffc288;
+  background-image: linear-gradient(180deg, #fea82f 10%, #fea82f 100%);
+  background-size: cover;
+}
+</style>
