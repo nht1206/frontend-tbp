@@ -32,7 +32,30 @@
     <!-- Heading -->
     <div class="sidebar-heading">Website</div>
 
-    <collapse-menu title="Cài đặt" subTitle="Cài đặt trang web">
+    <collapse-menu
+      title="Tài khoản người dùng"
+      subTitle="Quản lý tài khoản người dùng"
+    >
+      <template v-slot:icon>
+        <i class="fas fa-users"></i>
+      </template>
+      <template v-slot:items>
+        <a class="collapse-item" href="#.html">Quản lý người dùng</a>
+        <a class="collapse-item" href="#.html">Quản lý chủ cửa hàng</a>
+      </template>
+    </collapse-menu>
+
+    <collapse-menu title="Sản phẩm" subTitle="Quản lý sản phẩm">
+      <template v-slot:icon>
+        <i class="fas fa-box"></i>
+      </template>
+      <template v-slot:items>
+        <a class="collapse-item" href="#.html">Quản lý sản phẩm</a>
+        <a class="collapse-item" href="#.html">Thống kê</a>
+      </template>
+    </collapse-menu>
+
+    <collapse-menu title="Thiết lập" subTitle="Thiết lập trang web">
       <template v-slot:icon>
         <i class="fas fa-fw fa-cog"></i>
       </template>
@@ -52,18 +75,6 @@
         </router-link>
         <a class="collapse-item" href="#.html">Quản lý banner</a>
         <a class="collapse-item" href="#.html">Quản lý nhà bán lẽ</a>
-      </template>
-    </collapse-menu>
-    <collapse-menu
-      title="Tài khoản người dùng"
-      subTitle="Quản lý tài khoản người dùng"
-    >
-      <template v-slot:icon>
-        <i class="fas fa-users"></i>
-      </template>
-      <template v-slot:items>
-        <a class="collapse-item" href="#.html">Quản lý người dùng</a>
-        <a class="collapse-item" href="#.html">Quản lý chủ cửa hàng</a>
       </template>
     </collapse-menu>
 
