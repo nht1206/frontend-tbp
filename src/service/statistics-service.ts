@@ -1,5 +1,6 @@
 import { AxiosResponse } from "axios";
 import http from "@/service/http";
+import Page from "@/models/Page";
 
 export interface OverviewResponse {
   product: number;
@@ -13,8 +14,18 @@ function getOverviewStatistics(): Promise<AxiosResponse<OverviewResponse>> {
   return http.get<OverviewResponse>("dashboard/overView");
 }
 
-function getKeywordStatistics(): Promise<AxiosResponse<any>> {
-  return http.get("dashboard/statisticKeyword");
+export interface KeywordStatisticsResponse {
+  id: number;
+  keyword: string;
+  numberOfSearch: number;
+}
+
+function getKeywordStatistics(): Promise<
+  AxiosResponse<Page<KeywordStatisticsResponse>>
+> {
+  return http.get<Page<KeywordStatisticsResponse>>(
+    "dashboard/statisticKeyword"
+  );
 }
 
 export default {

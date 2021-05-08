@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-12">
-      <large-card title="Thống kê từ khóa được tìm kiếm">
+      <large-card title="Thống kê từ khóa được tìm kiếm nhiều nhất">
         <template v-slot:content>
           <b-table striped hover :items="items" :fields="fields"></b-table>
         </template>
@@ -11,6 +11,9 @@
 </template>
 
 <script lang="ts">
+import statisticsService, {
+  KeywordStatisticsResponse,
+} from "@/service/statistics-service";
 import { Component, Vue } from "vue-property-decorator";
 import LargeCard from "./LargeCard.vue";
 
@@ -29,17 +32,20 @@ export default class extends Vue {
       label: "Từ khóa",
     },
     {
-      key: "count",
+      key: "numberOfSearch",
       label: "Số lần được tìm kiếm",
       sortable: true,
     },
   ];
-  items = [
-    { id: 1, keyword: "Dickerson", count: 250 },
-    { id: 2, keyword: "Larsen", count: 253 },
-    { id: 3, keyword: "Geneva", count: 520 },
-    { id: 4, keyword: "Jami", count: 254 },
-  ];
+
+  items: KeywordStatisticsResponse[] = [];
+
+  created(): void {
+    statisticsService.getKeywordStatistics().then((res) => {
+      this.items = res.data.content;
+      console.log(res.data.content);
+    });
+  }
 }
 </script>
 
