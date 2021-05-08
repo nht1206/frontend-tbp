@@ -2,8 +2,6 @@ import authService, { LoginPayload } from "@/service/auth-service";
 import storageService from "@/service/storage-service";
 import { Module } from "vuex";
 import { AuthState, RootState } from "../types";
-import jwt_decode from "jwt-decode";
-import User from "@/models/User";
 import router from "@/router";
 export const state: AuthState = {
   user: null,
