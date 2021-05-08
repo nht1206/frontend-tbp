@@ -4,8 +4,9 @@
     :class="[{ active: isShow }]"
     @mouseover="open"
     @mouseleave="close"
+    @click="click(category.id)"
   >
-    <a @click="click(category.id)">
+    <a>
       <span class="sub-list-main-menu">{{ category.title }}</span>
       <i
         v-if="haveSubCategories"
@@ -18,8 +19,12 @@
         <div class="row">
           <div class="col-auto">
             <ul class="wd-sub-menu">
-              <li v-for="c in category.categories" :key="c.id">
-                <a @click="click(c.id)">{{ c.title }}</a>
+              <li
+                v-for="c in category.categories"
+                :key="c.id"
+                @click="click(c.id)"
+              >
+                <a>{{ c.title }}</a>
               </li>
             </ul>
           </div>

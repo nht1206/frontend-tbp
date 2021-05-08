@@ -53,6 +53,7 @@ export default class extends Vue {
   overflow: hidden;
   transition: 0.5s;
   transform: translateY(0);
+  height: 100%;
 
   .hover-img {
     position: absolute;
