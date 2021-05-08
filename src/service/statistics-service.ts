@@ -28,7 +28,23 @@ function getKeywordStatistics(): Promise<
   );
 }
 
+export interface VisitStatisticsResponse {
+  rateUser: {
+    auth: number;
+    anonymous: number;
+  };
+  statisticAccess: number[];
+  statisticSearch: number[];
+}
+
+function getVisitStatistics(
+  type = "month"
+): Promise<AxiosResponse<VisitStatisticsResponse>> {
+  return http.get<VisitStatisticsResponse>(`dashboard/statistic?type=${type}`);
+}
+
 export default {
   getOverviewStatistics,
   getKeywordStatistics,
+  getVisitStatistics,
 };
