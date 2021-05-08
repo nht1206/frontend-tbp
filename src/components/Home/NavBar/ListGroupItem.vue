@@ -96,3 +96,12 @@ export default class extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.list-group-item {
+  i {
+    float: right;
+    margin-right: 20px;
+  }
+}
+</style>

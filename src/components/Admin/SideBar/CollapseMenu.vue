@@ -1,5 +1,5 @@
 <template>
-  <li class="nav-item">
+  <li class="nav-item" v-click-outside="close">
     <a
       class="nav-link"
       @click="toggle"
@@ -33,6 +33,10 @@ export default class extends Vue {
 
   toggle(): void {
     this.open = !this.open;
+  }
+
+  close(): void {
+    this.open = false;
   }
 }
 </script>
