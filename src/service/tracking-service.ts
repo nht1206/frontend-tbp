@@ -15,7 +15,12 @@ function trackingProduct(id: string): Promise<AxiosResponse<any>> {
   return http.post(`tracking/product?id=${id}`);
 }
 
+function trackingAccess(): Promise<AxiosResponse<any>> {
+  return http.post("tracking/access");
+}
+
 export default {
   trackingKeyword,
   trackingProduct,
+  trackingAccess,
 };

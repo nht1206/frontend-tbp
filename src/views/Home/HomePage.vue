@@ -30,6 +30,7 @@ import "lightslider/dist/js/lightslider";
 import "jquery-circle-progress/dist/circle-progress";
 
 import "@/assets/styles/animate.css";
+import trackingService from "@/service/tracking-service";
 
 @Component({
   components: {
@@ -42,5 +43,9 @@ import "@/assets/styles/animate.css";
     ScrollUp,
   },
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  created(): void {
+    trackingService.trackingAccess();
+  }
+}
 </script>
