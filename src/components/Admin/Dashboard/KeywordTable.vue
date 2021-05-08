@@ -43,7 +43,6 @@ export default class extends Vue {
   created(): void {
     statisticsService.getKeywordStatistics().then((res) => {
       this.items = res.data.content;
-      console.log(res.data.content);
     });
   }
 }
