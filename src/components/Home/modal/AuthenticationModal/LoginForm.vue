@@ -12,6 +12,7 @@
         id="inputUsername"
         v-model="v$.loginForm.username.$model"
         @focus="reset(v$.loginForm.username)"
+        @input="reset(v$.loginForm.username)"
       />
       <div class="invalid-feedback">
         <template v-for="error of v$.loginForm.username.$errors">
@@ -27,6 +28,7 @@
         :class="[{ 'is-invalid': isInvalid(v$.loginForm.password) }]"
         id="inputPassword"
         @focus="reset(v$.loginForm.password)"
+        @input="reset(v$.loginForm.password)"
         v-model="v$.loginForm.password.$model"
       />
       <div class="invalid-feedback">

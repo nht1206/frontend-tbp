@@ -18,6 +18,7 @@
 </template>
 
 <script lang="ts">
+import statisticsService from "@/service/statistics-service";
 import { ChartData, ChartOptions } from "chart.js";
 import { Component, Vue } from "vue-property-decorator";
 import LineChart from "../Chart/LineChart.vue";
@@ -91,6 +92,12 @@ export default class extends Vue {
       },
     ],
   };
+
+  created(): void {
+    statisticsService.getVisitStatistics().then((res) => {
+      console.log(res.data);
+    });
+  }
 }
 </script>
 

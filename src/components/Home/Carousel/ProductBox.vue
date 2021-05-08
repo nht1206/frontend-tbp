@@ -10,7 +10,7 @@
           <a :href="href" @click="navigate">
             <img
               v-if="!!product.images"
-              :src="product.images[1]"
+              :src="product.images[0]"
               class="figure-img img-fluid"
               alt="Product Img"
             />

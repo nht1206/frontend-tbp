@@ -14,6 +14,7 @@
         :class="[{ 'is-invalid': isInvalid(v$.signupForm.username) }]"
         v-model="v$.signupForm.username.$model"
         @focus="reset(v$.signupForm.username)"
+        @input="reset(v$.signupForm.username)"
         id="inputUsername-signup"
       />
       <div class="invalid-feedback">
@@ -30,6 +31,7 @@
         :class="[{ 'is-invalid': isInvalid(v$.signupForm.fullName) }]"
         v-model="v$.signupForm.fullName.$model"
         @focus="reset(v$.signupForm.fullName)"
+        @input="reset(v$.signupForm.fullName)"
         id="inputName-signup"
       />
       <div class="invalid-feedback">
@@ -46,6 +48,7 @@
         :class="[{ 'is-invalid': isInvalid(v$.signupForm.email) }]"
         v-model="v$.signupForm.email.$model"
         @focus="reset(v$.signupForm.email)"
+        @input="reset(v$.signupForm.email)"
         id="inputEmail-signup"
       />
       <div class="invalid-feedback">
@@ -62,6 +65,7 @@
         :class="[{ 'is-invalid': isInvalid(v$.signupForm.address) }]"
         v-model="v$.signupForm.address.$model"
         @focus="reset(v$.signupForm.address)"
+        @input="reset(v$.signupForm.address)"
         id="inputAddress-signup"
       />
       <div class="invalid-feedback">
@@ -78,6 +82,7 @@
         :class="[{ 'is-invalid': isInvalid(v$.signupForm.phoneNumber) }]"
         v-model="v$.signupForm.phoneNumber.$model"
         @focus="reset(v$.signupForm.phoneNumber)"
+        @input="reset(v$.signupForm.phoneNumber)"
         id="inputPhoneNumber-signup"
       />
       <div class="invalid-feedback">
@@ -94,6 +99,7 @@
         :class="[{ 'is-invalid': isInvalid(v$.signupForm.password) }]"
         v-model="v$.signupForm.password.$model"
         @focus="reset(v$.signupForm.password)"
+        @input="reset(v$.signupForm.password)"
         id="nputPassword-signup"
       />
       <div class="invalid-feedback">
@@ -115,7 +121,13 @@
 <script lang="ts">
 import authService from "@/service/auth-service";
 import useVuelidate from "@vuelidate/core";
-import { helpers, required } from "@vuelidate/validators";
+import {
+  email,
+  helpers,
+  maxLength,
+  minLength,
+  required,
+} from "@vuelidate/validators";
 import { Component, Vue } from "vue-property-decorator";
 
 interface SignupForm {
@@ -140,12 +152,21 @@ interface SignupForm {
             "Tài khoản không được để trống!",
             required
           ),
+          minLength: helpers.withMessage(
+            "Tài khoản phải từ 8 ký tự",
+            minLength(8)
+          ),
+          maxLength: helpers.withMessage(
+            "Tài khoản chỉ có tối đa 16 ký tự",
+            maxLength(16)
+          ),
         },
         fullName: {
           required: helpers.withMessage("Tên không được để trống!", required),
         },
         email: {
           required: helpers.withMessage("Email không được để trống!", required),
+          email: helpers.withMessage("Email không đúng định dạng!", email),
         },
         address: {
           required: helpers.withMessage(
@@ -163,6 +184,14 @@ interface SignupForm {
           required: helpers.withMessage(
             "Mật khẩu không được để trống!",
             required
+          ),
+          minLength: helpers.withMessage(
+            "Mật khẩu phải từ 8 ký tự",
+            minLength(8)
+          ),
+          maxLength: helpers.withMessage(
+            "Mật chỉ có tối đa 16 ký tự",
+            maxLength(16)
           ),
         },
       },
