@@ -5,27 +5,21 @@
       class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
     >
       <h6 class="m-0 font-weight-bold text-primary">{{ title }}</h6>
-      <div class="dropdown no-arrow">
+      <div class="dropdown no-arrow" v-click-outside="close">
         <a
           class="dropdown-toggle"
-          href="#"
           role="button"
-          id="dropdownMenuLink"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
+          toggle="dropdown"
+          @click="toggle"
         >
           <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
         </a>
         <div
           class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+          :class="{ show: dropdownOpen }"
           aria-labelledby="dropdownMenuLink"
         >
-          <div class="dropdown-header">Dropdown Header:</div>
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <slot name="dropdown-menu"></slot>
         </div>
       </div>
     </div>
@@ -43,6 +37,16 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 export default class extends Vue {
   @Prop({ required: true })
   title!: string;
+
+  dropdownOpen = false;
+
+  toggle(): void {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
+
+  close(): void {
+    this.dropdownOpen = false;
+  }
 }
 </script>
 
@@ -51,5 +55,8 @@ export default class extends Vue {
   > div {
     height: inherit;
   }
+}
+.dropdown-toggle {
+  cursor: pointer;
 }
 </style>

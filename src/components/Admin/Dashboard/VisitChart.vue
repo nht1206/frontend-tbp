@@ -8,17 +8,24 @@
             :chartData="lineData"
           ></line-chart>
         </template>
+        <template v-slot:dropdown-menu>
+          <div class="dropdown-header">Dropdown Header:</div>
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </template>
       </LargeCard>
     </div>
     <div class="col-xl-4 col-lg-5">
-      <LargeCard title="Tỉ lệ người truy cập có tài khoản">
+      <BasicCard title="Tỉ lệ người truy cập có tài khoản">
         <template v-slot:content>
           <pie-chart
             :options="pieChartOptions"
             :chartData="pieData"
           ></pie-chart>
         </template>
-      </LargeCard>
+      </BasicCard>
     </div>
   </div>
 </template>
@@ -27,11 +34,12 @@
 import statisticsService from "@/service/statistics-service";
 import { ChartData, ChartOptions } from "chart.js";
 import { Component, Vue } from "vue-property-decorator";
+import BasicCard from "../Card/BasicCard.vue";
 import LineChart from "../Chart/LineChart.vue";
 import PieChart from "../Chart/PieChart.vue";
-import LargeCard from "./LargeCard.vue";
+import LargeCard from "../Card/DropdownCard.vue";
 
-@Component({ components: { LargeCard, LineChart, PieChart } })
+@Component({ components: { LargeCard, LineChart, PieChart, BasicCard } })
 export default class extends Vue {
   options: ChartOptions = {
     responsive: true,

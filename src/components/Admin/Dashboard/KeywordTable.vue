@@ -1,11 +1,11 @@
 <template>
   <div class="row">
     <div class="col-12">
-      <large-card title="Thống kê từ khóa được tìm kiếm nhiều nhất">
+      <BasicCard title="Thống kê từ khóa được tìm kiếm nhiều nhất">
         <template v-slot:content>
           <b-table striped hover :items="items" :fields="fields"></b-table>
         </template>
-      </large-card>
+      </BasicCard>
     </div>
   </div>
 </template>
@@ -15,10 +15,10 @@ import statisticsService, {
   KeywordStatisticsResponse,
 } from "@/service/statistics-service";
 import { Component, Vue } from "vue-property-decorator";
-import LargeCard from "./LargeCard.vue";
+import BasicCard from "../Card/BasicCard.vue";
 
 @Component({
-  components: { LargeCard },
+  components: { BasicCard },
 })
 export default class extends Vue {
   fields = [
