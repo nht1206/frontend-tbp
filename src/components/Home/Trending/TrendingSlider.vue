@@ -8,6 +8,7 @@
           </div>
         </div>
         <product-carousel
+          v-if="productList"
           :products="productList"
           :sliderId="'product-slider'"
         ></product-carousel>
@@ -17,62 +18,21 @@
 </template>
 
 <script lang="ts">
+import Product from "@/models/Product";
+import productService from "@/service/product-service";
 import { Component, Vue } from "vue-property-decorator";
 import ProductBox from "../Carousel/ProductBox.vue";
 import ProductCarousel from "../Carousel/ProductCarousel.vue";
 
 @Component({ components: { ProductBox, ProductCarousel } })
 export default class extends Vue {
-  productList = [
-    {
-      img:
-        "https://www.themeim.com/demo/blurb/demo/img/product-img/product-img-1.jpg",
-      lowestPrice: "2.500.000 VNĐ",
-      highestPrice: "5.000.000 VNĐ",
-      isNew: true,
-      shortDescription: "Cras in nunc non ipsum",
-    },
-    {
-      img:
-        "https://www.themeim.com/demo/blurb/demo/img/product-img/product-img-2.jpg",
-      lowestPrice: "2.500.000 VNĐ",
-      highestPrice: "5.000.000 VNĐ",
-      isNew: true,
-      shortDescription: "Cras in nunc non ipsum",
-    },
-    {
-      img:
-        "https://www.themeim.com/demo/blurb/demo/img/product-img/product-img-3.jpg",
-      lowestPrice: "2.500.000 VNĐ",
-      highestPrice: "5.000.000 VNĐ",
-      isNew: true,
-      shortDescription: "Cras in nunc non ipsum",
-    },
-    {
-      img:
-        "https://www.themeim.com/demo/blurb/demo/img/product-img/product-img-4.jpg",
-      lowestPrice: "2.500.000 VNĐ",
-      highestPrice: "5.000.000 VNĐ",
-      isNew: true,
-      shortDescription: "Cras in nunc non ipsum",
-    },
-    {
-      img:
-        "https://www.themeim.com/demo/blurb/demo/img/product-img/product-img-5.jpg",
-      lowestPrice: "2.500.000 VNĐ",
-      highestPrice: "5.000.000 VNĐ",
-      isNew: true,
-      shortDescription: "Cras in nunc non ipsum",
-    },
-    {
-      img:
-        "https://www.themeim.com/demo/blurb/demo/img/product-img/product-img-6.jpg",
-      lowestPrice: "2.500.000 VNĐ",
-      highestPrice: "5.000.000 VNĐ",
-      isNew: true,
-      shortDescription: "Cras in nunc non ipsum",
-    },
-  ];
+  productList: Product[] | null = null;
+
+  created(): void {
+    productService.getProductHotDeal().then((res) => {
+      this.productList = res.data;
+    });
+  }
 }
 </script>
 

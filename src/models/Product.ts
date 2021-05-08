@@ -9,11 +9,12 @@ export default interface Product {
   shortDescription: string;
   longDescription: string;
   images: string[];
+  rate: number;
   lowestPrice: number;
   highestPrice: number;
   prices: {
     url: string;
     price: number;
     store: Store;
-  };
+  }[];
 }

@@ -20,8 +20,23 @@ function getSuggestion(keyword: string): Promise<AxiosResponse<Suggestion[]>> {
   return http.get<Suggestion[]>(`suggestion?keyword=${keyword}`);
 }
 
+function getLaptopHotDeal(): Promise<AxiosResponse<Product[]>> {
+  return http.get("hotDeal/top10Laptop");
+}
+
+function getSmartPhoneHotDeal(): Promise<AxiosResponse<Product[]>> {
+  return http.get("hotDeal/top10Smartphone");
+}
+
+function getProductHotDeal(): Promise<AxiosResponse<Product[]>> {
+  return http.get("hotDeal/top10Product");
+}
+
 export default {
   searchProduct,
   findById,
   getSuggestion,
+  getLaptopHotDeal,
+  getProductHotDeal,
+  getSmartPhoneHotDeal,
 };

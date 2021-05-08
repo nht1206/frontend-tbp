@@ -3,16 +3,18 @@
     <MainSlider></MainSlider>
     <Service></Service>
     <TopDealSlider
-      storeName="Gian hàng 1"
+      v-if="laptopHotDeal"
+      storeName="Laptop"
       :storeNumber="1"
-      :products="productList"
+      :products="laptopHotDeal"
     ></TopDealSlider>
     <TopDealSlider
-      storeName="Gian hàng 2"
+      v-if="smartPhoneHotDeal"
+      storeName="Smart phone"
       :storeNumber="2"
-      :products="productList"
+      :products="smartPhoneHotDeal"
     ></TopDealSlider>
-    <TrendingSlider></TrendingSlider>
+    <trending-slider></trending-slider>
   </div>
 </template>
 
@@ -21,6 +23,8 @@ import MainSlider from "@/components/Home/MainSlider/MainSlider.vue";
 import Service from "@/components/Home/Service/Service.vue";
 import TopDealSlider from "@/components/Home/TopDeal/TopDealSlider.vue";
 import TrendingSlider from "@/components/Home/Trending/TrendingSlider.vue";
+import Product from "@/models/Product";
+import productService from "@/service/product-service";
 import { Component, Vue } from "vue-property-decorator";
 
 @Component({
@@ -32,55 +36,16 @@ import { Component, Vue } from "vue-property-decorator";
   },
 })
 export default class Home extends Vue {
-  productList = [
-    {
-      img:
-        "https://www.themeim.com/demo/blurb/demo/img/product-img/product-img-1.jpg",
-      lowestPrice: "2.500.000 VNĐ",
-      highestPrice: "5.000.000 VNĐ",
-      isNew: true,
-      shortDescription: "Cras in nunc non ipsum",
-    },
-    {
-      img:
-        "https://www.themeim.com/demo/blurb/demo/img/product-img/product-img-2.jpg",
-      lowestPrice: "2.500.000 VNĐ",
-      highestPrice: "5.000.000 VNĐ",
-      isNew: true,
-      shortDescription: "Cras in nunc non ipsum",
-    },
-    {
-      img:
-        "https://www.themeim.com/demo/blurb/demo/img/product-img/product-img-3.jpg",
-      lowestPrice: "2.500.000 VNĐ",
-      highestPrice: "5.000.000 VNĐ",
-      isNew: false,
-      shortDescription: "Cras in nunc non ipsum",
-    },
-    {
-      img:
-        "https://www.themeim.com/demo/blurb/demo/img/product-img/product-img-4.jpg",
-      lowestPrice: "2.500.000 VNĐ",
-      highestPrice: "5.000.000 VNĐ",
-      isNew: true,
-      shortDescription: "Cras in nunc non ipsum",
-    },
-    {
-      img:
-        "https://www.themeim.com/demo/blurb/demo/img/product-img/product-img-5.jpg",
-      lowestPrice: "2.500.000 VNĐ",
-      highestPrice: "5.000.000 VNĐ",
-      isNew: false,
-      shortDescription: "Cras in nunc non ipsum",
-    },
-    {
-      img:
-        "https://www.themeim.com/demo/blurb/demo/img/product-img/product-img-6.jpg",
-      lowestPrice: "2.500.000 VNĐ",
-      highestPrice: "5.000.000 VNĐ",
-      isNew: true,
-      shortDescription: "Cras in nunc non ipsum",
-    },
-  ];
+  laptopHotDeal: Product[] | null = null;
+  smartPhoneHotDeal: Product[] | null = null;
+
+  created() {
+    productService.getLaptopHotDeal().then((res) => {
+      this.laptopHotDeal = res.data;
+    });
+    productService.getSmartPhoneHotDeal().then((res) => {
+      this.smartPhoneHotDeal = res.data;
+    });
+  }
 }
 </script>
