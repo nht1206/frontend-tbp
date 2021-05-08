@@ -56,11 +56,12 @@ export default class extends Vue {
         {
           ticks: {
             maxTicksLimit: 5,
-            padding: 10,
+            padding: 0,
             // Include a dollar sign in the ticks
             callback: function (value, index, values) {
               return value + " lượt";
             },
+            beginAtZero: true,
           },
           gridLines: {
             color: "rgb(234, 236, 244)",

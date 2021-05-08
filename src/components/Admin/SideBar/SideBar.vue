@@ -61,7 +61,7 @@
       </template>
       <template v-slot:items>
         <router-link
-          to="admin/category"
+          to="/category"
           custom
           v-slot="{ href, navigate, isActive }"
         >
