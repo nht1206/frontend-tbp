@@ -26,6 +26,7 @@
                         id="inputUsername"
                         v-model="v$.loginForm.username.$model"
                         @focus="reset(v$.loginForm.username)"
+                        @input="reset(v$.loginForm.username)"
                         aria-describedby="username"
                         placeholder="Nhập tên đăng nhập"
                       />
@@ -46,6 +47,7 @@
                         ]"
                         id="inputPassword"
                         @focus="reset(v$.loginForm.password)"
+                        @input="reset(v$.loginForm.password)"
                         v-model="v$.loginForm.password.$model"
                         placeholder="Nhập mật khẩu"
                       />
