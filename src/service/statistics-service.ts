@@ -1,8 +1,16 @@
 import { AxiosResponse } from "axios";
 import http from "@/service/http";
 
-function getOverviewStatistics(): Promise<AxiosResponse<any>> {
-  return http.get("dashboard/overView");
+export interface OverviewResponse {
+  product: number;
+  retailer: number;
+  search: number;
+  user: number;
+  visitor: number;
+}
+
+function getOverviewStatistics(): Promise<AxiosResponse<OverviewResponse>> {
+  return http.get<OverviewResponse>("dashboard/overView");
 }
 
 function getKeywordStatistics(): Promise<AxiosResponse<any>> {
