@@ -67,7 +67,10 @@ export default class extends Vue {
   category!: Category;
 
   haveSubCategories(): boolean {
-    return this.category.categories.length !== 0;
+    if (this.category.categories) {
+      return this.category.categories.length !== 0;
+    }
+    return false;
   }
 
   open(): void {
