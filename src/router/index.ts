@@ -27,7 +27,7 @@ const routes: Array<RouteConfig> = [
         .then(() => {
           const user = storageService.extractUser();
           if (user) {
-            if (user?.role.indexOf("ROLE_ADMIN") !== -1) {
+            if (user?.role === "ROLE_ADMIN") {
               next();
             } else {
               next({ path: "/" });

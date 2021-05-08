@@ -28,7 +28,7 @@ export const auth: Module<AuthState, RootState> = {
         storageService.saveToken(res.data.accessToken);
         const user = storageService.extractUser();
         if (user) {
-          if (user?.role.indexOf("ROLE_ADMIN") !== -1) {
+          if (user?.role === "ROLE_ADMIN") {
             router.push("/admin");
           }
           state.user = user;
