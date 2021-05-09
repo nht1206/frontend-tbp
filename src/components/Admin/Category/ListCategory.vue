@@ -120,11 +120,6 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.btn-create {
-  background-color: #fea82f;
-  color: aliceblue;
-}
-
 .list-item {
   list-style-type: none;
   .action-area {
