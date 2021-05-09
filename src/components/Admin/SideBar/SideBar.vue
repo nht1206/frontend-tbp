@@ -6,12 +6,15 @@
     id="accordionSidebar"
   >
     <!-- Sidebar - Brand -->
-    <a
-      class="sidebar-brand d-flex align-items-center justify-content-center"
-      href="index.html"
-    >
-      <div class="sidebar-brand-text mx-3">The best price</div>
-    </a>
+    <router-link to="/" custom v-slot="{ href, navigate }">
+      <a
+        class="sidebar-brand d-flex align-items-center justify-content-center"
+        :href="href"
+        @click="navigate"
+      >
+        <div class="sidebar-brand-text mx-3">The best price</div>
+      </a>
+    </router-link>
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0" />
@@ -32,16 +35,37 @@
     <!-- Heading -->
     <div class="sidebar-heading">Website</div>
 
-    <collapse-menu
-      title="Tài khoản người dùng"
-      subTitle="Quản lý tài khoản người dùng"
-    >
+    <collapse-menu title="Tài khoản" subTitle="Quản lý tài khoản">
       <template v-slot:icon>
         <i class="fas fa-users"></i>
       </template>
       <template v-slot:items>
-        <a class="collapse-item" href="#.html">Quản lý người dùng</a>
-        <a class="collapse-item" href="#.html">Quản lý chủ cửa hàng</a>
+        <router-link
+          to="/guest-account"
+          custom
+          v-slot="{ href, navigate, isActive }"
+        >
+          <a
+            class="collapse-item"
+            :class="{ active: isActive }"
+            :href="href"
+            @click="navigate"
+            >Tài khoản người dùng</a
+          >
+        </router-link>
+        <router-link
+          to="/retailer-account"
+          custom
+          v-slot="{ href, navigate, isActive }"
+        >
+          <a
+            class="collapse-item"
+            :class="{ active: isActive }"
+            :href="href"
+            @click="navigate"
+            >Tài khoản chủ cửa hàng</a
+          >
+        </router-link>
       </template>
     </collapse-menu>
 
@@ -74,7 +98,6 @@
           >
         </router-link>
         <a class="collapse-item" href="#.html">Quản lý banner</a>
-        <a class="collapse-item" href="#.html">Quản lý nhà bán lẽ</a>
       </template>
     </collapse-menu>
 
