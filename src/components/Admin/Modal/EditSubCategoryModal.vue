@@ -1,7 +1,7 @@
 <template>
   <b-modal
     id="edit-sub-category-modal"
-    title="Tạo mới danh mục"
+    title="Chỉnh sửa danh mục"
     @shown="resetData"
   >
     <form>

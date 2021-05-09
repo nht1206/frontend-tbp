@@ -20,11 +20,11 @@ export interface KeywordStatisticsResponse {
   numberOfSearch: number;
 }
 
-function getKeywordStatistics(): Promise<
-  AxiosResponse<Page<KeywordStatisticsResponse>>
-> {
+function getKeywordStatistics(
+  params = ""
+): Promise<AxiosResponse<Page<KeywordStatisticsResponse>>> {
   return http.get<Page<KeywordStatisticsResponse>>(
-    "dashboard/statisticKeyword"
+    "dashboard/statisticKeyword" + params
   );
 }
 

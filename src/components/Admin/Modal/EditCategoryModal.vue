@@ -1,5 +1,9 @@
 <template>
-  <b-modal id="edit-category-modal" title="Tạo mới danh mục" @shown="resetData">
+  <b-modal
+    id="edit-category-modal"
+    title="Chỉnh sửa danh mục"
+    @shown="resetData"
+  >
     <form>
       <div v-if="!!success" class="alert alert-success">{{ success }}</div>
       <div v-if="!!error" class="alert alert-danger">{{ error }}</div>
