@@ -18,6 +18,10 @@
       <create-sub-category-modal
         :parentId="selectedParentId"
       ></create-sub-category-modal>
+      <edit-sub-category-modal
+        :parentId="selectedParentId"
+        :category="selectedCategory"
+      ></edit-sub-category-modal>
       <div class="col-md-4" v-for="c in categories" :key="c.id">
         <dropdown-card :title="c.title">
           <template v-slot:dropdown-menu>
@@ -40,7 +44,11 @@
             <li class="list-item" v-for="sc in c.categories" :key="sc.id">
               {{ sc.title }}
               <div class="action-area">
-                <i class="fas fa-edit"></i>
+                <i
+                  class="fas fa-edit"
+                  v-b-modal.edit-sub-category-modal
+                  @click="selectSubCategory(c.id, sc)"
+                ></i>
                 <i class="fas fa-trash-alt"></i>
               </div>
             </li>
@@ -59,6 +67,7 @@ import DropdownCard from "../Card/DropdownCard.vue";
 import CreateCategoryModal from "../Modal/CreateCategoryModal.vue";
 import CreateSubCategoryModal from "../Modal/CreateSubCategoryModal.vue";
 import EditCategoryModal from "../Modal/EditCategoryModal.vue";
+import EditSubCategoryModal from "../Modal/EditSubCategoryModal.vue";
 
 @Component({
   components: {
@@ -66,6 +75,7 @@ import EditCategoryModal from "../Modal/EditCategoryModal.vue";
     CreateCategoryModal,
     EditCategoryModal,
     CreateSubCategoryModal,
+    EditSubCategoryModal,
   },
   computed: {
     ...mapGetters({
@@ -83,6 +93,11 @@ export default class extends Vue {
 
   clickCreateSubCategory(parentId: number) {
     this.selectedParentId = parentId;
+  }
+
+  selectSubCategory(parentId: number, category: Category) {
+    this.selectedParentId = parentId;
+    this.selectedCategory = category;
   }
 
   created(): void {
