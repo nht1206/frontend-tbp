@@ -119,7 +119,6 @@ export default class extends Vue {
 
   created(): void {
     statisticsService.getVisitStatistics().then((res) => {
-      console.log(res.data.rateUser);
       this.lineData = {
         labels: [
           "Tháng 1",
