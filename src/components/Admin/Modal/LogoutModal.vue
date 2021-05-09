@@ -11,7 +11,7 @@
       >
         Hủy
       </b-button>
-      <b-button variant="primary" @click="logout" class="float-right">
+      <b-button variant="warning" @click="logout" class="float-right">
         Đăng xuất
       </b-button>
     </template>

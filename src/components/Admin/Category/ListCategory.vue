@@ -22,6 +22,7 @@
         :parentId="selectedParentId"
         :category="selectedCategory"
       ></edit-sub-category-modal>
+      <delete-confirm-modal :category="selectedCategory"></delete-confirm-modal>
       <div class="col-md-4" v-for="c in categories" :key="c.id">
         <dropdown-card :title="c.title">
           <template v-slot:dropdown-menu>
@@ -29,8 +30,14 @@
             <a
               class="dropdown-item"
               v-b-modal.edit-category-modal
-              @click="clickEdit(c)"
-              >Chỉnh sửa</a
+              @click="select(c)"
+              ><i class="fas fa-edit"></i> Chỉnh sửa</a
+            >
+            <a
+              class="dropdown-item"
+              v-b-modal.delete-confirm-modal
+              @click="select(c)"
+              ><i class="fas fa-trash-alt"></i> Xóa</a
             >
             <a
               class="dropdown-item"
@@ -49,7 +56,11 @@
                   v-b-modal.edit-sub-category-modal
                   @click="selectSubCategory(c.id, sc)"
                 ></i>
-                <i class="fas fa-trash-alt"></i>
+                <i
+                  class="fas fa-trash-alt"
+                  v-b-modal.delete-confirm-modal
+                  @click="select(sc)"
+                ></i>
               </div>
             </li>
           </template>
@@ -66,6 +77,7 @@ import { mapGetters } from "vuex";
 import DropdownCard from "../Card/DropdownCard.vue";
 import CreateCategoryModal from "../Modal/CreateCategoryModal.vue";
 import CreateSubCategoryModal from "../Modal/CreateSubCategoryModal.vue";
+import DeleteConfirmModal from "../Modal/DeleteConfirmModal.vue";
 import EditCategoryModal from "../Modal/EditCategoryModal.vue";
 import EditSubCategoryModal from "../Modal/EditSubCategoryModal.vue";
 
@@ -76,6 +88,7 @@ import EditSubCategoryModal from "../Modal/EditSubCategoryModal.vue";
     EditCategoryModal,
     CreateSubCategoryModal,
     EditSubCategoryModal,
+    DeleteConfirmModal,
   },
   computed: {
     ...mapGetters({
@@ -87,7 +100,7 @@ export default class extends Vue {
   selectedParentId = -1;
   selectedCategory: Category | null = null;
 
-  clickEdit(category: Category) {
+  select(category: Category) {
     this.selectedCategory = category;
   }
 

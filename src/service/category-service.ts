@@ -43,10 +43,15 @@ function updateSubCategory(
   return http.put<CreateSubCategoryPayload>(`category/child/${id}`, payload);
 }
 
+function deleteCategory(id: number): Promise<AxiosResponse<any>> {
+  return http.delete(`category/${id}`);
+}
+
 export default {
   getCategories,
   createCategory,
   updateCategory,
   createSubCategory,
   updateSubCategory,
+  deleteCategory,
 };
