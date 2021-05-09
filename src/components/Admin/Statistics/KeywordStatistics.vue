@@ -23,9 +23,11 @@
     <b-table
       striped
       hover
+      :per-page="perPage"
+      :current-page="currentPage"
       :items="myProvider"
       :fields="fields"
-      :filter="selectedMonth"
+      :filter="{ month: selectedMonth, query: '' }"
     ></b-table>
   </div>
 </template>
@@ -77,10 +79,27 @@ export default class extends Vue {
   }
 
   myProvider(
-    ctx: { currentPage: number; perPage: number; filter: Moment },
+    ctx: {
+      currentPage: number;
+      perPage: number;
+      filter: { month: Moment; query: string };
+    },
     callback: any
   ) {
-    const params = "?page=" + (ctx.currentPage - 1) + "&size=" + ctx.perPage;
+    let params =
+      "?page=" +
+      (ctx.currentPage - 1) +
+      "&size=" +
+      ctx.perPage +
+      "&query=" +
+      ctx.filter.query;
+    if (ctx.filter.month) {
+      params +=
+        "&month=" +
+        (moment(ctx.filter.month).month() + 1) +
+        "&year=" +
+        moment(ctx.filter.month).year();
+    }
     statisticsService
       .getKeywordStatistics(params)
       .then((res) => {

@@ -24,7 +24,7 @@ function getKeywordStatistics(
   params = ""
 ): Promise<AxiosResponse<Page<KeywordStatisticsResponse>>> {
   return http.get<Page<KeywordStatisticsResponse>>(
-    "dashboard/statisticKeyword" + params
+    "statistic/statisticSearchByDateAndKeyword" + params
   );
 }
 
@@ -43,8 +43,13 @@ function getVisitStatistics(
   return http.get<VisitStatisticsResponse>(`dashboard/statistic?type=${type}`);
 }
 
+function getViewCountData(params: string): Promise<AxiosResponse<number[]>> {
+  return http.get(`statistic/viewCount` + params);
+}
+
 export default {
   getOverviewStatistics,
   getKeywordStatistics,
   getVisitStatistics,
+  getViewCountData,
 };

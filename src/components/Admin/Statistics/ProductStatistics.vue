@@ -26,9 +26,20 @@
             ></b-form-datepicker>
           </b-input-group>
 
-          <b-button variant="warning">Thống kê</b-button>
+          <b-button variant="warning" @click="renderChart">Thống kê</b-button>
         </b-form>
-        <bar-chart></bar-chart>
+
+        <div v-show="!!error" class="alert alert-danger mt-2">
+          {{ error }}
+        </div>
+
+        <div class="chart-area">
+          <bar-chart
+            v-if="!!barData"
+            :options="options"
+            :chartData="barData"
+          ></bar-chart>
+        </div>
       </template>
     </basic-card>
     <basic-card title="Top 20 sản phẩm được xem nhiều nhất"></basic-card>
@@ -36,6 +47,9 @@
 </template>
 
 <script lang="ts">
+import statisticsService from "@/service/statistics-service";
+import { ChartData, ChartOptions } from "chart.js";
+import moment, { Moment } from "moment";
 import { Component, Vue } from "vue-property-decorator";
 import BasicCard from "../Card/BasicCard.vue";
 import BarChart from "../Chart/BarChart.vue";
@@ -47,11 +61,125 @@ export default class extends Vue {
   startDate = "";
   endDate = "";
 
+  error = "";
+
+  renderChart() {
+    statisticsService
+      .getViewCountData(
+        `?startDay=${moment(this.startDate).format(
+          "DD/MM/yyyy"
+        )}&endDay=${moment(this.endDate).format("DD/MM/yyyy")}`
+      )
+      .then((res) => {
+        this.error = "";
+        this.barData = {
+          labels: this.getDateLabels(
+            moment(this.startDate),
+            moment(this.endDate)
+          ),
+          datasets: [
+            {
+              label: "Lượt xem",
+              lineTension: 0.3,
+              backgroundColor: "rgba(78, 115, 223, 0.5)",
+              borderColor: "rgba(78, 115, 223, 1)",
+              pointRadius: 3,
+              pointBackgroundColor: "rgba(78, 115, 223, 1)",
+              pointBorderColor: "rgba(78, 115, 223, 1)",
+              pointHoverRadius: 3,
+              pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+              pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+              pointHitRadius: 10,
+              pointBorderWidth: 2,
+              data: res.data,
+            },
+          ],
+        };
+      })
+      .catch((err) => {
+        this.error = err.response.data.message;
+      });
+  }
+
+  getDateLabels(startDate: Moment, endDate: Moment): string[] {
+    var now = startDate.clone(),
+      dates: string[] = [];
+
+    while (now.isSameOrBefore(endDate)) {
+      dates.push(now.format("DD/MM/YYYY"));
+      now.add(1, "days");
+    }
+    return dates;
+  }
+
+  options: ChartOptions = {
+    layout: {
+      padding: {
+        left: 10,
+        right: 25,
+        top: 25,
+        bottom: 0,
+      },
+    },
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      xAxes: [
+        {
+          gridLines: {
+            display: false,
+            drawBorder: false,
+          },
+          ticks: {
+            maxTicksLimit: 7,
+          },
+        },
+      ],
+      yAxes: [
+        {
+          ticks: {
+            maxTicksLimit: 5,
+            padding: 0,
+            // Include a dollar sign in the ticks
+            callback: function (value, index, values) {
+              return value + " lượt";
+            },
+            beginAtZero: true,
+          },
+          gridLines: {
+            color: "rgb(234, 236, 244)",
+            zeroLineColor: "rgb(234, 236, 244)",
+            drawBorder: false,
+            borderDash: [2],
+            zeroLineBorderDash: [2],
+          },
+        },
+      ],
+    },
+    tooltips: {
+      backgroundColor: "rgb(255,255,255)",
+      bodyFontColor: "#858796",
+      titleMarginBottom: 10,
+      titleFontColor: "#6e707e",
+      titleFontSize: 14,
+      borderColor: "#dddfeb",
+      borderWidth: 1,
+      xPadding: 15,
+      yPadding: 15,
+      displayColors: false,
+      intersect: false,
+      mode: "index",
+      caretPadding: 10,
+    },
+  };
+
+  barData: ChartData | null = null;
+
   getNow(): Date {
     return new Date();
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 </style>
