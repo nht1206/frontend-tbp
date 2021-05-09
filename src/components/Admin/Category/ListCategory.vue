@@ -11,11 +11,20 @@
       <create-category-modal></create-category-modal>
     </div>
     <div class="row">
+      <edit-category-modal
+        v-if="!!selectedCategory"
+        :category="selectedCategory"
+      ></edit-category-modal>
       <div class="col-md-4" v-for="c in categories" :key="c.id">
         <dropdown-card :title="c.title">
           <template v-slot:dropdown-menu>
             <div class="dropdown-header">Hành động</div>
-            <a class="dropdown-item" href="#">Cập nhật tên danh mục</a>
+            <a
+              class="dropdown-item"
+              v-b-modal.edit-category-modal
+              @click="clickEdit(c)"
+              >Chỉnh sửa</a
+            >
             <a class="dropdown-item" href="#">Thêm danh mục con</a>
             <!-- <div class="dropdown-divider"></div> -->
           </template>
@@ -35,13 +44,15 @@
 </template>
 
 <script lang="ts">
+import Category from "@/models/Category";
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import DropdownCard from "../Card/DropdownCard.vue";
 import CreateCategoryModal from "../Modal/CreateCategoryModal.vue";
+import EditCategoryModal from "../Modal/EditCategoryModal.vue";
 
 @Component({
-  components: { DropdownCard, CreateCategoryModal },
+  components: { DropdownCard, CreateCategoryModal, EditCategoryModal },
   computed: {
     ...mapGetters({
       categories: "category/categories",
@@ -49,6 +60,12 @@ import CreateCategoryModal from "../Modal/CreateCategoryModal.vue";
   },
 })
 export default class extends Vue {
+  selectedCategory: Category | null = null;
+
+  clickEdit(category: Category) {
+    this.selectedCategory = category;
+  }
+
   created(): void {
     this.$store.dispatch("category/loadCategories");
   }
