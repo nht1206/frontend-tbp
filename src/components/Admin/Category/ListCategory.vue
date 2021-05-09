@@ -15,6 +15,9 @@
         v-if="!!selectedCategory"
         :category="selectedCategory"
       ></edit-category-modal>
+      <create-sub-category-modal
+        :parentId="selectedParentId"
+      ></create-sub-category-modal>
       <div class="col-md-4" v-for="c in categories" :key="c.id">
         <dropdown-card :title="c.title">
           <template v-slot:dropdown-menu>
@@ -25,7 +28,12 @@
               @click="clickEdit(c)"
               >Chỉnh sửa</a
             >
-            <a class="dropdown-item" href="#">Thêm danh mục con</a>
+            <a
+              class="dropdown-item"
+              v-b-modal.create-sub-category-modal
+              @click="clickCreateSubCategory(c.id)"
+              >Thêm danh mục con</a
+            >
             <!-- <div class="dropdown-divider"></div> -->
           </template>
           <template v-slot:content>
@@ -49,10 +57,16 @@ import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import DropdownCard from "../Card/DropdownCard.vue";
 import CreateCategoryModal from "../Modal/CreateCategoryModal.vue";
+import CreateSubCategoryModal from "../Modal/CreateSubCategoryModal.vue";
 import EditCategoryModal from "../Modal/EditCategoryModal.vue";
 
 @Component({
-  components: { DropdownCard, CreateCategoryModal, EditCategoryModal },
+  components: {
+    DropdownCard,
+    CreateCategoryModal,
+    EditCategoryModal,
+    CreateSubCategoryModal,
+  },
   computed: {
     ...mapGetters({
       categories: "category/categories",
@@ -60,10 +74,15 @@ import EditCategoryModal from "../Modal/EditCategoryModal.vue";
   },
 })
 export default class extends Vue {
+  selectedParentId = -1;
   selectedCategory: Category | null = null;
 
   clickEdit(category: Category) {
     this.selectedCategory = category;
+  }
+
+  clickCreateSubCategory(parentId: number) {
+    this.selectedParentId = parentId;
   }
 
   created(): void {

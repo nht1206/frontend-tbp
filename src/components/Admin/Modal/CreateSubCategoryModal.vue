@@ -1,6 +1,6 @@
 <template>
   <b-modal
-    id="create-category-modal"
+    id="create-sub-category-modal"
     title="Tạo mới danh mục"
     @shown="resetData"
   >
@@ -47,7 +47,7 @@
     <template #modal-footer>
       <b-button
         variant="secondary"
-        @click="$bvModal.hide('create-category-modal')"
+        @click="$bvModal.hide('create-sub-category-modal')"
         class="float-right"
       >
         Đóng
@@ -61,7 +61,7 @@
 
 <script lang="ts">
 import categoryService, {
-  CreateCategoryPayload,
+  CreateSubCategoryPayload,
 } from "@/service/category-service";
 import useVuelidate from "@vuelidate/core";
 import { required, helpers } from "@vuelidate/validators";
@@ -89,15 +89,19 @@ import { Component, Prop, Vue } from "vue-property-decorator";
   },
 })
 export default class extends Vue {
+  @Prop({ required: false, type: Number })
+  parentId!: number;
+
   v$!: any;
 
   error = "";
 
   success = "";
 
-  categoryForm: CreateCategoryPayload = {
+  categoryForm: CreateSubCategoryPayload = {
     title: "",
     description: "",
+    parentId: this.parentId,
   };
 
   isInvalid(field: { $invalid: boolean; $dirty: boolean }): boolean {
@@ -114,6 +118,7 @@ export default class extends Vue {
     this.categoryForm = {
       title: "",
       description: "",
+      parentId: this.parentId,
     };
     this.error = "";
     this.success = "";
@@ -124,7 +129,7 @@ export default class extends Vue {
     if (!this.v$.categoryForm.$invalid) {
       //   this.$bvModal.hide("create-category-modal");
       categoryService
-        .createCategory(this.categoryForm)
+        .createSubCategory(this.categoryForm)
         .then((res) => {
           this.success = res.data.message;
           setTimeout(() => {
@@ -133,6 +138,7 @@ export default class extends Vue {
           this.categoryForm = {
             title: "",
             description: "",
+            parentId: this.parentId,
           };
           this.v$.categoryForm.$reset();
           this.$store.dispatch("category/loadCategories");
