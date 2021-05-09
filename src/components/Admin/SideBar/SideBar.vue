@@ -74,8 +74,32 @@
         <i class="fas fa-box"></i>
       </template>
       <template v-slot:items>
-        <a class="collapse-item" href="#.html">Quản lý sản phẩm</a>
-        <a class="collapse-item" href="#.html">Thống kê</a>
+        <router-link
+          to="/approved-product"
+          custom
+          v-slot="{ href, navigate, isActive }"
+        >
+          <a
+            class="collapse-item"
+            :class="{ active: isActive }"
+            :href="href"
+            @click="navigate"
+            >Sản phẩm đã duyệt</a
+          >
+        </router-link>
+        <router-link
+          to="/pending-product"
+          custom
+          v-slot="{ href, navigate, isActive }"
+        >
+          <a
+            class="collapse-item"
+            :class="{ active: isActive }"
+            :href="href"
+            @click="navigate"
+            >Sản phẩm chưa duyệt</a
+          >
+        </router-link>
       </template>
     </collapse-menu>
 
@@ -98,6 +122,40 @@
           >
         </router-link>
         <a class="collapse-item" href="#.html">Quản lý banner</a>
+      </template>
+    </collapse-menu>
+
+    <collapse-menu title="Thống kê" subTitle="Báo cáo thống kê">
+      <template v-slot:icon>
+        <i class="fas fa-chart-bar"></i>
+      </template>
+      <template v-slot:items>
+        <router-link
+          to="/product-statistics"
+          custom
+          v-slot="{ href, navigate, isActive }"
+        >
+          <a
+            class="collapse-item"
+            :class="{ active: isActive }"
+            :href="href"
+            @click="navigate"
+            >Lượt xem sản phẩm</a
+          >
+        </router-link>
+        <router-link
+          to="keyword-statistics"
+          custom
+          v-slot="{ href, navigate, isActive }"
+        >
+          <a
+            class="collapse-item"
+            :class="{ active: isActive }"
+            :href="href"
+            @click="navigate"
+            >Từ khóa</a
+          >
+        </router-link>
       </template>
     </collapse-menu>
 
