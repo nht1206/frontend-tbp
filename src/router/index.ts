@@ -4,6 +4,7 @@ import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import adminRoutes from "./routes/admin";
 import homeRoutes from "./routes/home";
+import EmailConfirm from "@/views/EmailConfirm.vue";
 
 Vue.use(VueRouter);
 
@@ -59,6 +60,10 @@ const routes: Array<RouteConfig> = [
         next();
       }
     },
+  },
+  {
+    path: "/xac-nhan-email",
+    component: EmailConfirm,
   },
   {
     path: "*",

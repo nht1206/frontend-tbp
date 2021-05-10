@@ -12,6 +12,10 @@ export interface AccountResponse {
   registerDay: string;
 }
 
+function confirmEmail(token: string): Promise<AxiosResponse<any>> {
+  return http.get("registerConfirm?token=" + token);
+}
+
 function getListGuestAccount(
   params: string
 ): Promise<AxiosResponse<Page<AccountResponse>>> {
@@ -27,4 +31,5 @@ function getListRetailerAccount(
 export default {
   getListGuestAccount,
   getListRetailerAccount,
+  confirmEmail,
 };
