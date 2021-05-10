@@ -88,7 +88,7 @@
                         >Giá tốt</span
                       >
                       <div class="price">
-                        <p>{{ p.price }} VNĐ</p>
+                        <p>{{ formatPrice(p.price) }} VNĐ</p>
                       </div>
                     </div>
                     <div class="col-4 store-border-button">
@@ -145,6 +145,10 @@ export default class extends Vue {
     });
 
     trackingService.trackingProduct(this.id);
+  }
+
+  formatPrice(price: number): string {
+    return Intl.NumberFormat().format(price);
   }
 
   renderDescription(): string {
