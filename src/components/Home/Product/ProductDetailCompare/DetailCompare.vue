@@ -102,15 +102,12 @@ export default class extends Vue {
       min-height: 70px;
     }
   }
-
-  img {
-    height: 298px;
-  }
   table {
     tbody {
       tr {
         td {
           min-width: 322px;
+          max-width: 655px;
         }
       }
     }
@@ -124,6 +121,7 @@ export default class extends Vue {
     border-color: #ececec;
     line-height: 2.8;
     font-weight: 700;
+    margin: 10px 0;
     i {
       margin-left: 10px;
     }
