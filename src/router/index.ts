@@ -72,4 +72,11 @@ const router = new VueRouter({
   routes,
 });
 
+const DEFAULT_TITLE = "The best price, Hệ thống so sánh giá";
+router.afterEach((to, from) => {
+  Vue.nextTick(() => {
+    document.title = to.meta.title || DEFAULT_TITLE;
+  });
+});
+
 export default router;

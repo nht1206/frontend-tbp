@@ -41,7 +41,7 @@
       </template>
       <template v-slot:items>
         <router-link
-          to="/guest-account"
+          to="/tai-khoan-nguoi-dung"
           custom
           v-slot="{ href, navigate, isActive }"
         >
@@ -54,7 +54,7 @@
           >
         </router-link>
         <router-link
-          to="/retailer-account"
+          to="/tai-khoan-chu-cua-hang"
           custom
           v-slot="{ href, navigate, isActive }"
         >
@@ -109,7 +109,7 @@
       </template>
       <template v-slot:items>
         <router-link
-          to="/category"
+          to="/danh-muc"
           custom
           v-slot="{ href, navigate, isActive }"
         >
@@ -131,7 +131,7 @@
       </template>
       <template v-slot:items>
         <router-link
-          to="/product-statistics"
+          to="/thong-ke-san-pham"
           custom
           v-slot="{ href, navigate, isActive }"
         >
@@ -144,7 +144,7 @@
           >
         </router-link>
         <router-link
-          to="keyword-statistics"
+          to="/thong-ke-tu-khoa"
           custom
           v-slot="{ href, navigate, isActive }"
         >

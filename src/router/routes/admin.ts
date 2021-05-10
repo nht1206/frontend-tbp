@@ -12,23 +12,38 @@ export default [
     component: Dashboard,
   },
   {
-    path: "/category",
+    path: "/danh-muc",
     component: ListCategory,
+    meta: {
+      title: "Quản lý danh mục",
+    },
   },
   {
-    path: "/guest-account",
+    path: "/tai-khoan-nguoi-dung",
     component: ListGuestAccount,
+    meta: {
+      title: "Quản lý tài khoản người dùng",
+    },
   },
   {
-    path: "/retailer-account",
+    path: "/tai-khoan-chu-cua-hang",
     component: ListRetailerAccount,
+    meta: {
+      title: "Quản lý tài khoản chủ cửa hàng",
+    },
   },
   {
-    path: "/keyword-statistics",
+    path: "/thong-ke-tu-khoa",
     component: ListKeyword,
+    meta: {
+      title: "Thống kê từ khóa",
+    },
   },
   {
-    path: "/product-statistics",
+    path: "/thong-ke-san-pham",
     component: ProductStatistics,
+    meta: {
+      title: "Thống kê sản phẩm",
+    },
   },
 ] as Array<RouteConfig>;

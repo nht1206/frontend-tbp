@@ -11,18 +11,27 @@ export default [
     component: MainPage,
   },
   {
-    path: "/product-list",
+    path: "/danh-sach-san-pham",
     name: "Product list",
     component: ProductList,
+    meta: {
+      title: "Danh sách sản phẩm",
+    },
   },
   {
-    path: "/product-detail/:id",
+    path: "/chi-tiet-san-pham/:id",
     name: "Product detail",
     component: ProductDetail,
+    meta: {
+      title: "Chi tiết sản phẩm",
+    },
   },
   {
-    path: "/detail-compare",
+    path: "/so-sanh-chi-tiet",
     name: "Product detail compare",
     component: DetailCompare,
+    meta: {
+      title: "So sánh chi tiết",
+    },
   },
 ] as Array<RouteConfig>;

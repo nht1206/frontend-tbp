@@ -23,7 +23,7 @@
                   <h6 class="compare-details-title">{{ p.title }}</h6>
                   <div class="compare-details-select-market">
                     <router-link
-                      :to="'product-detail/' + p.id"
+                      :to="'/chi-tiet-san-pham/' + p.id"
                       v-slot="{ href, navigate }"
                       custom
                     >

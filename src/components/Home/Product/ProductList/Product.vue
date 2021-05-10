@@ -4,7 +4,7 @@
       <div class="col-12 col-md-12 col-lg-12 col-xl-12 p0">
         <div class="product-box-img">
           <router-link
-            :to="'product-detail/' + product.id"
+            :to="'/chi-tiet-san-pham/' + product.id"
             custom
             v-slot="{ navigate, href }"
           >
@@ -56,7 +56,7 @@
           <div class="content-excerpt">
             <p>
               <router-link
-                :to="'product-detail/' + product.id"
+                :to="'/chi-tiet-san-pham/' + product.id"
                 custom
                 v-slot="{ navigate, href }"
               >

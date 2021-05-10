@@ -3,7 +3,7 @@
     <figure class="figure product-box wow fadeIn animated" data-wow-delay="0ms">
       <div class="product-box-img">
         <router-link
-          :to="'product-detail/' + product.id"
+          :to="'/chi-tiet-san-pham/' + product.id"
           custom
           v-slot="{ navigate, href }"
         >
@@ -42,7 +42,7 @@
         <div class="content-excerpt">
           <p>
             <router-link
-              :to="'product-detail/' + product.id"
+              :to="'/chi-tiet-san-pham/' + product.id"
               custom
               v-slot="{ navigate, href }"
             >

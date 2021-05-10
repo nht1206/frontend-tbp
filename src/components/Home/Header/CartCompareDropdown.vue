@@ -17,7 +17,7 @@
         ></media>
       </div>
       <div class="media text-center">
-        <router-link to="/detail-compare" v-slot="{ href, navigate }" custom>
+        <router-link to="/so-sanh-chi-tiet" v-slot="{ href, navigate }" custom>
           <a
             :href="href"
             @click="navigate"
