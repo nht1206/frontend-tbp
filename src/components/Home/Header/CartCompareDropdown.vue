@@ -66,7 +66,7 @@ export default class extends Vue {
     margin: 0;
     background: transparent;
     border-color: transparent;
-    transform: translateY(-5px);
+    // transform: translateY(-5px);
     cursor: pointer;
     position: relative;
   }

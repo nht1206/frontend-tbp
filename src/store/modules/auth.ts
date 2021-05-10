@@ -27,7 +27,7 @@ export const auth: Module<AuthState, RootState> = {
         const user = storageService.extractUser();
         if (user) {
           if (user?.role === "ROLE_ADMIN") {
-            router.push("/admin");
+            if (router.currentRoute.path === "/login") router.push("/admin");
           }
           state.user = user;
         }
@@ -35,11 +35,17 @@ export const auth: Module<AuthState, RootState> = {
         commit("setError", error.response.data.message);
       }
     },
-    async logout({ commit }) {
+    async logout({ commit, getters }) {
       try {
+        const user = getters.user;
         await authService.logout();
         storageService.removeToken();
-        router.push("/login");
+        if (user.role === "ROLE_ADMIN") {
+          if (router.currentRoute.path === "/admin") router.push("/login");
+        } else {
+          router.push("/");
+        }
+        commit("loadUser");
       } catch (err) {
         commit("setError", err.response.data.message);
       }

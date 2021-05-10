@@ -20,7 +20,7 @@ export default class extends Vue {}
 .header-cart {
   display: inline;
   position: relative;
-  float: right;
+  // float: right;
   .btn {
     span {
       font-size: 14px;

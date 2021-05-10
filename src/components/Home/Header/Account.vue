@@ -10,25 +10,34 @@
         ><span>Đăng nhập/Đăng ký</span>
         <authentication-modal></authentication-modal>
       </button>
-      <button v-if="user" class="btn btn-primary btn-logout">
-        <span v-if="user">@{{ user.username }} </span>
-        <i class="fa fa-sign-out"></i>
-      </button>
-    </div>
-    <div class="search-wrapper" v-click-outside="closeMiniSearch">
-      <div class="search">
-        <input
-          class="search-input"
-          :class="{ active: isMiniSearchShow }"
-          v-model="keyword"
-          @keydown.enter="search"
-          placeholder="Search"
-          type="text"
-        />
-        <a @click="openMiniSearch"><i class="fa fa-search"></i></a>
+      <div class="search-wrapper" v-click-outside="closeMiniSearch">
+        <div class="search">
+          <input
+            class="search-input"
+            :class="{ active: isMiniSearchShow }"
+            v-model="keyword"
+            @keydown.enter="search"
+            placeholder="Search"
+            type="text"
+          />
+          <a @click="openMiniSearch"><i class="fa fa-search"></i></a>
+        </div>
       </div>
+      <compare-cart></compare-cart>
+
+      <account-dropdown v-if="user" :title="user.fullName">
+        <a class="dropdown-item" href="#">
+          <i class="fa fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+          Hồ sơ cá nhân
+        </a>
+
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" @click="logout">
+          <i class="fa fa-sign-out fa-sm fa-fw mr-2 text-gray-400"></i>
+          Đăng xuất
+        </a>
+      </account-dropdown>
     </div>
-    <compare-cart></compare-cart>
   </div>
 </template>
 <script lang="ts">
@@ -36,10 +45,11 @@ import User from "@/models/User";
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import AuthenticationModal from "../modal/AuthenticationModal/AuthenticationModal.vue";
+import AccountDropdown from "./AccountDropdown.vue";
 import CompareCart from "./CompareCart.vue";
 
 @Component({
-  components: { CompareCart, AuthenticationModal },
+  components: { CompareCart, AuthenticationModal, AccountDropdown },
   computed: {
     ...mapGetters({
       user: "auth/user",
@@ -64,6 +74,10 @@ export default class extends Vue {
     this.$store.dispatch("product/searchProducts", {
       keyword: this.keyword,
     });
+  }
+
+  logout(): void {
+    this.$store.dispatch("auth/logout");
   }
 
   mounted(): void {
