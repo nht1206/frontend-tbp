@@ -16,7 +16,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import SideBarDropdown from "./SideBarDropdown.vue";
+import SideBarDropdown from "../ProductList/SideBarDropdown.vue";
 
 @Component({
   components: { SideBarDropdown },

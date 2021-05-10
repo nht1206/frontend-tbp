@@ -17,9 +17,14 @@
         ></media>
       </div>
       <div class="media text-center">
-        <a href="compare-products.html" class="btn btn-primary go-compare-page"
-          >So sánh <i class="fa fa-arrow-right" aria-hidden="true"></i
-        ></a>
+        <router-link to="/detail-compare" v-slot="{ href, navigate }" custom>
+          <a
+            :href="href"
+            @click="navigate"
+            class="btn btn-primary go-compare-page"
+            >So sánh <i class="fa fa-arrow-right" aria-hidden="true"></i
+          ></a>
+        </router-link>
       </div>
     </div>
   </div>

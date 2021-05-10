@@ -1,7 +1,8 @@
 import { RouteConfig } from "vue-router";
 import MainPage from "@/views/Home/MainPage.vue";
-import ProductList from "@/components/Home/Product/ProductList.vue";
+import ProductList from "@/components/Home/Product/ProductList/ProductList.vue";
 import ProductDetail from "@/components/Home/Product/ProductDetail/ProductDetail.vue";
+import DetailCompare from "@/components/Home/Product/ProductDetailCompare/DetailCompare.vue";
 
 export default [
   {
@@ -18,5 +19,10 @@ export default [
     path: "/product-detail/:id",
     name: "Product detail",
     component: ProductDetail,
+  },
+  {
+    path: "/detail-compare",
+    name: "Product detail compare",
+    component: DetailCompare,
   },
 ] as Array<RouteConfig>;
