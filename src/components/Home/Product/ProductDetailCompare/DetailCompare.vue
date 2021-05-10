@@ -22,15 +22,22 @@
                 <div class="compare-price text-center product-detail-desktop">
                   <h6 class="compare-details-title">{{ p.title }}</h6>
                   <div class="compare-details-select-market">
-                    <a
-                      href="https://www.amazon.com/"
-                      target="_blank"
-                      class="btn select-market-btn"
+                    <router-link
+                      :to="'product-detail/' + p.id"
+                      v-slot="{ href, navigate }"
+                      custom
                     >
-                      So sánh giá
-                      <i class="fa fa-angle-right" aria-hidden="true"></i>
-                      <span>$299</span>
-                    </a>
+                      <a
+                        :href="href"
+                        @click="navigate"
+                        target="_blank"
+                        class="btn select-market-btn"
+                      >
+                        So sánh giá
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        <span>{{ formatPrice(p.lowestPrice) }} VNĐ</span>
+                      </a>
+                    </router-link>
                   </div>
                   <ul
                     class="full-specifiction"
@@ -62,6 +69,10 @@ import PageLocation from "../../PageLocation.vue";
 })
 export default class extends Vue {
   cart!: Product[];
+
+  formatPrice(price: number): string {
+    return Intl.NumberFormat().format(price);
+  }
 
   renderDescription(description: string): string {
     let desc = "";
