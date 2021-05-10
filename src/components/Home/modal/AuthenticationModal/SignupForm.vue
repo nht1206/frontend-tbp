@@ -222,6 +222,18 @@ export default class extends Vue {
     field.$reset();
   }
 
+  resetForm() {
+    this.v$.signupForm.$reset();
+    this.signupForm = {
+      username: "",
+      fullName: "",
+      email: "",
+      address: "",
+      phoneNumber: "",
+      password: "",
+    };
+  }
+
   signupHandle(): void {
     this.v$.signupForm.$touch();
     if (!this.v$.$invalid) {
@@ -229,6 +241,7 @@ export default class extends Vue {
         .signup(this.signupForm)
         .then((res) => {
           this.successMessage = res.data.message + "";
+          this.resetForm();
           this.error = null;
         })
         .catch((err) => {
