@@ -167,10 +167,25 @@ export default class extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 .product-details {
   background: #f5f5f5;
   padding-bottom: 50px;
+
+  .product-slider-details {
+    .lslide {
+      img {
+        width: 540px;
+        height: 540px;
+      }
+    }
+    .lSPager {
+      img {
+        width: 102px;
+        height: 102px;
+      }
+    }
+  }
   .page-location {
     padding: 15px 0;
   }
