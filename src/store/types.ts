@@ -29,4 +29,5 @@ export interface RetailerState {
 export interface AuthState {
   user: User | null;
   error: Error | null;
+  isLoading: boolean;
 }

@@ -110,9 +110,17 @@
     </div>
     <button
       @click="signupHandle"
+      :disabled="isSignupDisabled"
       type="submit"
       class="btn btn-primary wd-login-btn"
     >
+      <div
+        v-if="isLoading"
+        class="spinner-border spinner-border-sm"
+        role="status"
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
       Đăng ký
     </button>
   </div>
@@ -203,6 +211,8 @@ export default class extends Vue {
 
   error: Error | null = null;
 
+  isLoading = false;
+
   successMessage: string | null = "";
 
   signupForm: SignupForm = {
@@ -218,11 +228,16 @@ export default class extends Vue {
     return field.$invalid && field.$dirty;
   }
 
+  get isSignupDisabled() {
+    return this.isLoading || !!this.error;
+  }
+
   reset(field: { $reset: () => void }): void {
     field.$reset();
   }
 
   resetForm() {
+    this.error = null;
     this.v$.signupForm.$reset();
     this.signupForm = {
       username: "",
@@ -237,15 +252,18 @@ export default class extends Vue {
   signupHandle(): void {
     this.v$.signupForm.$touch();
     if (!this.v$.$invalid) {
+      this.isLoading = true;
       authService
         .signup(this.signupForm)
         .then((res) => {
           this.successMessage = res.data.message + "";
           this.resetForm();
           this.error = null;
+          this.isLoading = false;
         })
         .catch((err) => {
           this.error = err.response.data.message;
+          this.isLoading = false;
         });
     }
   }

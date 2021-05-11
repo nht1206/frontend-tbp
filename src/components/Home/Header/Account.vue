@@ -32,7 +32,11 @@
         </a>
 
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" @click="logout">
+        <a
+          class="dropdown-item"
+          :class="{ disabled: isLoading }"
+          @click="logout"
+        >
           <i class="fa fa-sign-out fa-sm fa-fw mr-2 text-gray-400"></i>
           Đăng xuất
         </a>
@@ -53,6 +57,7 @@ import CompareCart from "./CompareCart.vue";
   computed: {
     ...mapGetters({
       user: "auth/user",
+      isLoading: "auth/isLoading",
     }),
   },
 })
@@ -96,6 +101,7 @@ export default class extends Vue {
   float: right;
   padding-top: 9px;
   padding-right: 17px;
+
   .account-section {
     display: inline-block;
     margin-top: 4px;
@@ -116,6 +122,7 @@ export default class extends Vue {
     button:first-child {
       margin-right: 11px;
     }
+
     .btn-login:hover {
       color: #f44336;
       background: transparent;
@@ -148,7 +155,11 @@ export default class extends Vue {
       opacity: 1;
     }
   }
+  .dropdown-item {
+    cursor: pointer;
+  }
 }
+
 @media (min-width: 992px) and (max-width: 1199px) {
   .acc-header-wrapper {
     padding-top: 0px;

@@ -6,6 +6,7 @@ import router from "@/router";
 export const state: AuthState = {
   user: null,
   error: null,
+  isLoading: false,
 };
 const namespaced = true;
 export const auth: Module<AuthState, RootState> = {
@@ -18,9 +19,13 @@ export const auth: Module<AuthState, RootState> = {
     setError: (state, err: Error | null) => {
       state.error = err;
     },
+    setLoading: (state, isLoading: boolean) => {
+      state.isLoading = isLoading;
+    },
   },
   actions: {
     async login({ commit, state }, payload: LoginPayload) {
+      commit("setLoading", true);
       try {
         const res = await authService.login(payload);
         storageService.saveToken(res.data.accessToken);
@@ -30,12 +35,15 @@ export const auth: Module<AuthState, RootState> = {
             if (router.currentRoute.path === "/login") router.push("/admin");
           }
           state.user = user;
+          commit("setLoading", false);
         }
       } catch (error) {
         commit("setError", error.response.data.message);
+        commit("setLoading", false);
       }
     },
     async logout({ commit, getters }) {
+      commit("setLoading", true);
       try {
         const user = getters.user;
         await authService.logout();
@@ -45,8 +53,10 @@ export const auth: Module<AuthState, RootState> = {
         } else {
           router.push("/");
         }
+        commit("setLoading", false);
         commit("loadUser");
       } catch (err) {
+        commit("setLoading", false);
         commit("setError", err.response.data.message);
       }
     },
@@ -54,6 +64,7 @@ export const auth: Module<AuthState, RootState> = {
   getters: {
     user: (state) => state.user,
     error: (state) => state.error,
+    isLoading: (state) => state.isLoading,
   },
   namespaced,
 };

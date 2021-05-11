@@ -41,7 +41,15 @@
       type="submit"
       class="btn btn-primary wd-login-btn"
       @click="loginHandle"
+      :disabled="isLoginDisabled"
     >
+      <div
+        v-if="isLoading"
+        class="spinner-border spinner-border-sm"
+        role="status"
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
       Đăng nhập
     </button>
 
@@ -103,6 +111,7 @@ import { LoginForm } from "@/mixins/LoginMixin";
   computed: {
     ...mapGetters({
       error: "auth/error",
+      isLoading: "auth/isLoading",
     }),
   },
 })
@@ -110,6 +119,8 @@ export default class extends Vue {
   v$!: any;
 
   error!: Error;
+
+  isLoading!: boolean;
 
   loginForm: LoginForm = {
     username: "",
@@ -123,6 +134,10 @@ export default class extends Vue {
   reset(field: { $reset: () => void }): void {
     field.$reset();
     this.$store.commit("auth/setError", null);
+  }
+
+  get isLoginDisabled() {
+    return this.isLoading || !!this.error;
   }
 
   loginHandle(): void {
