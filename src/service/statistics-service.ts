@@ -37,6 +37,7 @@ export interface ProductStatisticsResponse {
   title: string;
   viewCount: number;
 }
+
 function getProductStatistics(
   params = ""
 ): Promise<AxiosResponse<Page<ProductStatisticsResponse>>> {
@@ -65,10 +66,15 @@ function getViewCountData(params: string): Promise<AxiosResponse<number[]>> {
   return http.get(`statistic/viewCount` + params);
 }
 
+function downloadReport(): Promise<AxiosResponse<any>> {
+  return http.get(`dashboard/export`);
+}
+
 export default {
   getOverviewStatistics,
   getKeywordStatistics,
   getVisitStatistics,
   getViewCountData,
   getProductStatistics,
+  downloadReport,
 };
