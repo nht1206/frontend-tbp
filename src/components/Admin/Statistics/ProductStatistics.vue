@@ -12,7 +12,7 @@
               placeholder="Chọn ngày bắt đầu"
               locale="vi"
               v-model="startDate"
-              :max="getNow()"
+              :max="getNowDate()"
             ></b-form-datepicker>
           </b-input-group>
 
@@ -21,12 +21,17 @@
               placeholder="Chọn ngày kết thúc"
               locale="vi"
               v-model="endDate"
-              :max="getNow()"
+              :max="getNowDate()"
               :min="startDate"
             ></b-form-datepicker>
           </b-input-group>
 
-          <b-button variant="warning" @click="renderChart">Thống kê</b-button>
+          <b-button
+            :disabled="isRenderingChart"
+            variant="warning"
+            @click="renderChart"
+            >Thống kê</b-button
+          >
         </b-form>
 
         <div v-show="!!error" class="alert alert-danger mt-2">
@@ -34,6 +39,7 @@
         </div>
 
         <div class="chart-area">
+          <loading :isLoading="isRenderingChart"></loading>
           <bar-chart
             v-if="!!barData"
             :options="options"
@@ -42,28 +48,135 @@
         </div>
       </template>
     </basic-card>
-    <basic-card title="Top 20 sản phẩm được xem nhiều nhất"></basic-card>
+    <basic-card title="Top sản phẩm được xem nhiều nhất">
+      <template v-slot:content>
+        <div class="d-sm-flex align-items-center justify-content-end">
+          <div class="d-sm-inline-block">
+            <vue-monthly-picker
+              v-model="selectedMonth"
+              placeHolder="Chọn tháng"
+              :max="getNow()"
+              @selected="onSelectMonth"
+            ></vue-monthly-picker>
+          </div>
+        </div>
+        <ul class="list-group pt-3" v-if="!!pageProduct">
+          <product-list-group-item
+            v-for="p in pageProduct.content"
+            :key="p.id"
+            :product="p"
+          ></product-list-group-item>
+        </ul>
+        <div class="col-12 text-center pt-2">
+          <loading :isLoading="isLoadingMore"></loading>
+          <a
+            v-if="!isLoadingMore || (!!pageProduct.last && !pageProduct.last)"
+            @click="onLoadMore"
+            class="btn btn-loadmore"
+          >
+            Show more
+          </a>
+        </div>
+      </template>
+    </basic-card>
   </div>
 </template>
 
 <script lang="ts">
-import statisticsService from "@/service/statistics-service";
+import statisticsService, {
+  ProductStatisticsResponse,
+} from "@/service/statistics-service";
 import { ChartData, ChartOptions } from "chart.js";
 import moment, { Moment } from "moment";
 import { Component, Vue } from "vue-property-decorator";
 import BasicCard from "../Card/BasicCard.vue";
 import BarChart from "../Chart/BarChart.vue";
+import VueMonthlyPicker from "vue-monthly-picker";
+import ProductListGroupItem from "./ProductListGroupItem.vue";
+import Page from "@/models/Page";
+import Loading from "@/components/Home/Loading.vue";
 
 @Component({
-  components: { BasicCard, BarChart },
+  components: {
+    BasicCard,
+    BarChart,
+    VueMonthlyPicker,
+    ProductListGroupItem,
+    Loading,
+  },
+  data() {
+    return {
+      date: {
+        from: null,
+        to: null,
+        month: null,
+        year: null,
+      },
+    };
+  },
 })
 export default class extends Vue {
+  isRenderingChart = false;
+  isLoadingMore = false;
+
   startDate = "";
   endDate = "";
 
   error = "";
 
+  selectedMonth: Moment | null = null;
+
+  onSelectMonth() {
+    let param = "";
+    this.pageProduct = {
+      content: [],
+      number: 0,
+      numberOfElements: 0,
+    };
+    if (this.selectedMonth) {
+      param += `?month=${
+        this.selectedMonth?.month() + 1
+      }&year=${this.selectedMonth?.year()}`;
+    }
+    statisticsService.getProductStatistics(param).then((res) => {
+      this.pageProduct = res.data;
+    });
+  }
+
+  onLoadMore(): void {
+    this.isLoadingMore = true;
+    let param = `?page=${this.pageProduct.number + 1}`;
+    if (this.selectedMonth) {
+      param += `&month=${
+        this.selectedMonth?.month() + 1
+      }&year=${this.selectedMonth?.year()}`;
+    }
+    statisticsService
+      .getProductStatistics(param)
+      .then((res) => {
+        this.pageProduct.content = this.pageProduct.content.concat(
+          res.data.content
+        );
+        this.pageProduct.number = res.data.number;
+        this.pageProduct.numberOfElements =
+          this.pageProduct.numberOfElements + res.data.numberOfElements;
+        this.pageProduct.first = res.data.first;
+        this.pageProduct.last = res.data.last;
+        this.isLoadingMore = false;
+      })
+      .catch(() => {
+        this.isLoadingMore = false;
+      });
+  }
+
+  pageProduct: Page<ProductStatisticsResponse> = {
+    content: [],
+    number: 0,
+    numberOfElements: 0,
+  };
+
   renderChart() {
+    this.isRenderingChart = true;
     statisticsService
       .getViewCountData(
         `?startDay=${moment(this.startDate).format(
@@ -95,8 +208,10 @@ export default class extends Vue {
             },
           ],
         };
+        this.isRenderingChart = false;
       })
       .catch((err) => {
+        this.isRenderingChart = false;
         this.error = err.response.data.message;
       });
   }
@@ -175,11 +290,42 @@ export default class extends Vue {
 
   barData: ChartData | null = null;
 
-  getNow(): Date {
+  getNowDate(): Date {
     return new Date();
+  }
+
+  getNow(): Moment {
+    return moment();
+  }
+
+  created(): void {
+    this.isLoadingMore = true;
+    statisticsService
+      .getProductStatistics()
+      .then((res) => {
+        this.pageProduct = res.data;
+        this.isLoadingMore = false;
+      })
+      .catch(() => {
+        this.isLoadingMore = false;
+      });
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.btn-loadmore {
+  background: #cecece;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 11px 21px;
+  border: 1px solid;
+  border-color: transparent;
+  color: #fff;
+
+  &:hover {
+    color: #ff9800;
+    background: #fff;
+  }
+}
 </style>

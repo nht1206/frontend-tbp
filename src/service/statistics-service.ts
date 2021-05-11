@@ -27,6 +27,23 @@ function getKeywordStatistics(
     "statistic/statisticSearchByDateAndKeyword" + params
   );
 }
+export interface ProductStatisticsResponse {
+  highestPrice: number;
+  id: number;
+  image: string;
+  lowestPrice: number;
+  rate: number;
+  shortDescription: string;
+  title: string;
+  viewCount: number;
+}
+function getProductStatistics(
+  params = ""
+): Promise<AxiosResponse<Page<ProductStatisticsResponse>>> {
+  return http.get<Page<ProductStatisticsResponse>>(
+    "statistic/statisticProductByDateAndKeyword" + params
+  );
+}
 
 export interface VisitStatisticsResponse {
   rateUser: {
@@ -35,6 +52,7 @@ export interface VisitStatisticsResponse {
   };
   statisticAccess: number[];
   statisticSearch: number[];
+  statisticViewCount: number[];
 }
 
 function getVisitStatistics(
@@ -52,4 +70,5 @@ export default {
   getKeywordStatistics,
   getVisitStatistics,
   getViewCountData,
+  getProductStatistics,
 };
