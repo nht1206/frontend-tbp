@@ -67,7 +67,14 @@ function getViewCountData(params: string): Promise<AxiosResponse<number[]>> {
 }
 
 function downloadReport(): Promise<AxiosResponse<any>> {
-  return http.get(`dashboard/export`);
+  return http.get(`dashboard/export`, {
+    headers: {
+      "Content-Disposition": "attachment; filename=customer.xlsx",
+      "Content-Type":
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    },
+    responseType: "arraybuffer",
+  });
 }
 
 export default {
