@@ -3,7 +3,14 @@
     <div class="col-12">
       <BasicCard title="Thống kê từ khóa được tìm kiếm nhiều nhất">
         <template v-slot:content>
-          <b-table striped hover :items="items" :fields="fields"></b-table>
+          <b-table
+            :busy="isLoading"
+            striped
+            hover
+            :items="items"
+            :fields="fields"
+          ></b-table>
+          <loading :isLoading="isLoading"></loading>
         </template>
       </BasicCard>
     </div>
@@ -11,6 +18,7 @@
 </template>
 
 <script lang="ts">
+import Loading from "@/components/Home/Loading.vue";
 import statisticsService, {
   KeywordStatisticsResponse,
 } from "@/service/statistics-service";
@@ -18,7 +26,7 @@ import { Component, Vue } from "vue-property-decorator";
 import BasicCard from "../Card/BasicCard.vue";
 
 @Component({
-  components: { BasicCard },
+  components: { BasicCard, Loading },
 })
 export default class extends Vue {
   fields = [
@@ -40,10 +48,19 @@ export default class extends Vue {
 
   items: KeywordStatisticsResponse[] = [];
 
+  isLoading = false;
+
   created(): void {
-    statisticsService.getKeywordStatistics().then((res) => {
-      this.items = res.data.content;
-    });
+    this.isLoading = true;
+    statisticsService
+      .getKeywordStatistics()
+      .then((res) => {
+        this.isLoading = false;
+        this.items = res.data.content;
+      })
+      .catch(() => {
+        this.isLoading = false;
+      });
   }
 }
 </script>

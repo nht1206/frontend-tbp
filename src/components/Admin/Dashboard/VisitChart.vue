@@ -1,9 +1,11 @@
 <template>
   <div class="row">
     <div class="col-xl-8 col-lg-7">
-      <LargeCard v-if="!!lineData" title="Tổng quan lược truy cập">
+      <LargeCard title="Tổng quan lược truy cập">
         <template v-slot:content>
+          <loading :isLoading="isRenderingChart"></loading>
           <line-chart
+            v-if="!!lineData"
             :options="lineChartOptions"
             :chartData="lineData"
           ></line-chart>
@@ -20,7 +22,9 @@
     <div class="col-xl-4 col-lg-5">
       <BasicCard title="Tỉ lệ người truy cập có tài khoản">
         <template v-slot:content>
+          <loading :isLoading="isRenderingChart"></loading>
           <pie-chart
+            v-if="!!pieData"
             :options="pieChartOptions"
             :chartData="pieData"
           ></pie-chart>
@@ -38,9 +42,13 @@ import BasicCard from "../Card/BasicCard.vue";
 import LineChart from "../Chart/LineChart.vue";
 import PieChart from "../Chart/PieChart.vue";
 import LargeCard from "../Card/DropdownCard.vue";
+import Loading from "@/components/Home/Loading.vue";
 
-@Component({ components: { LargeCard, LineChart, PieChart, BasicCard } })
+@Component({
+  components: { LargeCard, LineChart, PieChart, BasicCard, Loading },
+})
 export default class extends Vue {
+  isRenderingChart = false;
   options: ChartOptions = {
     responsive: true,
     maintainAspectRatio: false,
@@ -118,83 +126,90 @@ export default class extends Vue {
   pieData: ChartData | null = null;
 
   created(): void {
-    statisticsService.getVisitStatistics().then((res) => {
-      this.lineData = {
-        labels: [
-          "Tháng 1",
-          "Tháng 2",
-          "Tháng 3",
-          "Tháng 4",
-          "Tháng 5",
-          "Tháng 6",
-          "Tháng 7",
-          "Tháng 8",
-          "Tháng 9",
-          "Tháng 10",
-          "Tháng 11",
-          "Tháng 12",
-        ],
-        datasets: [
-          {
-            label: "Lượt truy cập",
-            lineTension: 0.3,
-            backgroundColor: "rgba(78, 115, 223, 0.2)",
-            borderColor: "rgba(78, 115, 223, 1)",
-            pointRadius: 3,
-            pointBackgroundColor: "rgba(78, 115, 223, 1)",
-            pointBorderColor: "rgba(78, 115, 223, 1)",
-            pointHoverRadius: 3,
-            pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-            pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-            pointHitRadius: 10,
-            pointBorderWidth: 2,
-            data: res.data.statisticAccess,
-          },
-          {
-            label: "Lượt tìm kiếm",
-            lineTension: 0.3,
-            backgroundColor: "rgba(106, 90, 205, 0.2)",
-            borderColor: "rgba(106, 90, 205, 1)",
-            pointRadius: 3,
-            pointBackgroundColor: "rgba(106, 90, 205, 1)",
-            pointBorderColor: "rgba(106, 90, 205, 1)",
-            pointHoverRadius: 3,
-            pointHoverBackgroundColor: "rgba(106, 90, 205, 1)",
-            pointHoverBorderColor: "rgba(106, 90, 205, 1)",
-            pointHitRadius: 10,
-            pointBorderWidth: 2,
-            data: res.data.statisticSearch,
-          },
-          {
-            label: "Lượt xem sản phẩm",
-            lineTension: 0.3,
-            backgroundColor: "rgba(238, 130, 238, 0.2)",
-            borderColor: "rgba(238, 130, 238, 1)",
-            pointRadius: 3,
-            pointBackgroundColor: "rgba(238, 130, 238, 1)",
-            pointBorderColor: "rgba(238, 130, 238, 1)",
-            pointHoverRadius: 3,
-            pointHoverBackgroundColor: "rgba(238, 130, 238, 1)",
-            pointHoverBorderColor: "rgba(238, 130, 238, 1)",
-            pointHitRadius: 10,
-            pointBorderWidth: 2,
-            data: res.data.statisticViewCount,
-          },
-        ],
-      };
+    this.isRenderingChart = true;
+    statisticsService
+      .getVisitStatistics()
+      .then((res) => {
+        this.isRenderingChart = false;
+        this.lineData = {
+          labels: [
+            "Tháng 1",
+            "Tháng 2",
+            "Tháng 3",
+            "Tháng 4",
+            "Tháng 5",
+            "Tháng 6",
+            "Tháng 7",
+            "Tháng 8",
+            "Tháng 9",
+            "Tháng 10",
+            "Tháng 11",
+            "Tháng 12",
+          ],
+          datasets: [
+            {
+              label: "Lượt truy cập",
+              lineTension: 0.3,
+              backgroundColor: "rgba(78, 115, 223, 0.2)",
+              borderColor: "rgba(78, 115, 223, 1)",
+              pointRadius: 3,
+              pointBackgroundColor: "rgba(78, 115, 223, 1)",
+              pointBorderColor: "rgba(78, 115, 223, 1)",
+              pointHoverRadius: 3,
+              pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+              pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+              pointHitRadius: 10,
+              pointBorderWidth: 2,
+              data: res.data.statisticAccess,
+            },
+            {
+              label: "Lượt tìm kiếm",
+              lineTension: 0.3,
+              backgroundColor: "rgba(106, 90, 205, 0.2)",
+              borderColor: "rgba(106, 90, 205, 1)",
+              pointRadius: 3,
+              pointBackgroundColor: "rgba(106, 90, 205, 1)",
+              pointBorderColor: "rgba(106, 90, 205, 1)",
+              pointHoverRadius: 3,
+              pointHoverBackgroundColor: "rgba(106, 90, 205, 1)",
+              pointHoverBorderColor: "rgba(106, 90, 205, 1)",
+              pointHitRadius: 10,
+              pointBorderWidth: 2,
+              data: res.data.statisticSearch,
+            },
+            {
+              label: "Lượt xem sản phẩm",
+              lineTension: 0.3,
+              backgroundColor: "rgba(238, 130, 238, 0.2)",
+              borderColor: "rgba(238, 130, 238, 1)",
+              pointRadius: 3,
+              pointBackgroundColor: "rgba(238, 130, 238, 1)",
+              pointBorderColor: "rgba(238, 130, 238, 1)",
+              pointHoverRadius: 3,
+              pointHoverBackgroundColor: "rgba(238, 130, 238, 1)",
+              pointHoverBorderColor: "rgba(238, 130, 238, 1)",
+              pointHitRadius: 10,
+              pointBorderWidth: 2,
+              data: res.data.statisticViewCount,
+            },
+          ],
+        };
 
-      this.pieData = {
-        labels: ["Khách vãng lai", "Người dùng"],
-        datasets: [
-          {
-            data: [res.data.rateUser.anonymous, res.data.rateUser.auth],
-            backgroundColor: ["#4e73df", "#1cc88a", "#36b9cc"],
-            hoverBackgroundColor: ["#2e59d9", "#17a673", "#2c9faf"],
-            hoverBorderColor: "rgba(234, 236, 244, 1)",
-          },
-        ],
-      };
-    });
+        this.pieData = {
+          labels: ["Khách vãng lai", "Người dùng"],
+          datasets: [
+            {
+              data: [res.data.rateUser.anonymous, res.data.rateUser.auth],
+              backgroundColor: ["#4e73df", "#1cc88a", "#36b9cc"],
+              hoverBackgroundColor: ["#2e59d9", "#17a673", "#2c9faf"],
+              hoverBorderColor: "rgba(234, 236, 244, 1)",
+            },
+          ],
+        };
+      })
+      .catch(() => {
+        this.isRenderingChart = false;
+      });
   }
 }
 </script>

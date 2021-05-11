@@ -19,16 +19,17 @@
         ></vue-monthly-picker>
       </div>
     </div>
-
     <b-table
       striped
       hover
+      :busy="isLoading"
       :per-page="perPage"
       :current-page="currentPage"
       :items="myProvider"
       :fields="fields"
       :filter="{ month: selectedMonth, query: '' }"
     ></b-table>
+    <loading :isLoading="isLoading"></loading>
   </div>
 </template>
 
@@ -37,9 +38,10 @@ import statisticsService from "@/service/statistics-service";
 import { Component, Vue } from "vue-property-decorator";
 import VueMonthlyPicker from "vue-monthly-picker";
 import moment, { Moment } from "moment";
+import Loading from "@/components/Home/Loading.vue";
 
 @Component({
-  components: { VueMonthlyPicker },
+  components: { VueMonthlyPicker, Loading },
   data() {
     return {
       perPage: 10,
@@ -74,6 +76,8 @@ export default class extends Vue {
 
   selectedMonth: Moment | null = null;
 
+  isLoading = false;
+
   getNow(): Moment {
     return moment();
   }
@@ -86,6 +90,7 @@ export default class extends Vue {
     },
     callback: any
   ) {
+    this.isLoading = true;
     let params =
       "?page=" +
       (ctx.currentPage - 1) +
@@ -107,9 +112,11 @@ export default class extends Vue {
         if (res.data.totalElements) {
           this.rows = res.data.totalElements;
         }
+        this.isLoading = false;
         callback(items);
       })
       .catch(() => {
+        this.isLoading = false;
         callback([]);
       });
 
