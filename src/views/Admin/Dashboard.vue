@@ -45,10 +45,12 @@ export default class extends Vue {
       .downloadReport()
       .then((res) => {
         this.isDownloading = false;
-        let blob = new Blob([res.data], { type: "application/xls" }),
-          url = window.URL.createObjectURL(blob);
-
-        window.open(url);
+        const url = window.URL.createObjectURL(new Blob([res.data]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "resport.xlsx");
+        document.body.appendChild(link);
+        link.click();
       })
       .catch(() => {
         this.isDownloading = false;
