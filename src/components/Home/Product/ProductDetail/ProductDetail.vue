@@ -27,37 +27,55 @@
                   </h4>
                   <div class="media">
                     <div class="media-left media-middle">
-                      <div class="rating">
-                        <a href="#"
+                      <div class="rating" v-if="!isRated">
+                        <a
+                          class="active-color"
+                          v-for="star in rate"
+                          :key="star + 'x'"
+                          ><i
+                            class="fa fa-star"
+                            :class="{ 'select-color ': selectedRate >= star }"
+                            @mouseenter="select(star)"
+                            @mouseleave="resetRate()"
+                            @click="onRating(star)"
+                            aria-hidden="true"
+                          ></i
+                        ></a>
+
+                        <a v-for="noStar in 5 - rate" :key="noStar + 'o'"
+                          ><i
+                            class="fa fa-star-o"
+                            :class="{
+                              'select-color ': selectedRate >= noStar + rate,
+                            }"
+                            @mouseenter="select(rate + noStar)"
+                            @mouseleave="resetRate()"
+                            @click="onRating(rate + noStar)"
+                            aria-hidden="true"
+                          ></i
+                        ></a>
+                      </div>
+                      <div class="rating" v-if="isRated">
+                        <a v-for="star in selectedRate" :key="star + 'x'"
                           ><i
                             class="fa fa-star active-color"
                             aria-hidden="true"
                           ></i
                         ></a>
-                        <a href="#"
-                          ><i
-                            class="fa fa-star active-color"
-                            aria-hidden="true"
-                          ></i
-                        ></a>
-                        <a href="#"
-                          ><i
-                            class="fa fa-star active-color"
-                            aria-hidden="true"
-                          ></i
-                        ></a>
-                        <a href="#"
-                          ><i class="fa fa-star-o" aria-hidden="true"></i
-                        ></a>
-                        <a href="#"
+
+                        <a
+                          v-for="noStar in 5 - selectedRate"
+                          :key="noStar + 'o'"
                           ><i class="fa fa-star-o" aria-hidden="true"></i
                         ></a>
                       </div>
                     </div>
                     <div class="media-body">
                       <p>
-                        3.7/5
-                        <span class="product-ratings-text"> -1747 Ratings</span>
+                        {{ product.rate }}/5
+                        <span class="product-ratings-text">
+                          - {{ product.totalRate }} Ratings</span
+                        >
                       </p>
                     </div>
                   </div>
@@ -125,17 +143,28 @@ import produceService from "@/service/product-service";
 import Product from "@/models/Product";
 import Loading from "@/components/Home/Loading.vue";
 import trackingService from "@/service/tracking-service";
+import productService from "@/service/product-service";
+import { mapGetters } from "vuex";
+import User from "@/models/User";
 
 @Component({
   components: { PageLocation, LightSlider, PriceHistory, Loading },
+  computed: {
+    ...mapGetters({
+      user: "auth/user",
+    }),
+  },
 })
 export default class extends Vue {
   id!: string;
   product!: Product;
+  user!: User;
   isLoading = false;
+
   isBestPrice(price: number): boolean {
     return this.product.lowestPrice === price;
   }
+
   created(): void {
     this.id = this.$route.params["id"];
     this.isLoading = true;
@@ -149,6 +178,36 @@ export default class extends Vue {
 
   formatPrice(price: number): string {
     return Intl.NumberFormat().format(price);
+  }
+
+  get rate() {
+    return parseInt(this.product.rate.toString(), 10);
+  }
+
+  selectedRate = 0;
+  isRated = false;
+
+  select(rate: number) {
+    this.selectedRate = rate;
+  }
+
+  resetRate() {
+    this.selectedRate = 0;
+  }
+
+  onRating(rate: number) {
+    if (!this.user) {
+      this.$bvModal.show("login-inform-modal");
+      return;
+    }
+    this.isRated = true;
+    this.selectedRate = rate;
+    productService.rateProduct(this.product.id, { rate: rate });
+  }
+
+  resetDate() {
+    this.selectedRate = 0;
+    this.isRated = false;
   }
 
   renderDescription(): string {

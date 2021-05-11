@@ -16,6 +16,10 @@ function findById(id: string): Promise<AxiosResponse<Product>> {
   return http.get<Product>(`product/${id}`);
 }
 
+function rateProduct(id: number, payload: any) {
+  return http.post(`product/rating/${id}`, payload);
+}
+
 function getSuggestion(keyword: string): Promise<AxiosResponse<Suggestion[]>> {
   return http.get<Suggestion[]>(`suggestion?keyword=${keyword}`);
 }
@@ -39,4 +43,5 @@ export default {
   getLaptopHotDeal,
   getProductHotDeal,
   getSmartPhoneHotDeal,
+  rateProduct,
 };

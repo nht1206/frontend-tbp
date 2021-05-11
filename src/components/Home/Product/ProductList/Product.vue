@@ -66,18 +66,39 @@
               </router-link>
             </p>
           </div>
-          <div class="rating">
-            <a href="#"
+          <div class="rating" v-if="!isRated">
+            <a class="active-color" v-for="star in rate" :key="star + 'x'"
+              ><i
+                class="fa fa-star"
+                :class="{ 'select-color ': selectedRate >= star }"
+                @mouseenter="select(star)"
+                @mouseleave="resetRate()"
+                @click="onRating(star)"
+                aria-hidden="true"
+              ></i
+            ></a>
+
+            <a v-for="noStar in 5 - rate" :key="noStar + 'o'"
+              ><i
+                class="fa fa-star-o"
+                :class="{
+                  'select-color ': selectedRate >= noStar + rate,
+                }"
+                @mouseenter="select(rate + noStar)"
+                @mouseleave="resetRate()"
+                @click="onRating(rate + noStar)"
+                aria-hidden="true"
+              ></i
+            ></a>
+          </div>
+          <div class="rating" v-if="isRated">
+            <a v-for="star in selectedRate" :key="star + 'x'"
               ><i class="fa fa-star active-color" aria-hidden="true"></i
             ></a>
-            <a href="#"
-              ><i class="fa fa-star active-color" aria-hidden="true"></i
+
+            <a v-for="noStar in 5 - selectedRate" :key="noStar + 'o'"
+              ><i class="fa fa-star-o" aria-hidden="true"></i
             ></a>
-            <a href="#"
-              ><i class="fa fa-star active-color" aria-hidden="true"></i
-            ></a>
-            <a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a>
-            <a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a>
           </div>
           <div class="compare-btn">
             <a
@@ -100,6 +121,8 @@
 
 <script lang="ts">
 import Product from "@/models/Product";
+import User from "@/models/User";
+import productService from "@/service/product-service";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 
@@ -108,12 +131,15 @@ import { mapGetters } from "vuex";
   computed: {
     ...mapGetters({
       cart: "cart/cart",
+      user: "auth/user",
     }),
   },
 })
 export default class extends Vue {
   @Prop({ type: Object, required: true })
   product!: Product;
+
+  user!: User;
 
   cart!: Product[];
 
@@ -136,6 +162,31 @@ export default class extends Vue {
 
   formatPrice(price: number): string {
     return Intl.NumberFormat().format(price);
+  }
+
+  get rate() {
+    return parseInt(this.product.rate.toString(), 10);
+  }
+
+  selectedRate = 0;
+  isRated = false;
+
+  select(rate: number) {
+    this.selectedRate = rate;
+  }
+
+  resetRate() {
+    this.selectedRate = 0;
+  }
+
+  onRating(rate: number) {
+    if (!this.user) {
+      this.$bvModal.show("login-inform-modal");
+      return;
+    }
+    this.isRated = true;
+    this.selectedRate = rate;
+    productService.rateProduct(this.product.id, { rate: rate });
   }
 
   isInCart(productId: number): boolean {

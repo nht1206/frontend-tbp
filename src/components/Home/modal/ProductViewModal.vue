@@ -1,9 +1,9 @@
 <template>
   <b-modal
     v-if="selectedProduct"
+    @hidden="resetDate"
     id="product-quick-view"
     hide-footer
-    hide-header
     size="lg"
   >
     <div class="row">
@@ -24,27 +24,47 @@
             </h4>
             <div class="media">
               <div class="media-left media-middle">
-                <div class="rating">
-                  <a href="#"
+                <div class="rating" v-if="!isRated">
+                  <a class="active-color" v-for="star in rate" :key="star + 'x'"
+                    ><i
+                      class="fa fa-star"
+                      :class="{ 'select-color ': selectedRate >= star }"
+                      @mouseenter="select(star)"
+                      @mouseleave="resetRate()"
+                      @click="onRating(star)"
+                      aria-hidden="true"
+                    ></i
+                  ></a>
+
+                  <a v-for="noStar in 5 - rate" :key="noStar + 'o'"
+                    ><i
+                      class="fa fa-star-o"
+                      :class="{
+                        'select-color ': selectedRate >= noStar + rate,
+                      }"
+                      @mouseenter="select(rate + noStar)"
+                      @mouseleave="resetRate()"
+                      @click="onRating(rate + noStar)"
+                      aria-hidden="true"
+                    ></i
+                  ></a>
+                </div>
+                <div class="rating" v-if="isRated">
+                  <a v-for="star in selectedRate" :key="star + 'x'"
                     ><i class="fa fa-star active-color" aria-hidden="true"></i
                   ></a>
-                  <a href="#"
-                    ><i class="fa fa-star active-color" aria-hidden="true"></i
-                  ></a>
-                  <a href="#"
-                    ><i class="fa fa-star active-color" aria-hidden="true"></i
-                  ></a>
-                  <a href="#"
-                    ><i class="fa fa-star-o" aria-hidden="true"></i
-                  ></a>
-                  <a href="#"
+
+                  <a v-for="noStar in 5 - selectedRate" :key="noStar + 'o'"
                     ><i class="fa fa-star-o" aria-hidden="true"></i
                   ></a>
                 </div>
               </div>
               <div class="media-body">
                 <p>
-                  3.7/5 <span class="product-ratings-text"> -1747 Ratings</span>
+                  {{ selectedProduct.rate }}/5
+                  <span class="product-ratings-text">
+                    - {{ selectedProduct.totalRate }} Ratings</span
+                  >
                 </p>
               </div>
             </div>
@@ -98,6 +118,8 @@
 
 <script lang="ts">
 import Product from "@/models/Product";
+import User from "@/models/User";
+import productService from "@/service/product-service";
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import ProductImageCarousel from "../Carousel/ProductImageCarousel.vue";
@@ -107,17 +129,50 @@ import ProductImageCarousel from "../Carousel/ProductImageCarousel.vue";
   computed: {
     ...mapGetters({
       selectedProduct: "product/selectedProduct",
+      user: "auth/user",
     }),
   },
 })
 export default class extends Vue {
   selectedProduct!: Product;
+  user!: User;
+
   isBestPrice(price: number): boolean {
     return this.selectedProduct.lowestPrice === price;
   }
 
   formatPrice(price: number): string {
     return Intl.NumberFormat().format(price);
+  }
+
+  get rate() {
+    return parseInt(this.selectedProduct.rate.toString(), 10);
+  }
+
+  selectedRate = 0;
+  isRated = false;
+
+  select(rate: number) {
+    this.selectedRate = rate;
+  }
+
+  resetRate() {
+    this.selectedRate = 0;
+  }
+
+  onRating(rate: number) {
+    if (!this.user) {
+      this.$bvModal.show("login-inform-modal");
+      return;
+    }
+    this.isRated = true;
+    this.selectedRate = rate;
+    productService.rateProduct(this.selectedProduct.id, { rate: rate });
+  }
+
+  resetDate() {
+    this.selectedRate = 0;
+    this.isRated = false;
   }
 
   renderDescription(): string {

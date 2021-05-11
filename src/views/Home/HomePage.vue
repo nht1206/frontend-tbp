@@ -8,6 +8,7 @@
     <NewsLetter></NewsLetter>
     <Footer></Footer>
     <ScrollUp></ScrollUp>
+    <login-inform-modal></login-inform-modal>
   </div>
 </template>
 
@@ -31,6 +32,7 @@ import "jquery-circle-progress/dist/circle-progress";
 
 import "@/assets/styles/animate.css";
 import trackingService from "@/service/tracking-service";
+import LoginInformModal from "@/components/Home/modal/LoginInformModal.vue";
 
 @Component({
   components: {
@@ -41,6 +43,7 @@ import trackingService from "@/service/tracking-service";
     NewsLetter,
     ProductViewModal,
     ScrollUp,
+    LoginInformModal,
   },
 })
 export default class Home extends Vue {
