@@ -52,7 +52,19 @@
       >
         Đóng
       </b-button>
-      <b-button variant="warning" @click="submitCreate" class="float-right">
+      <b-button
+        :disabled="isLoading"
+        variant="warning"
+        @click="submitCreate"
+        class="float-right"
+      >
+        <div
+          v-if="isLoading"
+          class="spinner-border spinner-border-sm"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
         Tạo mới
       </b-button>
     </template>
@@ -98,6 +110,8 @@ export default class extends Vue {
 
   success = "";
 
+  isLoading = false;
+
   categoryForm: CreateSubCategoryPayload = {
     title: "",
     description: "",
@@ -128,9 +142,11 @@ export default class extends Vue {
     this.v$.categoryForm.$touch();
     if (!this.v$.categoryForm.$invalid) {
       //   this.$bvModal.hide("create-category-modal");
+      this.isLoading = true;
       categoryService
         .createSubCategory(this.categoryForm)
         .then((res) => {
+          this.isLoading = false;
           this.success = res.data.message;
           setTimeout(() => {
             this.success = "";
@@ -144,6 +160,7 @@ export default class extends Vue {
           this.$store.dispatch("category/loadCategories");
         })
         .catch((err) => {
+          this.isLoading = false;
           this.error = err.response.data.message;
         });
     }

@@ -12,7 +12,19 @@
       >
         Hủy
       </b-button>
-      <b-button variant="warning" @click="confirm" class="float-right">
+      <b-button
+        :disabled="isLoading"
+        variant="warning"
+        @click="confirm"
+        class="float-right"
+      >
+        <div
+          v-if="isLoading"
+          class="spinner-border spinner-border-sm"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
         Xác nhận
       </b-button>
     </template>
@@ -28,12 +40,24 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 export default class extends Vue {
   @Prop({ required: true })
   category!: Category;
-  confirm(): void {
-    categoryService.deleteCategory(this.category.id).then(() => {
-      this.$store.dispatch("category/loadCategories");
-    });
 
-    this.$bvModal.hide("delete-confirm-modal");
+  isLoading = false;
+  confirm(): void {
+    this.isLoading = true;
+    categoryService
+      .deleteCategory(this.category.id)
+      .then(() => {
+        this.isLoading = false;
+        this.$bvModal.hide("delete-confirm-modal");
+        if (this.category.categories?.length !== 0) {
+          this.$store.commit("category/removeCategory", this.category.id);
+        } else {
+          this.$store.dispatch("category/loadCategories");
+        }
+      })
+      .catch(() => {
+        this.isLoading = false;
+      });
   }
 }
 </script>

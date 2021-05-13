@@ -52,7 +52,19 @@
       >
         Đóng
       </b-button>
-      <b-button variant="warning" @click="submitUpdate" class="float-right">
+      <b-button
+        :disabled="isLoading"
+        variant="warning"
+        @click="submitUpdate"
+        class="float-right"
+      >
+        <div
+          v-if="isLoading"
+          class="spinner-border spinner-border-sm"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
         Cập nhật
       </b-button>
     </template>
@@ -62,7 +74,6 @@
 <script lang="ts">
 import Category from "@/models/Category";
 import categoryService, {
-  CreateCategoryPayload,
   CreateSubCategoryPayload,
 } from "@/service/category-service";
 import useVuelidate from "@vuelidate/core";
@@ -99,6 +110,8 @@ export default class extends Vue {
 
   success = "";
 
+  isLoading = false;
+
   categoryForm: CreateSubCategoryPayload = {
     title: "",
     description: "",
@@ -132,9 +145,11 @@ export default class extends Vue {
     this.v$.categoryForm.$touch();
     if (!this.v$.categoryForm.$invalid) {
       //   this.$bvModal.hide("create-category-modal");
+      this.isLoading = true;
       categoryService
         .updateSubCategory(this.category.id, this.categoryForm)
         .then((res) => {
+          this.isLoading = true;
           this.success = res.data.message;
           setTimeout(() => {
             this.success = "";
@@ -142,6 +157,7 @@ export default class extends Vue {
           this.$store.dispatch("category/loadCategories");
         })
         .catch((err) => {
+          this.isLoading = true;
           this.error = err.response.data.message;
         });
     }
