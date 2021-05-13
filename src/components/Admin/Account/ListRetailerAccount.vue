@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="retailer-account">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
       <h1 class="h3 mb-0 text-gray-800">Danh sách tài khoản chủ cửa hàng</h1>
       <router-link to="/tao-tai-khoan" custom v-slot="{ href, navigate }">
@@ -46,6 +46,13 @@
           ></i>
         </div>
       </template>
+      <template #cell(enable)="data">
+        <b-form-checkbox
+          @change="changeStatus(data.item.id)"
+          :checked="data.item.enable"
+          switch
+        ></b-form-checkbox>
+      </template>
     </b-table>
     <loading :isLoading="isLoading"></loading>
     <delete-account-confirm :id="selectedId"></delete-account-confirm>
@@ -90,6 +97,10 @@ import Loading from "@/components/Home/Loading.vue";
           label: "Số điện thoại",
         },
         {
+          key: "enable",
+          label: "Trạng thái",
+        },
+        {
           key: "registerDay",
           label: "Ngày đăng ký",
         },
@@ -108,6 +119,10 @@ export default class extends Vue {
 
   selectAccount(id: number) {
     this.selectedId = id;
+  }
+
+  changeStatus(id: number) {
+    accountService.toggleStatus(id);
   }
 
   myProvider(ctx: { currentPage: number; perPage: number }, callback: any) {
@@ -133,5 +148,12 @@ export default class extends Vue {
 }
 </script>
 
-<style scoped>
+<style lang="scss">
+.action-area {
+  i {
+    cursor: pointer;
+    margin: 0 3px;
+    color: #fea82f;
+  }
+}
 </style>
