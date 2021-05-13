@@ -1,6 +1,7 @@
 import { AxiosResponse } from "axios";
 import http from "@/service/http";
 import Page from "@/models/Page";
+import { SignupPayload } from "./auth-service";
 
 export interface AccountResponse {
   id: number;
@@ -28,8 +29,13 @@ function getListRetailerAccount(
   return http.get<Page<AccountResponse>>("user/listRetailerAccount" + params);
 }
 
+function createGuestAccount(payload: SignupPayload) {
+  return http.post("user/createGuestAccount", payload);
+}
+
 export default {
   getListGuestAccount,
   getListRetailerAccount,
   confirmEmail,
+  createGuestAccount,
 };

@@ -138,7 +138,7 @@ import {
 } from "@vuelidate/validators";
 import { Component, Vue } from "vue-property-decorator";
 
-interface SignupForm {
+export interface SignupForm {
   username: string;
   fullName: string;
   email: string;

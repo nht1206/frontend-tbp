@@ -2,12 +2,19 @@
   <div>
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
       <h1 class="h3 mb-0 text-gray-800">Quản lý tài khoản người dùng</h1>
-      <a
-        v-b-modal.create-category-modal
-        class="d-sm-inline-block btn btn-create"
+      <router-link
+        to="/tao-tai-khoan-nguoi-dung"
+        custom
+        v-slot="{ href, navigate }"
       >
-        Tạo mới tài khoản</a
-      >
+        <a
+          :href="href"
+          @click="navigate"
+          class="d-sm-inline-block btn btn-create"
+        >
+          Tạo mới tài khoản</a
+        >
+      </router-link>
     </div>
 
     <b-pagination

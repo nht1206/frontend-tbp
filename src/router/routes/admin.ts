@@ -2,6 +2,7 @@ import { RouteConfig } from "vue-router";
 import Dashboard from "@/views/Admin/Dashboard.vue";
 import ListCategory from "@/components/Admin/Category/ListCategory.vue";
 import ListGuestAccount from "@/components/Admin/Account/ListGuestAccount.vue";
+import CreateGuestAccount from "@/components/Admin/Account/CreateGuestAccount.vue";
 import ListRetailerAccount from "@/components/Admin/Account/ListRetailerAccount.vue";
 import ListKeyword from "@/components/Admin/Statistics/KeywordStatistics.vue";
 import ProductStatistics from "@/components/Admin/Statistics/ProductStatistics.vue";
@@ -24,6 +25,13 @@ export default [
     component: ListGuestAccount,
     meta: {
       title: "Quản lý tài khoản người dùng",
+    },
+  },
+  {
+    path: "/tao-tai-khoan-nguoi-dung",
+    component: CreateGuestAccount,
+    meta: {
+      title: "Tạo tài khoản người dùng",
     },
   },
   {
