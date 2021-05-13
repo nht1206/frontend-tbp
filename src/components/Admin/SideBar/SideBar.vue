@@ -69,13 +69,47 @@
       </template>
     </collapse-menu>
 
+    <collapse-menu title="Nhà bán lẻ" subTitle="Quản lý nhà bán lẻ">
+      <template v-slot:icon>
+        <i class="fas fa-store"></i>
+      </template>
+      <template v-slot:items>
+        <router-link
+          to="/nha-ban-le-da-duyet"
+          custom
+          v-slot="{ href, navigate, isActive }"
+        >
+          <a
+            class="collapse-item"
+            :class="{ active: isActive }"
+            :href="href"
+            @click="navigate"
+            >Nhà bán lẻ đã duyệt</a
+          >
+        </router-link>
+        <router-link
+          to="/nha-ban-le-chua-duyet"
+          custom
+          v-slot="{ href, navigate, isActive }"
+        >
+          <a
+            class="collapse-item"
+            :class="{ active: isActive }"
+            :href="href"
+            @click="navigate"
+            >Nhà bán lẻ chưa duyệt</a
+          >
+        </router-link>
+      </template>
+    </collapse-menu>
+
     <collapse-menu title="Sản phẩm" subTitle="Quản lý sản phẩm">
       <template v-slot:icon>
         <i class="fas fa-box"></i>
       </template>
       <template v-slot:items>
         <router-link
-          to="/approved-product"
+          to="/san-pham-da-duyet"
           custom
           v-slot="{ href, navigate, isActive }"
         >
@@ -88,7 +122,7 @@
           >
         </router-link>
         <router-link
-          to="/pending-product"
+          to="/san-pham-chua-duyet"
           custom
           v-slot="{ href, navigate, isActive }"
         >

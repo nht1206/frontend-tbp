@@ -5,6 +5,10 @@ import ListGuestAccount from "@/components/Admin/Account/ListGuestAccount.vue";
 import CreateGuestAccount from "@/components/Admin/Account/CreateAccount.vue";
 import EditAccount from "@/components/Admin/Account/EditAccount.vue";
 import ListRetailerAccount from "@/components/Admin/Account/ListRetailerAccount.vue";
+import ListApprovedRetailer from "@/components/Admin/Retailer/ListApprovedRetailer.vue";
+import ListPendingRetailer from "@/components/Admin/Retailer/ListPendingRetailer.vue";
+import ListApprovedProduct from "@/components/Admin/Product/ListApprovedProduct.vue";
+import ListPendingProduct from "@/components/Admin/Product/ListPendingProduct.vue";
 import ListKeyword from "@/components/Admin/Statistics/KeywordStatistics.vue";
 import ProductStatistics from "@/components/Admin/Statistics/ProductStatistics.vue";
 import TrafficStatistics from "@/components/Admin/Statistics/TrafficStatistics.vue";
@@ -47,6 +51,34 @@ export default [
     component: EditAccount,
     meta: {
       title: "Chỉnh sửa tài khoản",
+    },
+  },
+  {
+    path: "/nha-ban-le-da-duyet",
+    component: ListApprovedRetailer,
+    meta: {
+      title: "Nhà bán lẻ đã duyệt",
+    },
+  },
+  {
+    path: "/nha-ban-le-chua-duyet",
+    component: ListPendingRetailer,
+    meta: {
+      title: "Nhà bán lẻ chưa duyệt",
+    },
+  },
+  {
+    path: "/san-pham-chua-duyet",
+    component: ListPendingProduct,
+    meta: {
+      title: "Sản phẩm chưa duyệt",
+    },
+  },
+  {
+    path: "/san-pham-da-duyet",
+    component: ListApprovedProduct,
+    meta: {
+      title: "Sản phẩm đả duyệt",
     },
   },
   {
