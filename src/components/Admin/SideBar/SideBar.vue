@@ -131,6 +131,19 @@
       </template>
       <template v-slot:items>
         <router-link
+          to="/thong-ke-luot-truy-cap"
+          custom
+          v-slot="{ href, navigate, isActive }"
+        >
+          <a
+            class="collapse-item"
+            :class="{ active: isActive }"
+            :href="href"
+            @click="navigate"
+            >Lượt truy cập website</a
+          >
+        </router-link>
+        <router-link
           to="/thong-ke-san-pham"
           custom
           v-slot="{ href, navigate, isActive }"

@@ -66,6 +66,10 @@ function getViewCountData(params: string): Promise<AxiosResponse<number[]>> {
   return http.get(`statistic/viewCount` + params);
 }
 
+function getTrafficData(params: string): Promise<AxiosResponse<number[]>> {
+  return http.get(`statistic/access` + params);
+}
+
 function getSearchCountData(params: string): Promise<AxiosResponse<number[]>> {
   return http.get(`statistic/search` + params);
 }
@@ -89,4 +93,5 @@ export default {
   getProductStatistics,
   downloadReport,
   getSearchCountData,
+  getTrafficData,
 };

@@ -101,6 +101,9 @@ export default class extends Vue {
     .compare-details-title {
       min-height: 70px;
     }
+    img {
+      min-height: 322px;
+    }
   }
   table {
     tbody {

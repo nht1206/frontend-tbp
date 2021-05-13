@@ -5,6 +5,7 @@ import ListGuestAccount from "@/components/Admin/Account/ListGuestAccount.vue";
 import ListRetailerAccount from "@/components/Admin/Account/ListRetailerAccount.vue";
 import ListKeyword from "@/components/Admin/Statistics/KeywordStatistics.vue";
 import ProductStatistics from "@/components/Admin/Statistics/ProductStatistics.vue";
+import TrafficStatistics from "@/components/Admin/Statistics/TrafficStatistics.vue";
 
 export default [
   {
@@ -44,6 +45,13 @@ export default [
     component: ProductStatistics,
     meta: {
       title: "Thống kê sản phẩm",
+    },
+  },
+  {
+    path: "/thong-ke-luot-truy-cap",
+    component: TrafficStatistics,
+    meta: {
+      title: "Thống kê lượt truy cập",
     },
   },
 ] as Array<RouteConfig>;
