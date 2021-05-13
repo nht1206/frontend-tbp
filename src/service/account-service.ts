@@ -14,7 +14,7 @@ export interface AccountResponse {
 }
 
 function confirmEmail(token: string): Promise<AxiosResponse<any>> {
-  return http.get("registerConfirm?token=" + token);
+  return http.post("registerConfirm?token=" + token);
 }
 
 function getListGuestAccount(
@@ -35,6 +35,12 @@ function getListRetailerAccount(
 
 function createGuestAccount(payload: SignupPayload) {
   return http.post("user/createGuestAccount", payload);
+}
+
+function toggleStatus(id: number) {
+  return http.put(
+    `https://thebestpricedtu.herokuapp.com/api/v1/user/toggleEnable/${id}`
+  );
 }
 
 export interface EditAccountPayload {
@@ -61,4 +67,5 @@ export default {
   deleteGuestOrRetailer,
   getUserById,
   editAccount,
+  toggleStatus,
 };
