@@ -33,9 +33,14 @@ function createGuestAccount(payload: SignupPayload) {
   return http.post("user/createGuestAccount", payload);
 }
 
+function deleteGuestOrRetailer(id: number) {
+  return http.delete(`user/deleteGuestOrRetailer/${id}`);
+}
+
 export default {
   getListGuestAccount,
   getListRetailerAccount,
   confirmEmail,
   createGuestAccount,
+  deleteGuestOrRetailer,
 };

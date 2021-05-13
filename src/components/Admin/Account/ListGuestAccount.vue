@@ -33,15 +33,30 @@
       :items="myProvider"
       :fields="fields"
     >
+      <template #cell(actions)="data">
+        <div class="action-area">
+          <i @click="selectAccount(data.item.id)" class="fas fa-edit"></i>
+          <i
+            @click="
+              selectAccount(data.item.id) &
+                $bvModal.show('delete-account-confirm-modal')
+            "
+            class="fas fa-trash-alt"
+          ></i>
+        </div>
+      </template>
     </b-table>
+    <delete-account-confirm :id="selectedId"></delete-account-confirm>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import accountService from "@/service/account-service";
+import DeleteAccountConfirm from "../Modal/DeleteAccountConfirm.vue";
 
 @Component({
+  components: { DeleteAccountConfirm },
   data() {
     return {
       perPage: 10,
@@ -85,6 +100,12 @@ import accountService from "@/service/account-service";
 })
 export default class extends Vue {
   rows = 0;
+
+  selectedId = 0;
+
+  selectAccount(id: number) {
+    this.selectedId = id;
+  }
 
   myProvider(ctx: { currentPage: number; perPage: number }, callback: any) {
     const params = "?page=" + (ctx.currentPage - 1) + "&size=" + ctx.perPage;
