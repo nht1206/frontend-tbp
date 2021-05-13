@@ -1,12 +1,8 @@
 <template>
   <div>
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-      <h1 class="h3 mb-0 text-gray-800">Quản lý tài khoản người dùng</h1>
-      <router-link
-        to="/tao-tai-khoan-nguoi-dung"
-        custom
-        v-slot="{ href, navigate }"
-      >
+      <h1 class="h3 mb-0 text-gray-800">Danh sách tài khoản người dùng</h1>
+      <router-link to="/tao-tai-khoan" custom v-slot="{ href, navigate }">
         <a
           :href="href"
           @click="navigate"
@@ -36,7 +32,7 @@
       <template #cell(actions)="data">
         <div class="action-area">
           <router-link
-            :to="'/chinh-sua-tai-khoan-nguoi-dung/' + data.item.id"
+            :to="'/chinh-sua-tai-khoan/' + data.item.id"
             custom
             v-slot="{ navigate }"
             ><i @click="navigate" class="fas fa-edit"></i
@@ -51,6 +47,7 @@
         </div>
       </template>
     </b-table>
+    <loading :isLoading="isLoading"></loading>
     <delete-account-confirm :id="selectedId"></delete-account-confirm>
   </div>
 </template>
@@ -59,9 +56,10 @@
 import { Component, Vue } from "vue-property-decorator";
 import accountService from "@/service/account-service";
 import DeleteAccountConfirm from "../Modal/DeleteAccountConfirm.vue";
+import Loading from "@/components/Home/Loading.vue";
 
 @Component({
-  components: { DeleteAccountConfirm },
+  components: { DeleteAccountConfirm, Loading },
   data() {
     return {
       perPage: 10,
@@ -105,8 +103,8 @@ import DeleteAccountConfirm from "../Modal/DeleteAccountConfirm.vue";
 })
 export default class extends Vue {
   rows = 0;
-
   selectedId = 0;
+  isLoading = false;
 
   selectAccount(id: number) {
     this.selectedId = id;
@@ -114,6 +112,7 @@ export default class extends Vue {
 
   myProvider(ctx: { currentPage: number; perPage: number }, callback: any) {
     const params = "?page=" + (ctx.currentPage - 1) + "&size=" + ctx.perPage;
+    this.isLoading = true;
     accountService
       .getListGuestAccount(params)
       .then((res) => {
@@ -121,9 +120,11 @@ export default class extends Vue {
         if (res.data.totalElements) {
           this.rows = res.data.totalElements;
         }
+        this.isLoading = false;
         callback(items);
       })
       .catch(() => {
+        this.isLoading = false;
         callback([]);
       });
 

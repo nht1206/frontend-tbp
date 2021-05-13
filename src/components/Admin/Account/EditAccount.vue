@@ -1,6 +1,6 @@
 <template>
   <div>
-    <basic-card title="Chỉnh sửa tài khoản người dùng">
+    <basic-card title="Chỉnh sửa tài khoản">
       <template v-slot:content>
         <div>
           <div v-if="error" class="alert alert-danger" role="alert">
@@ -15,17 +15,15 @@
               type="text"
               class="form-control"
               :class="[
-                { 'is-invalid': isInvalid(v$.editGuestAccountForm.username) },
+                { 'is-invalid': isInvalid(v$.editAccountForm.username) },
               ]"
-              v-model="v$.editGuestAccountForm.username.$model"
-              @focus="reset(v$.editGuestAccountForm.username)"
-              @input="reset(v$.editGuestAccountForm.username)"
+              v-model="v$.editAccountForm.username.$model"
+              @focus="reset(v$.editAccountForm.username)"
+              @input="reset(v$.editAccountForm.username)"
               id="inputUsername-signup"
             />
             <div class="invalid-feedback">
-              <template
-                v-for="error of v$.editGuestAccountForm.username.$errors"
-              >
+              <template v-for="error of v$.editAccountForm.username.$errors">
                 {{ error.$message }}
               </template>
             </div>
@@ -36,17 +34,15 @@
               type="text"
               class="form-control"
               :class="[
-                { 'is-invalid': isInvalid(v$.editGuestAccountForm.fullName) },
+                { 'is-invalid': isInvalid(v$.editAccountForm.fullName) },
               ]"
-              v-model="v$.editGuestAccountForm.fullName.$model"
-              @focus="reset(v$.editGuestAccountForm.fullName)"
-              @input="reset(v$.editGuestAccountForm.fullName)"
+              v-model="v$.editAccountForm.fullName.$model"
+              @focus="reset(v$.editAccountForm.fullName)"
+              @input="reset(v$.editAccountForm.fullName)"
               id="inputName-signup"
             />
             <div class="invalid-feedback">
-              <template
-                v-for="error of v$.editGuestAccountForm.fullName.$errors"
-              >
+              <template v-for="error of v$.editAccountForm.fullName.$errors">
                 {{ error.$message }}
               </template>
             </div>
@@ -56,16 +52,14 @@
             <input
               type="text"
               class="form-control"
-              :class="[
-                { 'is-invalid': isInvalid(v$.editGuestAccountForm.email) },
-              ]"
-              v-model="v$.editGuestAccountForm.email.$model"
-              @focus="reset(v$.editGuestAccountForm.email)"
-              @input="reset(v$.editGuestAccountForm.email)"
+              :class="[{ 'is-invalid': isInvalid(v$.editAccountForm.email) }]"
+              v-model="v$.editAccountForm.email.$model"
+              @focus="reset(v$.editAccountForm.email)"
+              @input="reset(v$.editAccountForm.email)"
               id="inputEmail-signup"
             />
             <div class="invalid-feedback">
-              <template v-for="error of v$.editGuestAccountForm.email.$errors">
+              <template v-for="error of v$.editAccountForm.email.$errors">
                 {{ error.$message }}
               </template>
             </div>
@@ -75,18 +69,14 @@
             <input
               type="text"
               class="form-control"
-              :class="[
-                { 'is-invalid': isInvalid(v$.editGuestAccountForm.address) },
-              ]"
-              v-model="v$.editGuestAccountForm.address.$model"
-              @focus="reset(v$.editGuestAccountForm.address)"
-              @input="reset(v$.editGuestAccountForm.address)"
+              :class="[{ 'is-invalid': isInvalid(v$.editAccountForm.address) }]"
+              v-model="v$.editAccountForm.address.$model"
+              @focus="reset(v$.editAccountForm.address)"
+              @input="reset(v$.editAccountForm.address)"
               id="inputAddress-signup"
             />
             <div class="invalid-feedback">
-              <template
-                v-for="error of v$.editGuestAccountForm.address.$errors"
-              >
+              <template v-for="error of v$.editAccountForm.address.$errors">
                 {{ error.$message }}
               </template>
             </div>
@@ -98,18 +88,16 @@
               class="form-control"
               :class="[
                 {
-                  'is-invalid': isInvalid(v$.editGuestAccountForm.phoneNumber),
+                  'is-invalid': isInvalid(v$.editAccountForm.phoneNumber),
                 },
               ]"
-              v-model="v$.editGuestAccountForm.phoneNumber.$model"
-              @focus="reset(v$.editGuestAccountForm.phoneNumber)"
-              @input="reset(v$.editGuestAccountForm.phoneNumber)"
+              v-model="v$.editAccountForm.phoneNumber.$model"
+              @focus="reset(v$.editAccountForm.phoneNumber)"
+              @input="reset(v$.editAccountForm.phoneNumber)"
               id="inputPhoneNumber-signup"
             />
             <div class="invalid-feedback">
-              <template
-                v-for="error of v$.editGuestAccountForm.phoneNumber.$errors"
-              >
+              <template v-for="error of v$.editAccountForm.phoneNumber.$errors">
                 {{ error.$message }}
               </template>
             </div>
@@ -165,7 +153,7 @@ export interface EditAccountForm {
   },
   validations() {
     return {
-      editGuestAccountForm: {
+      editAccountForm: {
         username: {
           required: helpers.withMessage(
             "Tài khoản không được để trống!",
@@ -213,7 +201,7 @@ export default class extends Vue {
 
   successMessage: string | null = "";
 
-  editGuestAccountForm: EditAccountForm = {
+  editAccountForm: EditAccountForm = {
     username: "",
     fullName: "",
     email: "",
@@ -226,19 +214,19 @@ export default class extends Vue {
   }
 
   isFormChanged(): boolean {
-    if (this.account.username !== this.editGuestAccountForm.username) {
+    if (this.account.username !== this.editAccountForm.username) {
       return true;
     }
-    if (this.account.fullName !== this.editGuestAccountForm.fullName) {
+    if (this.account.fullName !== this.editAccountForm.fullName) {
       return true;
     }
-    if (this.account.address !== this.editGuestAccountForm.address) {
+    if (this.account.address !== this.editAccountForm.address) {
       return true;
     }
-    if (this.account.email !== this.editGuestAccountForm.email) {
+    if (this.account.email !== this.editAccountForm.email) {
       return true;
     }
-    if (this.account.phoneNumber !== this.editGuestAccountForm.phoneNumber) {
+    if (this.account.phoneNumber !== this.editAccountForm.phoneNumber) {
       return true;
     }
 
@@ -256,8 +244,8 @@ export default class extends Vue {
 
   resetForm() {
     this.error = "";
-    this.v$.editGuestAccountForm.$reset();
-    this.editGuestAccountForm = {
+    this.v$.editAccountForm.$reset();
+    this.editAccountForm = {
       username: "",
       fullName: "",
       email: "",
@@ -271,11 +259,11 @@ export default class extends Vue {
       this.error = "Thông tin chưa được thay đổi!";
       return;
     }
-    this.v$.editGuestAccountForm.$touch();
+    this.v$.editAccountForm.$touch();
     if (!this.v$.$invalid) {
       this.isLoading = true;
       accountService
-        .editAccount(this.account.id, this.editGuestAccountForm)
+        .editAccount(this.account.id, this.editAccountForm)
         .then((res) => {
           this.successMessage = res.data.message + "";
           this.resetForm();
@@ -297,7 +285,7 @@ export default class extends Vue {
         .getUserById(id)
         .then((res) => {
           this.account = res.data;
-          this.editGuestAccountForm = {
+          this.editAccountForm = {
             username: res.data.username,
             fullName: res.data.fullName,
             email: res.data.email,

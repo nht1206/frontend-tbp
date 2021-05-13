@@ -1,13 +1,16 @@
 <template>
   <div>
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-      <h1 class="h3 mb-0 text-gray-800">Quản lý tài khoản chủ cửa hàng</h1>
-      <a
-        v-b-modal.create-category-modal
-        class="d-sm-inline-block btn btn-create"
-      >
-        Tạo mới tài khoản</a
-      >
+      <h1 class="h3 mb-0 text-gray-800">Danh sách tài khoản chủ cửa hàng</h1>
+      <router-link to="/tao-tai-khoan" custom v-slot="{ href, navigate }">
+        <a
+          :href="href"
+          @click="navigate"
+          class="d-sm-inline-block btn btn-create"
+        >
+          Tạo mới tài khoản</a
+        >
+      </router-link>
     </div>
 
     <b-pagination
@@ -26,15 +29,37 @@
       :items="myProvider"
       :fields="fields"
     >
+      <template #cell(actions)="data">
+        <div class="action-area">
+          <router-link
+            :to="'/chinh-sua-tai-khoan/' + data.item.id"
+            custom
+            v-slot="{ navigate }"
+            ><i @click="navigate" class="fas fa-edit"></i
+          ></router-link>
+          <i
+            @click="
+              selectAccount(data.item.id) &
+                $bvModal.show('delete-account-confirm-modal')
+            "
+            class="fas fa-trash-alt"
+          ></i>
+        </div>
+      </template>
     </b-table>
+    <loading :isLoading="isLoading"></loading>
+    <delete-account-confirm :id="selectedId"></delete-account-confirm>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import accountService from "@/service/account-service";
+import DeleteAccountConfirm from "../Modal/DeleteAccountConfirm.vue";
+import Loading from "@/components/Home/Loading.vue";
 
 @Component({
+  components: { DeleteAccountConfirm, Loading },
   data() {
     return {
       perPage: 10,
@@ -78,9 +103,16 @@ import accountService from "@/service/account-service";
 })
 export default class extends Vue {
   rows = 0;
+  selectedId = 0;
+  isLoading = false;
+
+  selectAccount(id: number) {
+    this.selectedId = id;
+  }
 
   myProvider(ctx: { currentPage: number; perPage: number }, callback: any) {
     const params = "?page=" + (ctx.currentPage - 1) + "&size=" + ctx.perPage;
+    this.isLoading = true;
     accountService
       .getListRetailerAccount(params)
       .then((res) => {
@@ -88,9 +120,11 @@ export default class extends Vue {
         if (res.data.totalElements) {
           this.rows = res.data.totalElements;
         }
+        this.isLoading = false;
         callback(items);
       })
       .catch(() => {
+        this.isLoading = false;
         callback([]);
       });
 
