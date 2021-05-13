@@ -35,7 +35,12 @@
     >
       <template #cell(actions)="data">
         <div class="action-area">
-          <i @click="selectAccount(data.item.id)" class="fas fa-edit"></i>
+          <router-link
+            :to="'/chinh-sua-tai-khoan-nguoi-dung/' + data.item.id"
+            custom
+            v-slot="{ navigate }"
+            ><i @click="navigate" class="fas fa-edit"></i
+          ></router-link>
           <i
             @click="
               selectAccount(data.item.id) &

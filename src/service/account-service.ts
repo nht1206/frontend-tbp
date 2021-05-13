@@ -23,6 +23,10 @@ function getListGuestAccount(
   return http.get<Page<AccountResponse>>("user/listGuestAccount" + params);
 }
 
+function getUserById(id: string): Promise<AxiosResponse<AccountResponse>> {
+  return http.get<AccountResponse>("user/" + id);
+}
+
 function getListRetailerAccount(
   params: string
 ): Promise<AxiosResponse<Page<AccountResponse>>> {
@@ -31,6 +35,18 @@ function getListRetailerAccount(
 
 function createGuestAccount(payload: SignupPayload) {
   return http.post("user/createGuestAccount", payload);
+}
+
+export interface EditAccountPayload {
+  username: string;
+  fullName: string;
+  address: string;
+  email: string;
+  phoneNumber: string;
+}
+
+function editAccount(id: number, payload: EditAccountPayload) {
+  return http.put("user/editGuestOrRetailerAccount/" + id, payload);
 }
 
 function deleteGuestOrRetailer(id: number) {
@@ -43,4 +59,6 @@ export default {
   confirmEmail,
   createGuestAccount,
   deleteGuestOrRetailer,
+  getUserById,
+  editAccount,
 };
