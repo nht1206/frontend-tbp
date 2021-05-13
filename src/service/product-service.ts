@@ -4,6 +4,7 @@ import Product from "@/models/Product";
 import Suggestion from "@/models/Suggestion";
 import http from "@/service/http";
 import { AxiosResponse } from "axios";
+import { ProductStatisticsResponse } from "./statistics-service";
 
 function searchProduct(
   option: Option,
@@ -36,6 +37,42 @@ function getProductHotDeal(): Promise<AxiosResponse<Product[]>> {
   return http.get("hotDeal/top10Product");
 }
 
+function getApprovedProducts(): Promise<
+  AxiosResponse<Page<ProductStatisticsResponse>>
+> {
+  return http.get<Page<ProductStatisticsResponse>>("product/approveTrue");
+}
+
+function getPendingProducts(): Promise<
+  AxiosResponse<Page<ProductStatisticsResponse>>
+> {
+  return http.get<Page<ProductStatisticsResponse>>("product/approveFalse");
+}
+
+export interface ProductPayload {
+  brandId: number;
+  categoryId: number;
+  images: string[];
+  longDescription: string;
+  shortDescription: string;
+  title: string;
+}
+
+function createProduct(payload: ProductPayload): Promise<AxiosResponse<any>> {
+  return http.post("product", payload);
+}
+
+function updateProduct(
+  id: number,
+  payload: ProductPayload
+): Promise<AxiosResponse<any>> {
+  return http.put("product/" + id, payload);
+}
+
+function deleteProduct(id: number): Promise<AxiosResponse<any>> {
+  return http.delete("product/" + id);
+}
+
 export default {
   searchProduct,
   findById,
@@ -44,4 +81,9 @@ export default {
   getProductHotDeal,
   getSmartPhoneHotDeal,
   rateProduct,
+  getApprovedProducts,
+  getPendingProducts,
+  createProduct,
+  updateProduct,
+  deleteProduct,
 };

@@ -2,6 +2,7 @@ import { AxiosResponse } from "axios";
 import http from "@/service/http";
 import Page from "@/models/Page";
 import { SignupPayload } from "./auth-service";
+import { RetailerPayload } from "./retailer-service";
 
 export interface AccountResponse {
   id: number;
@@ -43,6 +44,38 @@ function toggleStatus(id: number) {
   );
 }
 
+export interface ChangePasswordPayload {
+  currentPassword: string;
+  newPassword: string;
+}
+
+function changePassword(payload: ChangePasswordPayload) {
+  return http.put("user/editPassword", payload);
+}
+
+export interface UpdateProfilePayload {
+  address: string;
+  fullName: string;
+  phoneNumber: string;
+}
+
+function updateProfile(payload: UpdateProfilePayload) {
+  return http.put("user/editProfile", payload);
+}
+
+export interface RegisterRetailerPayload {
+  description: string;
+  homePage: string;
+  logo: string;
+  name: string;
+}
+
+function registerRetailer(
+  payload: RegisterRetailerPayload
+): Promise<AxiosResponse<any>> {
+  return http.post("user/registerRetailerAccount", payload);
+}
+
 export interface EditAccountPayload {
   username: string;
   fullName: string;
@@ -59,6 +92,22 @@ function deleteGuestOrRetailer(id: number) {
   return http.delete(`user/deleteGuestOrRetailer/${id}`);
 }
 
+export interface UpdatePasswordPayload {
+  newPassword: string;
+}
+
+function updateUserPassword(id: number, payload: UpdatePasswordPayload) {
+  return http.put("user/adminEditPasswordForGuestOrRetailer/" + id, payload);
+}
+
+function createAdminAccount(payload: SignupPayload) {
+  return http.post("user/createAdminAccount");
+}
+
+function deleteAdminAccount(id: number) {
+  return http.post("user/superDelete/" + id);
+}
+
 export default {
   getListGuestAccount,
   getListRetailerAccount,
@@ -68,4 +117,10 @@ export default {
   getUserById,
   editAccount,
   toggleStatus,
+  registerRetailer,
+  changePassword,
+  updateProfile,
+  updateUserPassword,
+  createAdminAccount,
+  deleteAdminAccount,
 };
