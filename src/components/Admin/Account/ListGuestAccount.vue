@@ -46,6 +46,14 @@
           ></i>
         </div>
       </template>
+      <template #cell(enable)="data">
+        <b-form-checkbox
+          @change="changeStatus(data.item.id)"
+          :checked="data.item.enable"
+          switch
+          variant="warning"
+        ></b-form-checkbox>
+      </template>
     </b-table>
     <loading :isLoading="isLoading"></loading>
     <delete-account-confirm :id="selectedId"></delete-account-confirm>
@@ -90,6 +98,10 @@ import Loading from "@/components/Home/Loading.vue";
           label: "Số điện thoại",
         },
         {
+          key: "enable",
+          label: "Trạng thái",
+        },
+        {
           key: "registerDay",
           label: "Ngày đăng ký",
         },
@@ -108,6 +120,10 @@ export default class extends Vue {
 
   selectAccount(id: number) {
     this.selectedId = id;
+  }
+
+  changeStatus(id: number) {
+    accountService.toggleStatus(id);
   }
 
   myProvider(ctx: { currentPage: number; perPage: number }, callback: any) {
