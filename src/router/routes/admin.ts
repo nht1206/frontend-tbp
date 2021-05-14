@@ -7,6 +7,8 @@ import EditAccount from "@/components/Admin/Account/EditAccount.vue";
 import ListRetailerAccount from "@/components/Admin/Account/ListRetailerAccount.vue";
 import ListApprovedRetailer from "@/components/Admin/Retailer/ListApprovedRetailer.vue";
 import ListPendingRetailer from "@/components/Admin/Retailer/ListPendingRetailer.vue";
+import CreateRetailer from "@/components/Admin/Retailer/CreateRetailer.vue";
+import UpdateRetailer from "@/components/Admin/Retailer/UpdateRetailer.vue";
 import ListApprovedProduct from "@/components/Admin/Product/ListApprovedProduct.vue";
 import ListPendingProduct from "@/components/Admin/Product/ListPendingProduct.vue";
 import ListKeyword from "@/components/Admin/Statistics/KeywordStatistics.vue";
@@ -65,6 +67,20 @@ export default [
     component: ListPendingRetailer,
     meta: {
       title: "Nhà bán lẻ chưa duyệt",
+    },
+  },
+  {
+    path: "/them-nha-ban-le",
+    component: CreateRetailer,
+    meta: {
+      title: "Thêm nhà bán lẻ",
+    },
+  },
+  {
+    path: "/chinh-sua-nha-ban-le/:id",
+    component: UpdateRetailer,
+    meta: {
+      title: "Chỉnh sửa nhà bán lẻ",
     },
   },
   {

@@ -57,8 +57,8 @@ export default class extends Vue {
   items!: Array<string>;
 
   onSearch(): void {
-    if (this.$route.path !== "/product-list") {
-      this.$router.push("/product-list");
+    if (this.$route.path !== "/danh-sach-san-pham") {
+      this.$router.push("/danh-sach-san-pham");
     }
     this.$store.dispatch("product/searchProducts", {
       keyword: this.search,
@@ -86,7 +86,7 @@ export default class extends Vue {
 
   setResult(result: Suggestion): void {
     if (result.id) {
-      this.$router.push("product-detail/" + result.id);
+      this.$router.push("/chi-tiet-san-pham/" + result.id);
     }
     this.isOpen = false;
   }

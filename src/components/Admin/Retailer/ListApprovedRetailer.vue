@@ -2,13 +2,13 @@
   <div>
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
       <h1 class="h3 mb-0 text-gray-800">Danh sách nhà bán lẻ</h1>
-      <router-link to="/tao-nha-ban-le" custom v-slot="{ href, navigate }">
+      <router-link to="/them-nha-ban-le" custom v-slot="{ href, navigate }">
         <a
           :href="href"
           @click="navigate"
           class="d-sm-inline-block btn btn-create"
         >
-          Tạo mới nhà bán lẻ</a
+          Thêm mới nhà bán lẻ</a
         >
       </router-link>
     </div>
@@ -28,6 +28,7 @@
       :per-page="perPage"
       :items="myProvider"
       :fields="fields"
+      ref="table"
     >
       <template #cell(name)="data">
         <a :href="data.item.homePage" target="_blank">{{ data.item.name }}</a>
@@ -65,6 +66,10 @@
         ></b-form-checkbox>
       </template>
     </b-table>
+    <delete-retailer-confirm-modal
+      :id="selectedId"
+      @deleted="onDeleted"
+    ></delete-retailer-confirm-modal>
     <loading :isLoading="isLoading"></loading>
   </div>
 </template>
@@ -73,9 +78,10 @@
 import { Component, Vue } from "vue-property-decorator";
 import Loading from "@/components/Home/Loading.vue";
 import retailerService from "@/service/retailer-service";
+import DeleteRetailerConfirmModal from "../Modal/DeleteRetailerConfirmModal.vue";
 
 @Component({
-  components: { Loading },
+  components: { Loading, DeleteRetailerConfirmModal },
   data() {
     return {
       perPage: 10,
@@ -115,7 +121,13 @@ export default class extends Vue {
   }
 
   changeStatus(id: number) {
-    // accountService.toggleStatus(id);
+    retailerService.toggleRetailerStatus(id);
+  }
+
+  onDeleted(id: number | null) {
+    if (id) {
+      (this.$refs.table as any).refresh();
+    }
   }
 
   myProvider(ctx: { currentPage: number; perPage: number }, callback: any) {

@@ -77,7 +77,7 @@ import { mapGetters } from "vuex";
 import DropdownCard from "../Card/DropdownCard.vue";
 import CreateCategoryModal from "../Modal/CreateCategoryModal.vue";
 import CreateSubCategoryModal from "../Modal/CreateSubCategoryModal.vue";
-import DeleteConfirmModal from "../Modal/DeleteConfirmModal.vue";
+import DeleteConfirmModal from "../Modal/DeleteCategoryConfirmModal.vue";
 import EditCategoryModal from "../Modal/EditCategoryModal.vue";
 import EditSubCategoryModal from "../Modal/EditSubCategoryModal.vue";
 

@@ -7,20 +7,36 @@ function getRetailers(): Promise<AxiosResponse<Retailer[]>> {
   return http.get<Retailer[]>("retailer");
 }
 
+export interface RetailerResponse {
+  name: string;
+  description: string;
+  logoImage: "";
+  homePage: "";
+  userId: "";
+}
+
+function getRetailerById(id: string): Promise<AxiosResponse<RetailerResponse>> {
+  return http.get<RetailerResponse>("retailer/" + id);
+}
+
 function getApprovedRetailers(
   params: string
-): Promise<AxiosResponse<Page<Retailer>>> {
-  return http.get<Page<Retailer>>("retailer/listRetailerApproveTrue" + params);
+): Promise<AxiosResponse<Page<RetailerResponse>>> {
+  return http.get<Page<RetailerResponse>>(
+    "retailer/listRetailerApproveTrue" + params
+  );
 }
 
 function getPendingRetailers(
   params: string
-): Promise<AxiosResponse<Page<Retailer>>> {
-  return http.get<Page<Retailer>>("retailer/listRetailerApproveFalse" + params);
+): Promise<AxiosResponse<Page<RetailerResponse>>> {
+  return http.get<Page<RetailerResponse>>(
+    "retailer/listRetailerApproveFalse" + params
+  );
 }
 
 export interface RetailerPayload {
-  userId: number;
+  userId: string;
   description: string;
   homePage: string;
   logo: string;
@@ -28,15 +44,19 @@ export interface RetailerPayload {
 }
 
 function createRetailer(payload: RetailerPayload): Promise<AxiosResponse<any>> {
-  return http.post<any>("retailer");
+  return http.post<any>("retailer", payload);
 }
 
 function updateRetailer(payload: RetailerPayload): Promise<AxiosResponse<any>> {
-  return http.put<any>("retailer");
+  return http.put<any>("retailer", payload);
 }
 
 function approveRetailer(id: number): Promise<AxiosResponse<any>> {
   return http.put<any>(`retailer/approveRetailer/${id}`);
+}
+
+function toggleRetailerStatus(id: number): Promise<AxiosResponse<any>> {
+  return http.put<any>(`retailer/toggle/${id}`);
 }
 
 function deleteRetailer(id: number): Promise<AxiosResponse<any>> {
@@ -45,10 +65,12 @@ function deleteRetailer(id: number): Promise<AxiosResponse<any>> {
 
 export default {
   getRetailers,
+  getRetailerById,
   getApprovedRetailers,
   getPendingRetailers,
   createRetailer,
   updateRetailer,
   approveRetailer,
+  toggleRetailerStatus,
   deleteRetailer,
 };
