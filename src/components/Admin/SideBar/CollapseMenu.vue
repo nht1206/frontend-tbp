@@ -45,4 +45,7 @@ export default class extends Vue {
 .nav-link {
   cursor: pointer;
 }
+.collapse {
+  z-index: 999 !important;
+}
 </style>
