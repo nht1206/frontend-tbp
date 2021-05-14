@@ -7,12 +7,16 @@ function getRetailers(): Promise<AxiosResponse<Retailer[]>> {
   return http.get<Retailer[]>("retailer");
 }
 
-function getApprovedRetailers(): Promise<AxiosResponse<Page<Retailer>>> {
-  return http.get<Page<Retailer>>("retailer/listRetailerApproveTrue");
+function getApprovedRetailers(
+  params: string
+): Promise<AxiosResponse<Page<Retailer>>> {
+  return http.get<Page<Retailer>>("retailer/listRetailerApproveTrue" + params);
 }
 
-function getPendingRetailers(): Promise<AxiosResponse<Page<Retailer>>> {
-  return http.get<Page<Retailer>>("retailer/listRetailerApproveFalse");
+function getPendingRetailers(
+  params: string
+): Promise<AxiosResponse<Page<Retailer>>> {
+  return http.get<Page<Retailer>>("retailer/listRetailerApproveFalse" + params);
 }
 
 export interface RetailerPayload {
