@@ -124,7 +124,7 @@
             </div>
           </div>
         </div>
-        <div class="col-12" v-if="!isLoading">
+        <div class="col-12 pt-3" v-if="!isLoading">
           <price-history
             :specification="product.longDescription"
           ></price-history>
