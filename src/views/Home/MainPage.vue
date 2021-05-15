@@ -3,16 +3,16 @@
     <MainSlider></MainSlider>
     <Service></Service>
     <TopDealSlider
-      v-if="laptopHotDeal"
-      storeName="Laptop"
-      :storeNumber="1"
+      title="Laptop"
+      :slideNumber="1"
       :products="laptopHotDeal"
+      :isLoading="isLaptopLoading"
     ></TopDealSlider>
     <TopDealSlider
-      v-if="smartPhoneHotDeal"
-      storeName="Smart phone"
-      :storeNumber="2"
+      title="Smart phone"
+      :slideNumber="2"
       :products="smartPhoneHotDeal"
+      :isLoading="isSmartPhoneLoading"
     ></TopDealSlider>
     <trending-slider></trending-slider>
   </div>
@@ -38,14 +38,30 @@ import { Component, Vue } from "vue-property-decorator";
 export default class Home extends Vue {
   laptopHotDeal: Product[] | null = null;
   smartPhoneHotDeal: Product[] | null = null;
+  isLaptopLoading = false;
+  isSmartPhoneLoading = false;
 
   created() {
-    productService.getLaptopHotDeal().then((res) => {
-      this.laptopHotDeal = res.data;
-    });
-    productService.getSmartPhoneHotDeal().then((res) => {
-      this.smartPhoneHotDeal = res.data;
-    });
+    this.isLaptopLoading = true;
+    this.isSmartPhoneLoading = true;
+    productService
+      .getLaptopHotDeal()
+      .then((res) => {
+        this.laptopHotDeal = res.data;
+        this.isLaptopLoading = false;
+      })
+      .catch(() => {
+        this.isLaptopLoading = false;
+      });
+    productService
+      .getSmartPhoneHotDeal()
+      .then((res) => {
+        this.smartPhoneHotDeal = res.data;
+        this.isSmartPhoneLoading = false;
+      })
+      .catch(() => {
+        this.isSmartPhoneLoading = false;
+      });
   }
 }
 </script>

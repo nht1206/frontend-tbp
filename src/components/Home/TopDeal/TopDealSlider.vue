@@ -1,16 +1,18 @@
 <template>
   <div id="top-deals">
     <div class="container">
-      <div class="row">
-        <div class="col-md-12">
+      <div class="row align-items-center">
+        <div class="col-12">
           <div class="section-title-center text-left">
-            <h2 class="title pl-0">{{ storeName }} Top Deals</h2>
+            <h2 class="title pl-0">{{ title }}</h2>
           </div>
         </div>
         <product-carousel
           :products="products"
           :sliderId="sliderId"
+          v-if="!isLoading && products"
         ></product-carousel>
+        <loading :isLoading="isLoading"></loading>
       </div>
     </div>
   </div>
@@ -21,20 +23,23 @@ import Product from "@/models/Product";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import ProductBox from "../Carousel/ProductBox.vue";
 import ProductCarousel from "../Carousel/ProductCarousel.vue";
+import Loading from "../Loading.vue";
 
-@Component({ components: { ProductBox, ProductCarousel } })
+@Component({ components: { ProductBox, ProductCarousel, Loading } })
 export default class extends Vue {
   @Prop({ type: String, required: true })
-  storeName!: string;
+  title!: string;
   @Prop({ type: Array, required: true })
   products!: Array<Product>;
   @Prop({ type: Number, required: true })
-  storeNumber!: number;
+  slideNumber!: number;
+  @Prop({ type: Boolean, default: true })
+  isLoading!: boolean;
 
   sliderId!: string;
 
   created(): void {
-    this.sliderId = "slider" + this.storeNumber;
+    this.sliderId = "slider" + this.slideNumber;
   }
 }
 </script>
@@ -72,7 +77,7 @@ export default class extends Vue {
     }
     .owl-nav {
       position: absolute;
-      top: -106px;
+      top: -98px;
       right: 0;
       background: #fff;
       padding: 0 15px;

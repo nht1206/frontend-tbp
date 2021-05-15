@@ -1,5 +1,5 @@
 <template>
-  <div class="loader-wrapper" v-if="isLoading">
+  <div class="loader-wrapper mx-auto" v-if="isLoading">
     <svg
       class="loader"
       xmlns="http://www.w3.org/2000/svg"
