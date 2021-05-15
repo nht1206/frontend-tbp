@@ -98,11 +98,13 @@ export default class extends Vue {
   padding: 20px;
 
   .compare-details-section {
+    width: 322px;
     .compare-details-title {
       min-height: 70px;
     }
     img {
-      min-height: 322px;
+      width: 322px;
+      height: 322px;
     }
   }
   table {

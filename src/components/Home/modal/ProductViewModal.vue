@@ -196,7 +196,8 @@ export default class extends Vue {
   .product-gallery {
     .product-slider-details {
       img {
-        width: 100%;
+        width: 368px;
+        height: 368px;
       }
       .lSSlideOuter {
         .lSPager.lSGallery {
