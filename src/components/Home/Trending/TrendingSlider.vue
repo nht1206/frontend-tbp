@@ -8,10 +8,11 @@
           </div>
         </div>
         <product-carousel
-          v-if="productList"
+          v-if="!isLoading && productList"
           :products="productList"
           :sliderId="'product-slider'"
         ></product-carousel>
+        <loading :isLoading="isLoading"></loading>
       </div>
     </div>
   </div>
@@ -23,15 +24,24 @@ import productService from "@/service/product-service";
 import { Component, Vue } from "vue-property-decorator";
 import ProductBox from "../Carousel/ProductBox.vue";
 import ProductCarousel from "../Carousel/ProductCarousel.vue";
+import Loading from "../Loading.vue";
 
-@Component({ components: { ProductBox, ProductCarousel } })
+@Component({ components: { ProductBox, ProductCarousel, Loading } })
 export default class extends Vue {
   productList: Product[] | null = null;
+  isLoading = false;
 
   created(): void {
-    productService.getProductHotDeal().then((res) => {
-      this.productList = res.data;
-    });
+    this.isLoading = true;
+    productService
+      .getProductHotDeal()
+      .then((res) => {
+        this.productList = res.data;
+        this.isLoading = false;
+      })
+      .catch(() => {
+        this.isLoading = false;
+      });
   }
 }
 </script>
