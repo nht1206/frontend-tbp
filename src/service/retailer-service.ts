@@ -47,8 +47,11 @@ function createRetailer(payload: RetailerPayload): Promise<AxiosResponse<any>> {
   return http.post<any>("retailer", payload);
 }
 
-function updateRetailer(payload: RetailerPayload): Promise<AxiosResponse<any>> {
-  return http.put<any>("retailer", payload);
+function updateRetailer(
+  id: string,
+  payload: RetailerPayload
+): Promise<AxiosResponse<any>> {
+  return http.put<any>("retailer/" + id, payload);
 }
 
 function approveRetailer(id: number): Promise<AxiosResponse<any>> {

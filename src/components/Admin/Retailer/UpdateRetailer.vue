@@ -168,6 +168,7 @@ import BasicCard from "../Card/BasicCard.vue";
 export default class extends Vue {
   v$!: any;
 
+  id!: string;
   retailer!: RetailerResponse;
 
   error = "";
@@ -214,7 +215,7 @@ export default class extends Vue {
     if (!this.v$.$invalid) {
       this.isLoading = true;
       retailerService
-        .updateRetailer(this.createForm)
+        .updateRetailer(this.id, this.createForm)
         .then((res) => {
           this.successMessage = res.data.message + "";
           this.resetForm();
@@ -230,9 +231,9 @@ export default class extends Vue {
   }
 
   created() {
-    const id = this.$route.params["id"];
-    if (id) {
-      retailerService.getRetailerById(id).then((res) => {
+    this.id = this.$route.params["id"];
+    if (this.id) {
+      retailerService.getRetailerById(this.id).then((res) => {
         this.retailer = res.data;
         this.createForm = {
           description: res.data.description,
