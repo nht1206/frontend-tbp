@@ -59,8 +59,8 @@ export default class extends Vue {
 
   click(catId: number): void {
     this.close();
-    if (this.$route.path !== "/product-list") {
-      this.$router.push("/product-list");
+    if (this.$route.path !== "/danh-sach-san-pham") {
+      this.$router.push("/danh-sach-san-pham");
     }
     this.$store.dispatch("product/searchProducts", {
       catId,

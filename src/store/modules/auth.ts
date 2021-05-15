@@ -49,7 +49,8 @@ export const auth: Module<AuthState, RootState> = {
         await authService.logout();
         storageService.removeToken();
         if (user.role === "ROLE_ADMIN") {
-          if (router.currentRoute.path === "/admin") router.push("/login");
+          if (router.currentRoute.matched[0].path === "/admin")
+            router.push("/login");
         } else {
           router.push("/");
         }

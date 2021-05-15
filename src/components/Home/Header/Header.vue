@@ -33,16 +33,7 @@ import SearchBox from "./SearchBox.vue";
 @Component({
   components: { SearchBox, Account, CompareCart, MobileMenu },
 })
-export default class extends Vue {
-  suggestions = [
-    "LAPTOP ACER SWIFT 3 SF314-42-R0TR",
-    "LAPTOP ACER NITRO 5 AN515-55-5923",
-    "Laptop Acer Aspire 3 A315 56 502X",
-    "Laptop",
-    "Acer",
-    "SWIFT",
-  ];
-}
+export default class extends Vue {}
 </script>
 
 <style lang="scss" scoped>
