@@ -13,7 +13,7 @@
           </div>
         </div>
         <div class="col-12 order-lg-2 col-md-5 col-lg-7 d-none d-lg-block">
-          <search-box :items="suggestions"></search-box>
+          <search-box></search-box>
         </div>
         <div class="order-3 order-sm-3 col-10 col-sm-6 col-lg-3 col-md-4">
           <account></account>
