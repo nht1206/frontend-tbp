@@ -53,9 +53,6 @@ export default class extends Vue {
   arrowCounter = -1;
   suggestions: Suggestion[] = [];
 
-  @Prop({ type: Array, required: true })
-  items!: Array<string>;
-
   onSearch(): void {
     if (this.$route.path !== "/danh-sach-san-pham") {
       this.$router.push("/danh-sach-san-pham");

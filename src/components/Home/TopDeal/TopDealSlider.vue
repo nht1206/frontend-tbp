@@ -29,8 +29,8 @@ import Loading from "../Loading.vue";
 export default class extends Vue {
   @Prop({ type: String, required: true })
   title!: string;
-  @Prop({ type: Array, required: true })
-  products!: Array<Product>;
+  @Prop({ required: true })
+  products!: Array<Product> | null;
   @Prop({ type: Number, required: true })
   slideNumber!: number;
   @Prop({ type: Boolean, default: true })

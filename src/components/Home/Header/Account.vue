@@ -73,8 +73,8 @@ export default class extends Vue {
   }
 
   search(): void {
-    if (this.$route.path !== "/product-list") {
-      this.$router.push("/product-list");
+    if (this.$route.path !== "/danh-sach-san-pham") {
+      this.$router.push("/danh-sach-san-pham");
     }
     this.$store.dispatch("product/searchProducts", {
       keyword: this.keyword,
@@ -138,9 +138,9 @@ export default class extends Vue {
       visibility: hidden;
       border: 2px solid #333;
       position: absolute;
-      right: 29px;
+      left: -200px;
       padding: 6px 10px;
-      top: -4px;
+      top: 100%;
       width: 275px;
       -webkit-transition: all 0.3s ease 0s;
       transition: all 0.3s ease 0s;
