@@ -11,6 +11,7 @@ import CreateRetailer from "@/components/Admin/Retailer/CreateRetailer.vue";
 import UpdateRetailer from "@/components/Admin/Retailer/UpdateRetailer.vue";
 import ListApprovedProduct from "@/components/Admin/Product/ListApprovedProduct.vue";
 import ListPendingProduct from "@/components/Admin/Product/ListPendingProduct.vue";
+import CreateProduct from "@/components/Admin/Product/CreateProduct.vue";
 import ListKeyword from "@/components/Admin/Statistics/KeywordStatistics.vue";
 import ProductStatistics from "@/components/Admin/Statistics/ProductStatistics.vue";
 import TrafficStatistics from "@/components/Admin/Statistics/TrafficStatistics.vue";
@@ -95,6 +96,13 @@ export default [
     component: ListApprovedProduct,
     meta: {
       title: "Sản phẩm đả duyệt",
+    },
+  },
+  {
+    path: "/them-san-pham",
+    component: CreateProduct,
+    meta: {
+      title: "Thêm mới sản phẩm",
     },
   },
   {

@@ -14,14 +14,14 @@
             <input
               type="text"
               class="form-control"
-              :class="[{ 'is-invalid': isInvalid(v$.createForm.name) }]"
-              v-model="v$.createForm.name.$model"
-              @focus="reset(v$.createForm.name)"
-              @input="reset(v$.createForm.name)"
+              :class="[{ 'is-invalid': isInvalid(v$.updateForm.name) }]"
+              v-model="v$.updateForm.name.$model"
+              @focus="reset(v$.updateForm.name)"
+              @input="reset(v$.updateForm.name)"
               id="inputName"
             />
             <div class="invalid-feedback">
-              <template v-for="error of v$.createForm.name.$errors">
+              <template v-for="error of v$.updateForm.name.$errors">
                 {{ error.$message }}
               </template>
             </div>
@@ -31,14 +31,14 @@
             <textarea
               type="text"
               class="form-control"
-              :class="[{ 'is-invalid': isInvalid(v$.createForm.description) }]"
-              v-model="v$.createForm.description.$model"
-              @focus="reset(v$.createForm.description)"
-              @input="reset(v$.createForm.description)"
+              :class="[{ 'is-invalid': isInvalid(v$.updateForm.description) }]"
+              v-model="v$.updateForm.description.$model"
+              @focus="reset(v$.updateForm.description)"
+              @input="reset(v$.updateForm.description)"
               id="inputDescription"
             />
             <div class="invalid-feedback">
-              <template v-for="error of v$.createForm.description.$errors">
+              <template v-for="error of v$.updateForm.description.$errors">
                 {{ error.$message }}
               </template>
             </div>
@@ -48,14 +48,14 @@
             <input
               type="text"
               class="form-control"
-              :class="[{ 'is-invalid': isInvalid(v$.createForm.logo) }]"
-              v-model="v$.createForm.logo.$model"
-              @focus="reset(v$.createForm.logo)"
-              @input="reset(v$.createForm.logo)"
+              :class="[{ 'is-invalid': isInvalid(v$.updateForm.logo) }]"
+              v-model="v$.updateForm.logo.$model"
+              @focus="reset(v$.updateForm.logo)"
+              @input="reset(v$.updateForm.logo)"
               id="inputLogo"
             />
             <div class="invalid-feedback">
-              <template v-for="error of v$.createForm.logo.$errors">
+              <template v-for="error of v$.updateForm.logo.$errors">
                 {{ error.$message }}
               </template>
             </div>
@@ -65,14 +65,14 @@
             <input
               type="text"
               class="form-control"
-              :class="[{ 'is-invalid': isInvalid(v$.createForm.homePage) }]"
-              v-model="v$.createForm.homePage.$model"
-              @focus="reset(v$.createForm.homePage)"
-              @input="reset(v$.createForm.homePage)"
+              :class="[{ 'is-invalid': isInvalid(v$.updateForm.homePage) }]"
+              v-model="v$.updateForm.homePage.$model"
+              @focus="reset(v$.updateForm.homePage)"
+              @input="reset(v$.updateForm.homePage)"
               id="inputHomePage"
             />
             <div class="invalid-feedback">
-              <template v-for="error of v$.createForm.homePage.$errors">
+              <template v-for="error of v$.updateForm.homePage.$errors">
                 {{ error.$message }}
               </template>
             </div>
@@ -82,14 +82,14 @@
             <input
               type="text"
               class="form-control"
-              :class="[{ 'is-invalid': isInvalid(v$.createForm.userId) }]"
-              v-model="v$.createForm.userId.$model"
-              @focus="reset(v$.createForm.userId)"
-              @input="reset(v$.createForm.userId)"
+              :class="[{ 'is-invalid': isInvalid(v$.updateForm.userId) }]"
+              v-model="v$.updateForm.userId.$model"
+              @focus="reset(v$.updateForm.userId)"
+              @input="reset(v$.updateForm.userId)"
               id="inputUserId"
             />
             <div class="invalid-feedback">
-              <template v-for="error of v$.createForm.userId.$errors">
+              <template v-for="error of v$.updateForm.userId.$errors">
                 {{ error.$message }}
               </template>
             </div>
@@ -134,7 +134,7 @@ import BasicCard from "../Card/BasicCard.vue";
   },
   validations() {
     return {
-      createForm: {
+      updateForm: {
         name: {
           required: helpers.withMessage("Tên không được để trống!", required),
           minLength: helpers.withMessage("Tên phải từ 8 ký tự", minLength(8)),
@@ -177,7 +177,7 @@ export default class extends Vue {
 
   successMessage: string | null = "";
 
-  createForm: RetailerPayload = {
+  updateForm: RetailerPayload = {
     name: "",
     description: "",
     logo: "",
@@ -200,8 +200,8 @@ export default class extends Vue {
 
   resetForm() {
     this.error = "";
-    this.v$.createForm.$reset();
-    this.createForm = {
+    this.v$.updateForm.$reset();
+    this.updateForm = {
       name: "",
       description: "",
       logo: "",
@@ -211,11 +211,11 @@ export default class extends Vue {
   }
 
   createHandle(): void {
-    this.v$.createForm.$touch();
+    this.v$.updateForm.$touch();
     if (!this.v$.$invalid) {
       this.isLoading = true;
       retailerService
-        .updateRetailer(this.id, this.createForm)
+        .updateRetailer(this.id, this.updateForm)
         .then((res) => {
           this.successMessage = res.data.message + "";
           this.resetForm();
@@ -235,7 +235,7 @@ export default class extends Vue {
     if (this.id) {
       retailerService.getRetailerById(this.id).then((res) => {
         this.retailer = res.data;
-        this.createForm = {
+        this.updateForm = {
           description: res.data.description,
           homePage: res.data.homePage,
           logo: res.data.logoImage,

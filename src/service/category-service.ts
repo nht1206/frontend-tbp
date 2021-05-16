@@ -6,6 +6,10 @@ function getCategories(): Promise<AxiosResponse<Category[]>> {
   return http.get<Category[]>("category");
 }
 
+function getSubCategories(): Promise<AxiosResponse<Category[]>> {
+  return http.get<Category[]>("category/child");
+}
+
 export interface CreateCategoryPayload {
   title: string;
   description: string;
@@ -49,6 +53,7 @@ function deleteCategory(id: number): Promise<AxiosResponse<any>> {
 
 export default {
   getCategories,
+  getSubCategories,
   createCategory,
   updateCategory,
   createSubCategory,

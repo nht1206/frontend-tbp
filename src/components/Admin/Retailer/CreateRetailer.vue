@@ -152,12 +152,7 @@ import BasicCard from "../Card/BasicCard.vue";
             required
           ),
         },
-        userId: {
-          required: helpers.withMessage(
-            "ID chủ sở hữu không được để trống!",
-            required
-          ),
-        },
+        userId: {},
       },
     };
   },

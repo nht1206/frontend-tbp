@@ -37,16 +37,24 @@ function getProductHotDeal(): Promise<AxiosResponse<Product[]>> {
   return http.get("hotDeal/top10Product");
 }
 
-function getApprovedProducts(): Promise<
-  AxiosResponse<Page<ProductStatisticsResponse>>
-> {
-  return http.get<Page<ProductStatisticsResponse>>("product/approveTrue");
+function getApprovedProducts(
+  params: string
+): Promise<AxiosResponse<Page<ProductStatisticsResponse>>> {
+  return http.get<Page<ProductStatisticsResponse>>(
+    "product/approveTrue" + params
+  );
 }
 
-function getPendingProducts(): Promise<
-  AxiosResponse<Page<ProductStatisticsResponse>>
-> {
-  return http.get<Page<ProductStatisticsResponse>>("product/approveFalse");
+function getPendingProducts(
+  params: string
+): Promise<AxiosResponse<Page<ProductStatisticsResponse>>> {
+  return http.get<Page<ProductStatisticsResponse>>(
+    "product/approveFalse" + params
+  );
+}
+
+function toggleProductStatus(id: number): Promise<AxiosResponse<any>> {
+  return http.put("product/toggle/" + id);
 }
 
 export interface ProductPayload {
@@ -86,4 +94,5 @@ export default {
   createProduct,
   updateProduct,
   deleteProduct,
+  toggleProductStatus,
 };
