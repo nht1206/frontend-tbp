@@ -77,6 +77,10 @@ function updateProduct(
   return http.put("product/" + id, payload);
 }
 
+function approveProduct(id: string): Promise<AxiosResponse<any>> {
+  return http.put("product/approve/" + id);
+}
+
 function deleteProduct(id: number): Promise<AxiosResponse<any>> {
   return http.delete("product/" + id);
 }
@@ -93,6 +97,7 @@ export default {
   getPendingProducts,
   createProduct,
   updateProduct,
+  approveProduct,
   deleteProduct,
   toggleProductStatus,
 };

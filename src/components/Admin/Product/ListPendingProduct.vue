@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="list-product">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
       <h1 class="h3 mb-0 text-gray-800">Danh sách sản phẩm chưa duyệt</h1>
       <router-link to="/them-san-pham" custom v-slot="{ href, navigate }">
@@ -90,6 +90,7 @@
     <product-detail-modal
       :approved="false"
       :id="selectedId"
+      @approved="onApproved"
     ></product-detail-modal>
     <loading :isLoading="isLoading"></loading>
   </div>
@@ -116,6 +117,7 @@ import ProductDetailModal from "../Modal/ProductDetailModal.vue";
         {
           key: "title",
           label: "Tiêu đề",
+          tdClass: "title",
         },
         {
           key: "image",
@@ -164,6 +166,10 @@ export default class extends Vue {
     }
   }
 
+  onApproved() {
+    (this.$refs.table as any).refresh();
+  }
+
   myProvider(ctx: { currentPage: number; perPage: number }, callback: any) {
     const params = "?page=" + (ctx.currentPage - 1) + "&size=" + ctx.perPage;
     this.isLoading = true;
@@ -186,9 +192,3 @@ export default class extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.image {
-  max-height: 100px;
-}
-</style>

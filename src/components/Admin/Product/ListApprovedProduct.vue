@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="list-product">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
       <h1 class="h3 mb-0 text-gray-800">Danh sách sản phẩm</h1>
       <router-link to="/them-san-pham" custom v-slot="{ href, navigate }">
@@ -112,6 +112,7 @@ import ProductDetailModal from "../Modal/ProductDetailModal.vue";
         {
           key: "title",
           label: "Tiêu đề",
+          tdClass: "title",
         },
         {
           key: "image",
@@ -183,8 +184,13 @@ export default class extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
-.image {
-  max-height: 100px;
+<style lang="scss">
+.list-product {
+  .image {
+    max-height: 100px;
+  }
+  .title {
+    width: 300px;
+  }
 }
 </style>

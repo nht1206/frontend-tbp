@@ -1,6 +1,6 @@
 <template>
   <b-modal
-    @hidden="resetDate"
+    @hidden="resetData"
     @shown="onOpen"
     id="product-detail-view"
     hide-footer
@@ -18,7 +18,19 @@
         </div>
       </div>
       <div class="col-6 col-12 col-md-12 col-lg-6">
-        <button v-if="!approved" class="btn btn-create float-right">
+        <button
+          :disabled="isApproving"
+          v-if="!approved"
+          @click="approve"
+          class="btn btn-create float-right"
+        >
+          <div
+            v-if="isApproving"
+            class="spinner-border spinner-border-sm"
+            role="status"
+          >
+            <span class="sr-only">Loading...</span>
+          </div>
           Duyệt
         </button>
         <div class="product-details-gallery">
@@ -91,6 +103,7 @@ export default class extends Vue {
   user!: User;
 
   isLoading = false;
+  isApproving = false;
 
   isBestPrice(price: number): boolean {
     return this.selectedProduct?.lowestPrice === price;
@@ -130,7 +143,7 @@ export default class extends Vue {
     }
   }
 
-  resetDate() {
+  resetData() {
     this.selectedRate = 0;
     this.isRated = false;
   }
@@ -171,6 +184,20 @@ export default class extends Vue {
       .catch(() => {
         this.isLoading = false;
         this.$bvModal.hide("product-detail-view");
+      });
+  }
+
+  approve() {
+    this.isApproving = true;
+    productService
+      .approveProduct(this.id + "")
+      .then(() => {
+        this.isApproving = false;
+        this.$bvModal.hide("product-detail-view");
+        this.$emit("approved");
+      })
+      .catch(() => {
+        this.isApproving = false;
       });
   }
 }
