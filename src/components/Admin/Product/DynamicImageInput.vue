@@ -1,22 +1,32 @@
 <template>
   <div class="form-group">
     <label>{{ title }}</label>
-    <small id="imageHelp" class="form-text text-muted"
-      >Nhấn enter để nhập thêm ảnh</small
-    >
-    <input
-      type="text"
-      v-for="(image, idx) in images"
-      :key="idx"
-      v-model="image.value"
-      class="form-control mt-2"
-      :class="[{ 'is-invalid': isInvalid }]"
-      @keyup.enter="addImageInput(idx)"
-      @change="onChange"
-      @focus="reset()"
-      @input="reset()"
-      @dblclick="removeImageInput(idx)"
-    />
+    <div v-for="(image, idx) in images" :key="idx" class="input-group mt-2">
+      <input
+        type="text"
+        v-model="image.value"
+        class="form-control"
+        :class="[{ 'is-invalid': isInvalid }]"
+        @change="onChange"
+        @focus="reset()"
+        @input="reset()"
+      />
+      <div class="input-group-prepend" v-if="!isTheLast(idx)">
+        <button
+          @click="removeImageInput(idx)"
+          class="btn btn-danger"
+          type="button"
+        >
+          Xóa
+        </button>
+      </div>
+      <div class="input-group-prepend" v-if="isTheLast(idx)">
+        <button @click="addImageInput" class="btn btn-success" type="button">
+          Thêm
+        </button>
+      </div>
+    </div>
+
     <div class="invalid-feedback">
       <template v-for="error of errors">
         {{ error.$message }}
@@ -53,12 +63,14 @@ export default class extends Vue {
     },
   ];
 
-  addImageInput(index: number) {
-    if (index === this.images.length - 1) {
-      this.images.push({
-        value: "",
-      });
-    }
+  isTheLast(idx: number) {
+    return idx === this.images.length - 1;
+  }
+
+  addImageInput() {
+    this.images.push({
+      value: "",
+    });
   }
 
   reset() {
@@ -66,9 +78,7 @@ export default class extends Vue {
   }
 
   removeImageInput(index: number) {
-    if (index !== this.images.length - 1) {
-      this.images = this.images.filter((image, idx) => idx !== index);
-    }
+    this.images = this.images.filter((image, idx) => idx !== index);
     this.onChange();
   }
 

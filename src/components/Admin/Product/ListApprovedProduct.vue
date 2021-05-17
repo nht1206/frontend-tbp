@@ -41,6 +41,15 @@
           ><u>{{ formatPrice(data.item.lowestPrice) }} </u> -
           <u>{{ formatPrice(data.item.highestPrice) }} VNĐ</u></strong
         >
+        <div class="action-area inline-block">
+          <router-link
+            title="Cập nhật giá"
+            :to="'/cap-nhat-gia/' + data.item.id"
+            custom
+            v-slot="{ navigate }"
+            ><i @click="navigate" class="fas fa-edit"></i
+          ></router-link>
+        </div>
       </template>
       <template #cell(actions)="data">
         <div class="action-area">
@@ -48,14 +57,19 @@
             :to="'/chinh-sua-san-pham/' + data.item.id"
             custom
             v-slot="{ navigate }"
-            ><i @click="navigate" class="fas fa-edit"></i
+            ><i title="Chỉnh sửa" @click="navigate" class="fas fa-edit"></i
           ></router-link>
           <i
-            @click="
-              selectRetailer(data.item.id) &
-                $bvModal.show('delete-product-confirm-modal')
-            "
+            title="Xóa"
+            v-b-modal.delete-product-confirm-modal
+            @click="selectProduct(data.item.id)"
             class="fas fa-trash-alt"
+          ></i>
+          <i
+            title="Xem sản phẩm"
+            v-b-modal.product-detail-view
+            @click="selectProduct(data.item.id)"
+            class="fas fa-eye"
           ></i>
         </div>
       </template>
@@ -72,6 +86,7 @@
       :id="selectedId"
       @deleted="onDeleted"
     ></delete-product-confirm>
+    <product-detail-modal :id="selectedId"></product-detail-modal>
     <loading :isLoading="isLoading"></loading>
   </div>
 </template>
@@ -81,9 +96,10 @@ import { Component, Vue } from "vue-property-decorator";
 import Loading from "@/components/Home/Loading.vue";
 import productService from "@/service/product-service";
 import DeleteProductConfirm from "../Modal/DeleteProductConfirmModal.vue";
+import ProductDetailModal from "../Modal/ProductDetailModal.vue";
 
 @Component({
-  components: { Loading, DeleteProductConfirm },
+  components: { Loading, DeleteProductConfirm, ProductDetailModal },
   data() {
     return {
       perPage: 10,
@@ -130,7 +146,7 @@ export default class extends Vue {
     return Intl.NumberFormat().format(price);
   }
 
-  selectRetailer(id: number) {
+  selectProduct(id: number) {
     this.selectedId = id;
   }
 

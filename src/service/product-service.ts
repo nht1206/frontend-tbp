@@ -71,7 +71,7 @@ function createProduct(payload: ProductPayload): Promise<AxiosResponse<any>> {
 }
 
 function updateProduct(
-  id: number,
+  id: string,
   payload: ProductPayload
 ): Promise<AxiosResponse<any>> {
   return http.put("product/" + id, payload);

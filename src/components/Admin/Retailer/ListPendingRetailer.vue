@@ -46,13 +46,12 @@
             :to="'/chinh-sua-nha-ban-le/' + data.item.id"
             custom
             v-slot="{ navigate }"
-            ><i @click="navigate" class="fas fa-edit"></i
+            ><i title="Chỉnh sửa" @click="navigate" class="fas fa-edit"></i
           ></router-link>
           <i
-            @click="
-              selectRetailer(data.item.id) &
-                $bvModal.show('delete-retailer-confirm-modal')
-            "
+            title="Xóa"
+            v-b-modal.delete-retailer-confirm-modal
+            @click="selectRetailer(data.item.id)"
             class="fas fa-trash-alt"
           ></i>
         </div>

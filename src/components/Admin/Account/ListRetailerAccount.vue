@@ -35,13 +35,12 @@
             :to="'/chinh-sua-tai-khoan/' + data.item.id"
             custom
             v-slot="{ navigate }"
-            ><i @click="navigate" class="fas fa-edit"></i
+            ><i title="Chỉnh sửa" @click="navigate" class="fas fa-edit"></i
           ></router-link>
           <i
-            @click="
-              selectAccount(data.item.id) &
-                $bvModal.show('delete-account-confirm-modal')
-            "
+            title="Xóa"
+            v-b-modal.delete-account-confirm-modal
+            @click="selectAccount(data.item.id)"
             class="fas fa-trash-alt"
           ></i>
         </div>

@@ -11,6 +11,9 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 import "./assets/styles/app.scss";
 import clickOutside from "./directives/click-outside";
 
+import "owl.carousel/dist/assets/owl.carousel.css";
+import "owl.carousel";
+
 Vue.use(BootstrapVue);
 Vue.use(VueCompositionAPI);
 

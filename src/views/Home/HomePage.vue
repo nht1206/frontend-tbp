@@ -22,9 +22,6 @@ import NewsLetter from "@/components/Home/NewsLetter.vue";
 import ScrollUp from "@/components/Home/ScrollUp.vue";
 import { Component, Vue } from "vue-property-decorator";
 
-import "owl.carousel/dist/assets/owl.carousel.css";
-import "owl.carousel";
-
 import "lightslider/dist/css/lightslider.css";
 import "lightslider/dist/js/lightslider";
 
