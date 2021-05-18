@@ -123,6 +123,7 @@ export default class extends Vue {}
       margin-right: 5px;
       background-color: #fea82f;
       border: #fea82f;
+      color: #fff;
       &:last-child {
         margin-right: 0px;
       }

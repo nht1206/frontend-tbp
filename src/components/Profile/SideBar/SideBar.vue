@@ -16,9 +16,7 @@
       <div class="profile-usertitle-job">Khách</div>
     </div>
     <div class="profile-userbuttons">
-      <button type="button" class="btn btn-success btn-sm">
-        Đăng ký chủ cửa hàng
-      </button>
+      <button type="button" class="btn btn-sm">Đăng ký chủ cửa hàng</button>
     </div>
     <hr class="sidebar-divider" />
     <div class="sidebar-sticky pt-3">

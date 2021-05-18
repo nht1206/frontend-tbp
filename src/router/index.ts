@@ -23,6 +23,21 @@ const routes: Array<RouteConfig> = [
         /* webpackChunkName: "profilePage" */ "../views/Profile/ProfilePage.vue"
       ),
     children: profileRoutes,
+    beforeEnter: (to, from, next) => {
+      authService
+        .validateToken()
+        .then(() => {
+          const user = storageService.extractUser();
+          if (user) {
+            next();
+          } else {
+            next({ path: "/" });
+          }
+        })
+        .catch(() => {
+          next({ path: "/" });
+        });
+    },
   },
   {
     path: "/admin",

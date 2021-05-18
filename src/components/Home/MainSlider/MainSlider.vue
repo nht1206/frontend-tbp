@@ -11,10 +11,7 @@
               So sánh sản phẩm với đánh giá tốt nhất từ các gian hàng.<br />
               Nội dung giới thiệu
             </p>
-            <a
-              href="shop-left-sidebar.html"
-              class="btn btn-primary wd-shop-btn slider-btn"
-            >
+            <a href="shop-left-sidebar.html" class="btn wd-shop-btn slider-btn">
               Đến gian hàng <i class="fa fa-arrow-right" aria-hidden="true"></i>
             </a>
           </template>
@@ -31,10 +28,7 @@
               So sánh sản phẩm với đánh giá tốt nhất từ các gian hàng.<br />
               Nội dung giới thiệu
             </p>
-            <a
-              href="shop-left-sidebar.html"
-              class="btn btn-primary wd-shop-btn slider-btn"
-            >
+            <a href="shop-left-sidebar.html" class="btn wd-shop-btn slider-btn">
               Đến gian hàng <i class="fa fa-arrow-right" aria-hidden="true"></i>
             </a>
           </template>
@@ -58,4 +52,8 @@ import Item from "../Carousel/MainSliderItem.vue";
 export default class extends Vue {}
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.wd-shop-btn {
+  color: #fff;
+}
+</style>

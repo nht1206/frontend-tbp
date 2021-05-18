@@ -74,7 +74,15 @@
                     <a
                       @click="loginHandle"
                       class="btn btn-primary btn-user btn-block btn-login"
+                      :class="{ disabled: isLoading }"
                     >
+                      <div
+                        v-if="isLoading"
+                        class="spinner-border spinner-border-sm"
+                        role="status"
+                      >
+                        <span class="sr-only">Loading...</span>
+                      </div>
                       Đăng nhập
                     </a>
                   </form>
@@ -143,6 +151,7 @@ import { LoginForm } from "@/mixins/LoginMixin";
   computed: {
     ...mapGetters({
       error: "auth/error",
+      isLoading: "auth/isLoading",
     }),
   },
 })

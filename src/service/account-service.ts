@@ -2,7 +2,6 @@ import { AxiosResponse } from "axios";
 import http from "@/service/http";
 import Page from "@/models/Page";
 import { SignupPayload } from "./auth-service";
-import { RetailerPayload } from "./retailer-service";
 
 export interface AccountResponse {
   id: number;
