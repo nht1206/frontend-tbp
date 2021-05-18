@@ -1,5 +1,6 @@
 import { AxiosResponse } from "axios";
 import http from "@/service/http";
+import User from "@/models/User";
 
 export interface LoginPayload {
   username: string;
@@ -35,9 +36,14 @@ function validateToken(): Promise<AxiosResponse<any>> {
   return http.post("auth/validateToken");
 }
 
+function getUserInfo(): Promise<AxiosResponse<User>> {
+  return http.get("auth/me");
+}
+
 export default {
   login,
   signup,
   logout,
   validateToken,
+  getUserInfo,
 };

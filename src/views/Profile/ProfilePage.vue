@@ -1,15 +1,43 @@
 <template>
-  <div class="container-fluid">
-    <div class="row">
-      <side-bar></side-bar>
-      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-        <div
-          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+  <div>
+    <nav
+      class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow"
+    >
+      <router-link to="/" custom v-slot="{ href }">
+        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" :href="href"
+          >The best price</a
         >
-          <h1 class="h2">Dashboard</h1>
-        </div>
-        <router-view></router-view>
-      </main>
+      </router-link>
+      <button
+        class="navbar-toggler position-absolute d-md-none collapsed"
+        type="button"
+        data-toggle="collapse"
+        data-target="#sidebarMenu"
+        aria-controls="sidebarMenu"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <input
+        class="form-control form-control-dark w-100"
+        type="text"
+        placeholder="Search"
+        aria-label="Search"
+      />
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="#">Đăng xuất</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
+        <side-bar></side-bar>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+          <router-view></router-view>
+        </main>
+      </div>
     </div>
   </div>
 </template>
@@ -23,6 +51,25 @@ export default class extends Vue {}
 </script>
 
 <style lang="scss">
+.navbar-brand {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  font-size: 1rem;
+  background-color: #fea82f;
+  box-shadow: inset -1px 0 0 #fea82f;
+}
+.navbar {
+  .navbar-toggler {
+    top: 0.25rem;
+    right: 1rem;
+  }
+  .form-control {
+    padding: 0.75rem 1rem;
+    border-width: 0;
+    border-radius: 0;
+  }
+}
+
 @supports ((position: -webkit-sticky) or (position: sticky)) {
   .sidebar-sticky {
     position: -webkit-sticky;
@@ -35,6 +82,7 @@ export default class extends Vue {}
   bottom: 0;
   left: 0;
   z-index: 100;
+  padding: 48px 0 0;
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
   .profile-userpic {
     img {
@@ -73,6 +121,8 @@ export default class extends Vue {}
       font-weight: 600;
       padding: 6px 15px;
       margin-right: 5px;
+      background-color: #fea82f;
+      border: #fea82f;
       &:last-child {
         margin-right: 0px;
       }
@@ -95,16 +145,16 @@ export default class extends Vue {}
         }
         &:hover {
           background-color: #fafcfd;
-          color: #5b9bd1;
+          color: #fea82f;
         }
       }
     }
     .nav-item.active {
       border-bottom: none;
       a {
-        color: #5b9bd1;
+        color: #fea82f;
         background-color: #f6f9fb;
-        border-left: 5px solid #e93b81;
+        border-left: 5px solid #fea82f;
         margin-left: -2px;
       }
     }
@@ -126,5 +176,8 @@ export default class extends Vue {}
   .sidebar {
     top: 5rem;
   }
+}
+.bg-dark {
+  background-color: #fea82f !important;
 }
 </style>
