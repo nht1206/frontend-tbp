@@ -1,11 +1,11 @@
 <template>
   <div class="social-media">
-    <a href="#" class="bh"><i class="fa fa-behance"></i></a>
-    <a href="#" class="fb"><i class="fa fa-facebook-official"></i></a>
-    <a href="#" class="db"><i class="fa fa-dribbble"></i></a>
-    <a href="#" class="gp"><i class="fa fa-google-plus"></i></a>
-    <a href="#" class="vn"><i class="fa fa-vine"></i></a>
-    <a href="#" class="yt"><i class="fa fa-youtube-play"></i></a>
+    <a href="#" class="bh"><i class="fab fa-behance"></i></a>
+    <a href="#" class="fb"><i class="fab fa-facebook"></i></a>
+    <a href="#" class="db"><i class="fab fa-dribbble"></i></a>
+    <a href="#" class="gp"><i class="fab fa-google-plus"></i></a>
+    <a href="#" class="vn"><i class="fab fa-vine"></i></a>
+    <a href="#" class="yt"><i class="fab fa-youtube"></i></a>
   </div>
 </template>
 

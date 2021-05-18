@@ -5,7 +5,7 @@
       @click="toggle"
       type="button"
     >
-      <i class="fa fa-balance-scale"></i>
+      <i class="fas fa-balance-scale"></i>
     </button>
     <span class="count">{{ cart.length }}</span>
     <div class="dropdown-menu dropdown-menu-right" :class="[{ show: isOpen }]">
@@ -71,7 +71,6 @@ export default class extends Vue {
     margin: 0;
     background: transparent;
     border-color: transparent;
-    // transform: translateY(-5px);
     cursor: pointer;
     position: relative;
   }

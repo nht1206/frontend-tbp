@@ -34,7 +34,7 @@
     </ul>
     <span class="input-group-btn">
       <button @click="onSearch" class="btn" type="button">
-        <i class="fa fa-search" aria-hidden="true"></i>
+        <i class="fas fa-search" aria-hidden="true"></i>
       </button>
     </span>
   </div>

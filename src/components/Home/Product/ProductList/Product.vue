@@ -69,7 +69,7 @@
           <div class="rating" v-if="!isRated">
             <a class="active-color" v-for="star in rate" :key="star + 'x'"
               ><i
-                class="fa fa-star"
+                class="fas fa-star"
                 :class="{ 'select-color ': selectedRate >= star }"
                 @mouseenter="select(star)"
                 @mouseleave="resetRate()"
@@ -80,7 +80,7 @@
 
             <a v-for="noStar in 5 - rate" :key="noStar + 'o'"
               ><i
-                class="fa fa-star-o"
+                class="far fa-star"
                 :class="{
                   'select-color ': selectedRate >= noStar + rate,
                 }"
@@ -93,11 +93,11 @@
           </div>
           <div class="rating" v-if="isRated">
             <a v-for="star in selectedRate" :key="star + 'x'"
-              ><i class="fa fa-star active-color" aria-hidden="true"></i
+              ><i class="fas fa-star active-color" aria-hidden="true"></i
             ></a>
 
             <a v-for="noStar in 5 - selectedRate" :key="noStar + 'o'"
-              ><i class="fa fa-star-o" aria-hidden="true"></i
+              ><i class="far fa-star" aria-hidden="true"></i
             ></a>
           </div>
           <div class="compare-btn">
@@ -105,12 +105,12 @@
               v-if="!isInCart(product.id)"
               class="btn btn-sm"
               @click="addToCart"
-              ><i class="fa fa-exchange" aria-hidden="true"></i> Thêm vào so
-              sánh</a
+              ><i class="fas fa-exchange-alt" aria-hidden="true"></i> Thêm vào
+              so sánh</a
             >
             <a v-if="isInCart(product.id)" class="btn btn-sm disabled"
-              ><i class="fa fa fa-check-square-o" aria-hidden="true"></i> Đã
-              thêm vào so sánh</a
+              ><i class="far fa-check-square" aria-hidden="true"></i> Đã thêm
+              vào so sánh</a
             >
           </div>
         </div>

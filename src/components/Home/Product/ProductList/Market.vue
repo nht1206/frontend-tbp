@@ -5,11 +5,10 @@
       <li>
         <a @click="selectAll"
           ><i
-            class="fa"
             :class="[
               {
-                'fa-square-o': !isSelectedAll,
-                'fa-check-square-o': isSelectedAll,
+                'far fa-square': !isSelectedAll,
+                'fas fa-check-square': isSelectedAll,
               },
             ]"
             aria-hidden="true"
@@ -21,11 +20,10 @@
       <li v-for="r in retailers" :key="r.id">
         <a @click="select(r.id.toString())"
           ><i
-            class="fa"
             :class="[
               {
-                'fa-square-o': !isIdSelected(r.id.toString()),
-                'fa-check-square-o': isIdSelected(r.id.toString()),
+                'far fa-square': !isIdSelected(r.id.toString()),
+                'fas fa-check-square': isIdSelected(r.id.toString()),
               },
             ]"
             aria-hidden="true"

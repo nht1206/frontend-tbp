@@ -14,7 +14,7 @@
           @click="search"
           type="button"
         >
-          <i class="fa fa-search" aria-hidden="true"></i>
+          <i class="fas fa-search" aria-hidden="true"></i>
         </button>
       </span>
     </div>

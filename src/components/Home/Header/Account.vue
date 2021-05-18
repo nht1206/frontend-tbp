@@ -6,7 +6,7 @@
         class="btn btn-primary btn-login"
         v-b-modal.sigin-signup
       >
-        <i class="fa fa-sign-in" aria-hidden="true"></i
+        <i class="fas fa-sign-in-alt" aria-hidden="true"></i
         ><span>Đăng nhập/Đăng ký</span>
         <authentication-modal></authentication-modal>
       </button>
@@ -20,16 +20,18 @@
             placeholder="Search"
             type="text"
           />
-          <a @click="openMiniSearch"><i class="fa fa-search"></i></a>
+          <a @click="openMiniSearch"><i class="fas fa-search"></i></a>
         </div>
       </div>
       <compare-cart></compare-cart>
 
       <account-dropdown v-if="user" :title="user.fullName">
-        <a class="dropdown-item" href="#">
-          <i class="fa fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-          Hồ sơ cá nhân
-        </a>
+        <router-link to="/tai-khoan" custom v-slot="{ href }">
+          <a class="dropdown-item" :href="href">
+            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+            Hồ sơ cá nhân
+          </a>
+        </router-link>
 
         <div class="dropdown-divider"></div>
         <a
@@ -37,7 +39,7 @@
           :class="{ disabled: isLoading }"
           @click="logout"
         >
-          <i class="fa fa-sign-out fa-sm fa-fw mr-2 text-gray-400"></i>
+          <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
           Đăng xuất
         </a>
       </account-dropdown>

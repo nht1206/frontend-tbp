@@ -24,7 +24,7 @@
               <loading :isLoading="isLoadingProduct"></loading>
             </div>
             <div
-              v-if="!products.last && !isLoadingProduct"
+              v-if="!products.last && !isLoadingProduct && !products.empty"
               class="col-12 text-center"
             >
               <a @click="loadMore" class="btn wd-shop-btn"> Show more </a>

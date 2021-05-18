@@ -4,6 +4,7 @@ import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import adminRoutes from "./routes/admin";
 import homeRoutes from "./routes/home";
+import profileRoutes from "./routes/profile";
 import EmailConfirm from "@/views/EmailConfirm.vue";
 
 Vue.use(VueRouter);
@@ -14,6 +15,14 @@ const routes: Array<RouteConfig> = [
     component: () =>
       import(/* webpackChunkName: "homePage" */ "../views/Home/HomePage.vue"),
     children: homeRoutes,
+  },
+  {
+    path: "/tai-khoan",
+    component: () =>
+      import(
+        /* webpackChunkName: "profilePage" */ "../views/Profile/ProfilePage.vue"
+      ),
+    children: profileRoutes,
   },
   {
     path: "/admin",

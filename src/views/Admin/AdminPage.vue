@@ -19,8 +19,6 @@ import NavBar from "@/components/Admin/NavBar/NavBar.vue";
 import SideBar from "@/components/Admin/SideBar/SideBar.vue";
 import { Component, Vue } from "vue-property-decorator";
 
-import "@fortawesome/fontawesome-free/css/all.min.css";
-
 import "@/assets/styles/sb-admin-2.min.css";
 import "@/assets/js/sb-admin-2.min";
 

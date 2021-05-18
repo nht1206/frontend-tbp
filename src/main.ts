@@ -9,6 +9,7 @@ import VueCompositionAPI from "@vue/composition-api";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import "./assets/styles/app.scss";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import clickOutside from "./directives/click-outside";
 
 import "owl.carousel/dist/assets/owl.carousel.css";
