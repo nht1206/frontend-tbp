@@ -10,6 +10,7 @@
       <a
         class="sidebar-brand d-flex align-items-center justify-content-center"
         :href="href"
+        target="_blank"
         @click="navigate"
       >
         <div class="sidebar-brand-text mx-3">The best price</div>

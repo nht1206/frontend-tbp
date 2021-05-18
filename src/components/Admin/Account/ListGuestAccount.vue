@@ -62,7 +62,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import accountService from "@/service/account-service";
-import DeleteAccountConfirm from "../Modal/DeleteAccountConfirm.vue";
+import DeleteAccountConfirm from "../Modal/DeleteAccountConfirmModal.vue";
 import Loading from "@/components/Home/Loading.vue";
 
 @Component({
