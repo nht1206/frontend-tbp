@@ -51,6 +51,9 @@ export const auth: Module<AuthState, RootState> = {
         if (user.role === "ROLE_ADMIN") {
           if (router.currentRoute.matched[0].path === "/admin")
             router.push("/login");
+          else {
+            router.push("/");
+          }
         } else {
           router.push("/");
         }

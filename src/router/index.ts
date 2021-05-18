@@ -6,6 +6,7 @@ import adminRoutes from "./routes/admin";
 import homeRoutes from "./routes/home";
 import profileRoutes from "./routes/profile";
 import EmailConfirm from "@/views/EmailConfirm.vue";
+import store from "@/store";
 
 Vue.use(VueRouter);
 
@@ -27,6 +28,7 @@ const routes: Array<RouteConfig> = [
       authService
         .validateToken()
         .then(() => {
+          store.commit("auth/loadUser");
           const user = storageService.extractUser();
           if (user) {
             next();
@@ -50,6 +52,7 @@ const routes: Array<RouteConfig> = [
       authService
         .validateToken()
         .then(() => {
+          store.commit("auth/loadUser");
           const user = storageService.extractUser();
           if (user) {
             if (user?.role === "ROLE_ADMIN") {

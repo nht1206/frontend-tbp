@@ -27,7 +27,16 @@
       />
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-          <a class="nav-link" href="#">Đăng xuất</a>
+          <a class="nav-link" :class="{ disabled: isLoading }" @click="logout"
+            ><div
+              v-if="isLoading"
+              class="spinner-border spinner-border-sm"
+              role="status"
+            >
+              <span class="sr-only">Loading...</span>
+            </div>
+            Đăng xuất</a
+          >
         </li>
       </ul>
     </nav>
@@ -45,9 +54,21 @@
 <script lang="ts">
 import SideBar from "@/components/Profile/SideBar/SideBar.vue";
 import { Component, Vue } from "vue-property-decorator";
+import { mapGetters } from "vuex";
 
-@Component({ components: { SideBar } })
-export default class extends Vue {}
+@Component({
+  components: { SideBar },
+  computed: {
+    ...mapGetters({
+      isLoading: "auth/isLoading",
+    }),
+  },
+})
+export default class extends Vue {
+  logout() {
+    this.$store.dispatch("auth/logout");
+  }
+}
 </script>
 
 <style lang="scss">
@@ -180,5 +201,8 @@ export default class extends Vue {}
 }
 .bg-dark {
   background-color: #fea82f !important;
+}
+.nav-link {
+  cursor: pointer;
 }
 </style>

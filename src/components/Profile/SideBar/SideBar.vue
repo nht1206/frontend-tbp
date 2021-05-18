@@ -12,11 +12,27 @@
     </div> -->
 
     <div class="profile-usertitle">
-      <div class="profile-usertitle-name">Nguyễn Hữu Thọ</div>
-      <div class="profile-usertitle-job">Khách</div>
+      <div class="profile-usertitle-name">{{ user.fullName }}</div>
+      <div class="profile-usertitle-job">{{ getRoleName(user.role) }}</div>
     </div>
     <div class="profile-userbuttons">
-      <button type="button" class="btn btn-sm">Đăng ký chủ cửa hàng</button>
+      <button
+        v-if="user.role === 'ROLE_GUEST'"
+        type="button"
+        class="btn btn-sm"
+      >
+        Đăng ký chủ cửa hàng
+      </button>
+      <router-link to="/admin" custom v-slot="{ href }">
+        <a
+          v-if="user.role === 'ROLE_ADMIN'"
+          :href="href"
+          type="button"
+          class="btn btn-sm"
+        >
+          Đến trang admin
+        </a>
+      </router-link>
     </div>
     <hr class="sidebar-divider" />
     <div class="sidebar-sticky pt-3">
@@ -27,12 +43,12 @@
             Thông tin cá nhân <span class="sr-only">(current)</span>
           </a>
         </li>
-        <li class="nav-item">
+        <li v-if="isRetailer(user.role)" class="nav-item">
           <a class="nav-link" href="#"
             ><i class="fas fa-store"></i> Cửa hàng
           </a>
         </li>
-        <li class="nav-item">
+        <li v-if="isRetailer(user.role)" class="nav-item">
           <a class="nav-link" href="#"><i class="fas fa-box"></i> Sản phẩm </a>
         </li>
       </ul>
@@ -42,9 +58,30 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { mapGetters } from "vuex";
 
-@Component
-export default class extends Vue {}
+@Component({
+  computed: {
+    ...mapGetters({
+      user: "auth/user",
+    }),
+  },
+})
+export default class extends Vue {
+  getRoleName(role: string): string {
+    if (role === "ROLE_ADMIN") {
+      return "Admin";
+    }
+    if (role === "ROLE_RETAILER") {
+      return "Chủ cửa hàng";
+    }
+    return "Khách";
+  }
+
+  isRetailer(role: string): boolean {
+    return role === "ROLE_RETAILER";
+  }
+}
 </script>
 
 <style lang="scss" scoped>
