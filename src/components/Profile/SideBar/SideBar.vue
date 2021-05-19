@@ -37,12 +37,18 @@
     <hr class="sidebar-divider" />
     <div class="sidebar-sticky pt-3">
       <ul class="nav flex-column">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">
-            <i class="fas fa-user"></i>
-            Thông tin cá nhân <span class="sr-only">(current)</span>
-          </a>
-        </li>
+        <router-link
+          to="/tai-khoan"
+          custom
+          v-slot="{ href, navigate, isActive }"
+        >
+          <li class="nav-item" :class="{ active: isActive }">
+            <a @click="navigate" class="nav-link" :href="href">
+              <i class="fas fa-user"></i>
+              Thông tin cá nhân <span class="sr-only">(current)</span>
+            </a>
+          </li>
+        </router-link>
         <li v-if="isRetailer(user.role)" class="nav-item">
           <a class="nav-link" href="#"
             ><i class="fas fa-store"></i> Cửa hàng

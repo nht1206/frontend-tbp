@@ -4,7 +4,12 @@
       <div
         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
       >
-        <h1 class="h4">Thông tin cá nhân <i class="fas fa-edit"></i></h1>
+        <h1 class="h4">
+          Thông tin cá nhân
+          <router-link to="/cap-nhat-thong-tin" custom v-slot="{ navigate }">
+            <i @click="navigate" class="fas fa-edit"></i>
+          </router-link>
+        </h1>
       </div>
     </div>
     <div v-if="!!user" class="col-md-12 col-lg-6">
