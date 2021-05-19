@@ -257,26 +257,33 @@ export default class extends Vue {
   changePassword() {
     this.v$.changePasswordForm.$touch();
     if (!this.v$.changePasswordForm.$invalid) {
-      this.isLoading = true;
-      accountService
-        .changePassword({
-          currentPassword: this.changePasswordForm.currentPassword,
-          newPassword: this.changePasswordForm.newPassword,
-        })
-        .then((res) => {
-          this.isLoading = false;
-          this.resetForm();
-          this.success = res.data.message;
-          setTimeout(() => {
+      if (
+        this.changePasswordForm.newPassword ===
+        this.changePasswordForm.confirmPassword
+      ) {
+        this.isLoading = true;
+        accountService
+          .changePassword({
+            currentPassword: this.changePasswordForm.currentPassword,
+            newPassword: this.changePasswordForm.newPassword,
+          })
+          .then((res) => {
+            this.isLoading = false;
+            this.resetForm();
+            this.success = res.data.message;
+            setTimeout(() => {
+              this.success = "";
+            }, 5000);
+          })
+          .catch((err) => {
+            this.isLoading = false;
+            this.resetForm();
             this.success = "";
-          }, 5000);
-        })
-        .catch((err) => {
-          this.isLoading = false;
-          this.resetForm();
-          this.success = "";
-          this.error = err.response.data.message;
-        });
+            this.error = err.response.data.message;
+          });
+      } else {
+        this.error = "Xác nhận mật khẩu không chính xác!";
+      }
     }
   }
 

@@ -190,7 +190,7 @@ export default class extends Vue {
           setTimeout(() => {
             this.success = "";
             this.$router.push("/tai-khoan");
-          }, 5000);
+          }, 3000);
         })
         .catch((err) => {
           this.isLoading = false;
