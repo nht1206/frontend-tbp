@@ -14,6 +14,7 @@ import ListPendingProduct from "@/components/Admin/Product/ListPendingProduct.vu
 import CreateProduct from "@/components/Admin/Product/CreateProduct.vue";
 import UpdateProduct from "@/components/Admin/Product/UpdateProduct.vue";
 import ListPrice from "@/components/Admin/Product/ListPrice.vue";
+import CreatePrice from "@/components/Admin/Product/CreatePrice.vue";
 import ListKeyword from "@/components/Admin/Statistics/KeywordStatistics.vue";
 import ProductStatistics from "@/components/Admin/Statistics/ProductStatistics.vue";
 import TrafficStatistics from "@/components/Admin/Statistics/TrafficStatistics.vue";
@@ -112,6 +113,13 @@ export default [
     component: UpdateProduct,
     meta: {
       title: "Chỉnh sửa sản phẩm",
+    },
+  },
+  {
+    path: "/them-gia-moi/:id",
+    component: CreatePrice,
+    meta: {
+      title: "Thêm giá mới",
     },
   },
   {

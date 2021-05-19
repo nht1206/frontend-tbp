@@ -33,6 +33,7 @@
 </template>
 
 <script lang="ts">
+import priceService from "@/service/price-service";
 import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
@@ -44,19 +45,19 @@ export default class extends Vue {
 
   error = "";
   confirm(): void {
-    // this.isLoading = true;
-    // retailerService
-    //   .deleteRetailer(this.id)
-    //   .then(() => {
-    //     this.isLoading = false;
-    //     this.$bvModal.hide("delete-retailer-confirm-modal");
-    //     this.$emit("deleted", this.id);
-    //   })
-    //   .catch((err) => {
-    //     this.error = err.response.data.message;
-    //     this.isLoading = false;
-    //     this.$emit("deleted", null);
-    //   });
+    this.isLoading = true;
+    priceService
+      .deletePriceByAdmin(this.id)
+      .then(() => {
+        this.isLoading = false;
+        this.$bvModal.hide("delete-price-confirm-modal");
+        this.$emit("deleted", this.id);
+      })
+      .catch((err) => {
+        this.error = err.response.data.message;
+        this.isLoading = false;
+        this.$emit("deleted", null);
+      });
   }
 }
 </script>

@@ -2,7 +2,11 @@
   <div>
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
       <h1 class="h3 mb-0 text-gray-800">Danh sách giá sản phẩm</h1>
-      <router-link to="/them-nha-ban-le" custom v-slot="{ href, navigate }">
+      <router-link
+        :to="'/them-gia-moi/' + productId"
+        custom
+        v-slot="{ href, navigate }"
+      >
         <a
           :href="href"
           @click="navigate"
@@ -38,16 +42,16 @@
       </template>
       <template #cell(actions)="data">
         <div class="action-area">
-          <router-link
-            :to="'/chinh-sua-gia/' + data.item.productRetailerId"
-            custom
-            v-slot="{ navigate }"
-            ><i title="Chỉnh sửa" @click="navigate" class="fas fa-edit"></i
-          ></router-link>
+          <i
+            title="Chỉnh sửa"
+            v-b-modal.edit-price-modal
+            @click="selectPrice(data.item)"
+            class="fas fa-edit"
+          ></i>
           <i
             title="Xóa"
             v-b-modal.delete-price-confirm-modal
-            @click="selectPrice(data.item.productRetailerId)"
+            @click="selectPrice(data.item)"
             class="fas fa-trash-alt"
           ></i>
         </div>
@@ -74,9 +78,15 @@
       </template>
     </b-table>
     <delete-price-confirm-modal
-      :id="selectedId"
+      v-if="!!selectedPrice"
+      :id="selectedPrice.productRetailerId"
       @deleted="onDeleted"
     ></delete-price-confirm-modal>
+    <update-price-modal
+      v-if="!!selectedPrice"
+      :priceInfo="selectedPrice"
+      @updated="resetTable"
+    ></update-price-modal>
     <loading :isLoading="isLoading"></loading>
   </div>
 </template>
@@ -85,10 +95,11 @@
 import { Component, Vue } from "vue-property-decorator";
 import Loading from "@/components/Home/Loading.vue";
 import DeletePriceConfirmModal from "../Modal/DeletePriceConfirmModal.vue";
-import priceService from "@/service/price-service";
+import priceService, { PriceResponse } from "@/service/price-service";
+import UpdatePriceModal from "../Modal/UpdatePriceModal.vue";
 
 @Component({
-  components: { Loading, DeletePriceConfirmModal },
+  components: { Loading, DeletePriceConfirmModal, UpdatePriceModal },
   data() {
     return {
       fields: [
@@ -125,7 +136,7 @@ import priceService from "@/service/price-service";
   },
 })
 export default class extends Vue {
-  selectedId = 0;
+  selectedPrice: PriceResponse | null = null;
   isLoading = false;
 
   productId!: string;
@@ -134,8 +145,8 @@ export default class extends Vue {
     return Intl.NumberFormat().format(price);
   }
 
-  selectPrice(id: number) {
-    this.selectedId = id;
+  selectPrice(price: PriceResponse) {
+    this.selectedPrice = price;
   }
 
   changeStatus(id: number) {
@@ -150,8 +161,12 @@ export default class extends Vue {
 
   onDeleted(id: number | null) {
     if (id) {
-      (this.$refs.table as any).refresh();
+      this.resetTable();
     }
+  }
+
+  resetTable() {
+    (this.$refs.table as any).refresh();
   }
 
   myProvider(ctx: { currentPage: number; perPage: number }, callback: any) {

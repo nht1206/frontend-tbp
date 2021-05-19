@@ -7,22 +7,27 @@
     						Footer About
     					 =========================== -->
           <div class="footer-about">
-            <a href="#" class="footer-about-logo">
-              <img src="@/assets/img/logo.png" alt="Logo" />
-            </a>
+            <router-link to="/" custom v-slot="{ href, navigate }">
+              <a @click="navigate" :href="href" class="footer-about-logo">
+                <img
+                  src="https://firebasestorage.googleapis.com/v0/b/shop1-eeb2c.appspot.com/o/images%2Ffinal2.png?alt=media&token=b199fa1f-d1b7-4596-b77d-12f907dcd436"
+                  alt="Logo"
+                />
+              </a>
+            </router-link>
             <div class="footer-description">
               <p>
-                Lorem ipsum dolor sit amet, anim id est laborum. Sed ut
-                perspconsectetur, adipisci vam aliquam qua.
+                Hệ thống so sánh giá, so sánh sản phẩm tốt nhất. Giá được cập
+                nhật hằng ngày.
               </p>
             </div>
             <div class="wb-social-media">
-              <a href="#" class="bh"><i class="fa fa-behance"></i></a>
-              <a href="#" class="fb"><i class="fa fa-facebook-official"></i></a>
-              <a href="#" class="db"><i class="fa fa-dribbble"></i></a>
-              <a href="#" class="gp"><i class="fa fa-google-plus"></i></a>
-              <a href="#" class="vn"><i class="fa fa-vine"></i></a>
-              <a href="#" class="yt"><i class="fa fa-youtube-play"></i></a>
+              <a href="#" class="bh"><i class="fab fa-behance"></i></a>
+              <a href="#" class="fb"><i class="fab fa-facebook"></i></a>
+              <a href="#" class="db"><i class="fab fa-dribbble"></i></a>
+              <a href="#" class="gp"><i class="fab fa-google-plus"></i></a>
+              <a href="#" class="vn"><i class="fab fa-vine"></i></a>
+              <a href="#" class="yt"><i class="fab fa-youtube"></i></a>
             </div>
           </div>
         </div>
@@ -31,14 +36,14 @@
     						Festival Deals
     					 =========================== -->
           <div class="footer-nav">
-            <h6 class="footer-subtitle active-color">Footer Menu</h6>
-            <ul>
-              <li><a href="index.html"> Home </a></li>
-              <li><a href="compare-products.html">Comparison Product </a></li>
-              <li><a href="shop-left-sidebar.html">Shop </a></li>
-              <li><a href="review-left-sidebar.html">Reviews</a></li>
-              <li><a href="blog-four-grid-left-sidebar.html">Blog</a></li>
-            </ul>
+            <h6 class="footer-subtitle active-color">Menu</h6>
+            <li>
+              <router-link to="/danh-sach-san-pham" v-slot="{ href, navigate }"
+                ><a @click="navigate" :href="href"
+                  >Danh sách sản phẩm</a
+                ></router-link
+              >
+            </li>
           </div>
         </div>
         <div class="col-md-3 footer-view-controller">
@@ -49,11 +54,9 @@
             <div class="stores-list">
               <h6 class="footer-subtitle">Top Stores</h6>
               <ul>
-                <li><a href="shop-left-sidebar.html">Affiliate Market 1</a></li>
-                <li><a href="shop-left-sidebar.html">Affiliate Market 2</a></li>
-                <li><a href="shop-left-sidebar.html">Affiliate Market 3</a></li>
-                <li><a href="shop-left-sidebar.html">Affiliate Market 4</a></li>
-                <li><a href="shop-left-sidebar.html">Affiliate Market 5</a></li>
+                <li v-for="r in retailers" :key="r.id">
+                  <a target="_blank" :href="r.homePage"> {{ r.name }} </a>
+                </li>
               </ul>
             </div>
           </div>
@@ -92,10 +95,20 @@
 </template>
 
 <script lang="ts">
+import Retailer from "@/models/Retailer";
+import retailerService from "@/service/retailer-service";
 import { Component, Vue } from "vue-property-decorator";
 
 @Component
-export default class extends Vue {}
+export default class extends Vue {
+  retailers: Retailer[] = [];
+
+  created() {
+    retailerService.getRetailers().then((res) => {
+      this.retailers = res.data;
+    });
+  }
+}
 </script>
 
 <style lang="scss" scoped>

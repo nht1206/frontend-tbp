@@ -7,9 +7,14 @@
           class="order-1 order-sm-2 col-12 col-sm-4 col-md-4 col-lg-2 col-xl-2"
         >
           <div class="tbp-logo">
-            <a href="index.html">
-              <img src="@/assets/img/logo.png" alt="Logo" />
-            </a>
+            <router-link to="/" custom v-slot="{ href, navigate }">
+              <a :href="href" @click="navigate">
+                <img
+                  src="https://firebasestorage.googleapis.com/v0/b/shop1-eeb2c.appspot.com/o/images%2Ffinal2.png?alt=media&token=b199fa1f-d1b7-4596-b77d-12f907dcd436"
+                  alt="Logo"
+                />
+              </a>
+            </router-link>
           </div>
         </div>
         <div class="col-12 order-lg-2 col-md-5 col-lg-7 d-none d-lg-block">

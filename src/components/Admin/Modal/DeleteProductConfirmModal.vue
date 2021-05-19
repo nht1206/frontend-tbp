@@ -50,6 +50,7 @@ export default class extends Vue {
       .deleteProduct(this.id)
       .then(() => {
         this.isLoading = false;
+        this.$emit("deleted", this.id);
         this.$bvModal.hide("delete-product-confirm-modal");
       })
       .catch((err) => {
