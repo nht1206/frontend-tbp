@@ -36,7 +36,7 @@ function getPendingRetailers(
 }
 
 export interface RetailerPayload {
-  userId: string;
+  userId?: string;
   description: string;
   homePage: string;
   logo: string;
@@ -54,6 +54,13 @@ function updateRetailer(
   return http.put<any>("retailer/" + id, payload);
 }
 
+function updateRetailerByOwner(
+  id: string,
+  payload: RetailerPayload
+): Promise<AxiosResponse<any>> {
+  return http.put<any>("retailer/retailerUpdate" + id, payload);
+}
+
 function approveRetailer(id: number): Promise<AxiosResponse<any>> {
   return http.put<any>(`retailer/approveRetailer/${id}`);
 }
@@ -66,6 +73,10 @@ function deleteRetailer(id: number): Promise<AxiosResponse<any>> {
   return http.delete<any>(`retailer/${id}`);
 }
 
+function getUserRetailers(params: string): Promise<AxiosResponse<any>> {
+  return http.get("user/listRetailer" + params);
+}
+
 export default {
   getRetailers,
   getRetailerById,
@@ -73,7 +84,9 @@ export default {
   getPendingRetailers,
   createRetailer,
   updateRetailer,
+  updateRetailerByOwner,
   approveRetailer,
   toggleRetailerStatus,
   deleteRetailer,
+  getUserRetailers,
 };

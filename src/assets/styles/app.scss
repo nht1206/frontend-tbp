@@ -465,3 +465,11 @@ body.second-home {
     cursor: pointer;
   }
 }
+
+.btn-create {
+  background-color: #fea82f;
+  color: aliceblue;
+  &:hover {
+    color: #fff;
+  }
+}

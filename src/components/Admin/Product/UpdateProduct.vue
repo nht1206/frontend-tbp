@@ -284,7 +284,7 @@ export default class extends Vue {
       })
       .catch(() => {
         this.isLoading = false;
-        this.$router.push("/danh-sach-san-pham");
+        this.$router.push(this.$route.redirectedFrom || "/danh-sach-san-pham");
       });
   }
 }

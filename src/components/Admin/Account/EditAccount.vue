@@ -269,7 +269,9 @@ export default class extends Vue {
           this.resetForm();
           this.error = "";
           this.isLoading = false;
-          this.$router.push("/tai-khoan-nguoi-dung");
+          this.$router.push(
+            this.$route.redirectedFrom || "/tai-khoan-nguoi-dung"
+          );
         })
         .catch((err) => {
           this.error = err.response.data.message;

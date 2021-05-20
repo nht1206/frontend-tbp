@@ -205,4 +205,7 @@ export default class extends Vue {
 .nav-link {
   cursor: pointer;
 }
+.sticky-top {
+  z-index: 999 !important;
+}
 </style>

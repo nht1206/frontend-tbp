@@ -16,13 +16,17 @@
       <div class="profile-usertitle-job">{{ getRoleName(user.role) }}</div>
     </div>
     <div class="profile-userbuttons">
-      <button
-        v-if="user.role === 'ROLE_GUEST'"
-        type="button"
-        class="btn btn-sm"
-      >
-        Đăng ký chủ cửa hàng
-      </button>
+      <router-link to="/dang-ky-cua-hang" custom v-slot="{ navigate }">
+        <button
+          v-if="user.role === 'ROLE_GUEST'"
+          @click="navigate"
+          type="button"
+          class="btn btn-sm btn-create"
+        >
+          Đăng ký cửa hàng mới
+        </button>
+      </router-link>
+
       <router-link to="/admin" custom v-slot="{ href }">
         <a
           v-if="user.role === 'ROLE_ADMIN'"
@@ -49,11 +53,21 @@
             </a>
           </li>
         </router-link>
-        <li v-if="isRetailer(user.role)" class="nav-item">
-          <a class="nav-link" href="#"
-            ><i class="fas fa-store"></i> Cửa hàng
-          </a>
-        </li>
+        <router-link
+          to="/cua-hang"
+          custom
+          v-slot="{ href, navigate, isActive }"
+        >
+          <li
+            v-if="isRetailer(user.role)"
+            class="nav-item"
+            :class="{ active: isActive }"
+          >
+            <a @click="navigate" class="nav-link" :href="href"
+              ><i class="fas fa-store"></i> Cửa hàng
+            </a>
+          </li>
+        </router-link>
         <li v-if="isRetailer(user.role)" class="nav-item">
           <a class="nav-link" href="#"><i class="fas fa-box"></i> Sản phẩm </a>
         </li>
