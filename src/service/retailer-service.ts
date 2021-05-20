@@ -8,11 +8,12 @@ function getRetailers(): Promise<AxiosResponse<Retailer[]>> {
 }
 
 export interface RetailerResponse {
+  id: number;
   name: string;
   description: string;
-  logoImage: "";
-  homePage: "";
-  userId: "";
+  logoImage: string;
+  homePage: string;
+  userId: string;
 }
 
 function getRetailerById(id: string): Promise<AxiosResponse<RetailerResponse>> {
@@ -58,7 +59,7 @@ function updateRetailerByOwner(
   id: string,
   payload: RetailerPayload
 ): Promise<AxiosResponse<any>> {
-  return http.put<any>("retailer/retailerUpdate" + id, payload);
+  return http.put<any>("retailer/retailerUpdate/" + id, payload);
 }
 
 function approveRetailer(id: number): Promise<AxiosResponse<any>> {

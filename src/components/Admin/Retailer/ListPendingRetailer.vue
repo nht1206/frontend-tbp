@@ -51,14 +51,20 @@
           <i
             title="Xóa"
             v-b-modal.delete-retailer-confirm-modal
-            @click="selectRetailer(data.item.id)"
+            @click="selectRetailer(data.item)"
             class="fas fa-trash-alt"
+          ></i>
+          <i
+            title="Xem chi tiết"
+            v-b-modal.retailer-detail-modal
+            @click="selectRetailer(data.item)"
+            class="fas fa-eye"
           ></i>
         </div>
       </template>
       <template #cell(enable)="data">
         <b-form-checkbox
-          @change="changeStatus(data.item.id)"
+          @change="changeStatus(data.item)"
           :checked="data.item.enable"
           switch
           variant="warning"
@@ -69,6 +75,11 @@
       :id="selectedId"
       @deleted="onDeleted"
     ></delete-retailer-confirm-modal>
+    <retailer-detail-modal
+      :isApprove="false"
+      :retailer="selectedRetailer"
+      @approved="onApproved"
+    ></retailer-detail-modal>
     <loading :isLoading="isLoading"></loading>
   </div>
 </template>
@@ -76,11 +87,12 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Loading from "@/components/Home/Loading.vue";
-import retailerService from "@/service/retailer-service";
+import retailerService, { RetailerResponse } from "@/service/retailer-service";
 import DeleteRetailerConfirmModal from "../Modal/DeleteRetailerConfirmModal.vue";
+import RetailerDetailModal from "../Modal/RetailerDetailModal.vue";
 
 @Component({
-  components: { Loading, DeleteRetailerConfirmModal },
+  components: { Loading, DeleteRetailerConfirmModal, RetailerDetailModal },
   data() {
     return {
       perPage: 10,
@@ -113,20 +125,30 @@ import DeleteRetailerConfirmModal from "../Modal/DeleteRetailerConfirmModal.vue"
 export default class extends Vue {
   rows = 0;
   selectedId = 0;
+  selectedRetailer: RetailerResponse | null = null;
   isLoading = false;
 
-  selectRetailer(id: number) {
-    this.selectedId = id;
+  selectRetailer(retailer: RetailerResponse) {
+    this.selectedId = retailer.id;
+    this.selectedRetailer = retailer;
   }
 
   changeStatus(id: number) {
     retailerService.toggleRetailerStatus(id);
   }
 
+  refreshTable() {
+    (this.$refs.table as any).refresh();
+  }
+
   onDeleted(id: number | null) {
     if (id) {
-      (this.$refs.table as any).refresh();
+      this.refreshTable();
     }
+  }
+
+  onApproved() {
+    this.refreshTable();
   }
 
   myProvider(ctx: { currentPage: number; perPage: number }, callback: any) {
