@@ -299,7 +299,7 @@ export default class extends Vue {
           if (this.$route.redirectedFrom) {
             this.$router.push(this.$route.redirectedFrom);
           } else {
-            this.$router.push("/tai-khoan-nguoi-dung");
+            this.$router.go(-1);
           }
         });
     }

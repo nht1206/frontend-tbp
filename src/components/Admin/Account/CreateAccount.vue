@@ -260,7 +260,7 @@ export default class extends Vue {
           this.resetForm();
           this.error = null;
           this.isLoading = false;
-          this.$router.push("/tai-khoan-nguoi-dung");
+          this.$router.go(-1);
         })
         .catch((err) => {
           this.error = err.response.data.message;

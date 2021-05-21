@@ -221,9 +221,7 @@ export default class extends Vue {
           this.resetForm();
           this.error = "";
           this.isLoading = false;
-          this.$router.push(
-            this.$route.redirectedFrom || "/nha-ban-le-da-duyet"
-          );
+          this.$router.go(-1);
         })
         .catch((err) => {
           this.error = err.response.data.message;
