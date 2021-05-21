@@ -29,8 +29,14 @@
       :fields="fields"
       ref="table"
     >
-      <template #cell(name)="data">
-        <a :href="data.item.homePage" target="_blank">{{ data.item.name }}</a>
+      <template #cell(title)="data">
+        <router-link
+          :to="'/chi-tiet-san-pham/' + data.item.id"
+          custom
+          v-slot="{ href }"
+        >
+          <a :href="href" target="_blank">{{ data.item.title }}</a>
+        </router-link>
       </template>
       <template #cell(image)="data">
         <img class="image" :src="data.item.image" :alt="data.item.title" />
@@ -138,6 +144,7 @@ import { Component, Vue } from "vue-property-decorator";
   },
 })
 export default class extends Vue {
+  rows = 0;
   selectedId = 0;
   isLoading = false;
 
@@ -178,6 +185,7 @@ export default class extends Vue {
       .getUserProducts(params)
       .then((res) => {
         const items = res.data.content;
+        this.rows = res.data.totalElements || 0;
         this.isLoading = false;
         callback(items);
       })

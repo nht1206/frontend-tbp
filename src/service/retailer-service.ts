@@ -74,7 +74,7 @@ function deleteRetailer(id: number): Promise<AxiosResponse<any>> {
   return http.delete<any>(`retailer/${id}`);
 }
 
-function getUserRetailers(params: string): Promise<AxiosResponse<any>> {
+function getUserRetailers(params = ""): Promise<AxiosResponse<any>> {
   return http.get("user/listRetailer" + params);
 }
 

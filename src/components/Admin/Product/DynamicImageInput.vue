@@ -25,12 +25,11 @@
           Thêm
         </button>
       </div>
-    </div>
-
-    <div class="invalid-feedback">
-      <template v-for="error of errors">
-        {{ error.$message }}
-      </template>
+      <div v-if="isTheLast(idx)" class="invalid-feedback">
+        <template v-for="error of errors">
+          {{ error.$message }}
+        </template>
+      </div>
     </div>
   </div>
 </template>

@@ -72,10 +72,18 @@ export interface ProductPayload {
   longDescription: string;
   shortDescription: string;
   title: string;
+  price?: string;
+  retailerId?: string;
 }
 
 function createProduct(payload: ProductPayload): Promise<AxiosResponse<any>> {
   return http.post("product", payload);
+}
+
+function createProductByRetailer(
+  payload: ProductPayload
+): Promise<AxiosResponse<any>> {
+  return http.post("product/retailerCreateProduct", payload);
 }
 
 function updateProduct(
@@ -105,6 +113,7 @@ export default {
   getPendingProducts,
   getUserProducts,
   createProduct,
+  createProductByRetailer,
   updateProduct,
   approveProduct,
   deleteProduct,
