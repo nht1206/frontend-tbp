@@ -31,3 +31,7 @@ export interface AuthState {
   error: Error | null;
   isLoading: boolean;
 }
+
+export interface SearchState {
+  keyword: string;
+}

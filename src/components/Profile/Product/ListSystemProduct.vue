@@ -52,7 +52,7 @@
       </template>
       <template #cell(actions)="">
         <div class="action-area">
-          <button class="btn btn-create">Thêm giá</button>
+          <button class="btn btn-create">Danh sách giá</button>
         </div>
       </template>
     </b-table>
