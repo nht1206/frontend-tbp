@@ -23,6 +23,7 @@
               <div class="product-details-gallery">
                 <div class="list-group">
                   <h4 class="list-group-item-heading product-title">
+                    <p class="status" v-if="!product.approve">[Đang đợi]</p>
                     {{ product.title }}
                   </h4>
                   <div class="media">
@@ -168,10 +169,15 @@ export default class extends Vue {
   created(): void {
     this.id = this.$route.params["id"];
     this.isLoading = true;
-    produceService.findById(this.id).then((res) => {
-      this.product = res.data;
-      this.isLoading = false;
-    });
+    produceService
+      .findById(this.id)
+      .then((res) => {
+        this.product = res.data;
+        this.isLoading = false;
+      })
+      .catch(() => {
+        this.$router.push("/danh-sach-san-pham");
+      });
 
     trackingService.trackingProduct(this.id);
   }
@@ -274,6 +280,9 @@ export default class extends Vue {
       font-weight: 400;
       font-size: 30px;
       margin-bottom: 10px;
+      .status {
+        color: rgb(255, 13, 13);
+      }
     }
     .rating {
       padding-right: 7px;

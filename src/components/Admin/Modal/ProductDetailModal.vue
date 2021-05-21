@@ -233,6 +233,7 @@ export default class extends Vue {
       font-weight: 400;
       font-size: 30px;
       margin-bottom: 10px;
+      word-break: break-word;
     }
     .list-group {
       padding-bottom: 22px;

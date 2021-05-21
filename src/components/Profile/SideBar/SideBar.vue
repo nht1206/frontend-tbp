@@ -83,6 +83,21 @@
             </a>
           </li>
         </router-link>
+        <router-link
+          to="/san-pham-cua-he-thong"
+          custom
+          v-slot="{ href, navigate, isActive }"
+        >
+          <li
+            v-if="isRetailer(user.role)"
+            class="nav-item"
+            :class="{ active: isActive }"
+          >
+            <a @click="navigate" class="nav-link" :href="href"
+              ><i class="fas fa-box"></i> Sản phẩm của hệ thống
+            </a>
+          </li>
+        </router-link>
       </ul>
     </div>
   </nav>
