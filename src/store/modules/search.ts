@@ -4,7 +4,7 @@ export const state: SearchState = {
   keyword: "",
 };
 const namespaced = true;
-export const cart: Module<SearchState, RootState> = {
+export const search: Module<SearchState, RootState> = {
   state,
   mutations: {
     clear(state) {

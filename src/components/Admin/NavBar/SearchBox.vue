@@ -8,10 +8,10 @@
         class="form-control bg-light border-0 small"
         placeholder="Tìm kiếm"
         aria-label="Search"
-        aria-describedby="basic-addon2"
+        v-model="keyword"
       />
       <div class="input-group-append">
-        <button class="btn btn-search" type="button">
+        <button @click="search" class="btn btn-search" type="button">
           <i class="fa fa-search fa-sm"></i>
         </button>
       </div>
@@ -23,7 +23,13 @@
 import { Component, Vue } from "vue-property-decorator";
 
 @Component
-export default class extends Vue {}
+export default class extends Vue {
+  keyword = "";
+
+  search() {
+    this.$store.commit("search/setKeyword", this.keyword);
+  }
+}
 </script>
 
 <style lang="scss" scoped>

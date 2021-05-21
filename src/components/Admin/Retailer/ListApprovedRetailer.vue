@@ -28,6 +28,7 @@
       :per-page="perPage"
       :items="myProvider"
       :fields="fields"
+      :filter="{ keyword }"
       ref="table"
     >
       <template #cell(name)="data">
@@ -86,6 +87,7 @@ import Loading from "@/components/Home/Loading.vue";
 import retailerService, { RetailerResponse } from "@/service/retailer-service";
 import DeleteRetailerConfirmModal from "../Modal/DeleteRetailerConfirmModal.vue";
 import RetailerDetailModal from "../Modal/RetailerDetailModal.vue";
+import { mapGetters } from "vuex";
 
 @Component({
   components: { Loading, DeleteRetailerConfirmModal, RetailerDetailModal },
@@ -117,6 +119,11 @@ import RetailerDetailModal from "../Modal/RetailerDetailModal.vue";
       ],
     };
   },
+  computed: {
+    ...mapGetters({
+      keyword: "search/keyword",
+    }),
+  },
 })
 export default class extends Vue {
   rows = 0;
@@ -139,8 +146,23 @@ export default class extends Vue {
     }
   }
 
-  myProvider(ctx: { currentPage: number; perPage: number }, callback: any) {
-    const params = "?page=" + (ctx.currentPage - 1) + "&size=" + ctx.perPage;
+  myProvider(
+    ctx: {
+      currentPage: number;
+      perPage: number;
+      filter: {
+        keyword: string;
+      };
+    },
+    callback: any
+  ) {
+    const params =
+      "?keyword=" +
+      ctx.filter.keyword +
+      "&page=" +
+      (ctx.currentPage - 1) +
+      "&size=" +
+      ctx.perPage;
     this.isLoading = true;
     retailerService
       .getApprovedRetailers(params)

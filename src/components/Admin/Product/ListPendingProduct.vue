@@ -28,6 +28,7 @@
       :per-page="perPage"
       :items="myProvider"
       :fields="fields"
+      :filter="{ keyword }"
       ref="table"
     >
       <template #cell(name)="data">
@@ -102,6 +103,7 @@ import Loading from "@/components/Home/Loading.vue";
 import productService from "@/service/product-service";
 import DeleteProductConfirm from "../Modal/DeleteProductConfirmModal.vue";
 import ProductDetailModal from "../Modal/ProductDetailModal.vue";
+import { mapGetters } from "vuex";
 
 @Component({
   components: { Loading, DeleteProductConfirm, ProductDetailModal },
@@ -142,6 +144,11 @@ import ProductDetailModal from "../Modal/ProductDetailModal.vue";
       ],
     };
   },
+  computed: {
+    ...mapGetters({
+      keyword: "search/keyword",
+    }),
+  },
 })
 export default class extends Vue {
   rows = 0;
@@ -170,8 +177,23 @@ export default class extends Vue {
     (this.$refs.table as any).refresh();
   }
 
-  myProvider(ctx: { currentPage: number; perPage: number }, callback: any) {
-    const params = "?page=" + (ctx.currentPage - 1) + "&size=" + ctx.perPage;
+  myProvider(
+    ctx: {
+      currentPage: number;
+      perPage: number;
+      filter: {
+        keyword: string;
+      };
+    },
+    callback: any
+  ) {
+    const params =
+      "?keyword=" +
+      ctx.filter.keyword +
+      "&page=" +
+      (ctx.currentPage - 1) +
+      "&size=" +
+      ctx.perPage;
     this.isLoading = true;
     productService
       .getPendingProducts(params)

@@ -28,6 +28,7 @@
       :per-page="perPage"
       :items="myProvider"
       :fields="fields"
+      :filter="{ keyword }"
     >
       <template #cell(actions)="data">
         <div class="action-area">
@@ -63,6 +64,7 @@ import { Component, Vue } from "vue-property-decorator";
 import accountService from "@/service/account-service";
 import DeleteAccountConfirm from "../Modal/DeleteAccountConfirmModal.vue";
 import Loading from "@/components/Home/Loading.vue";
+import { mapGetters } from "vuex";
 
 @Component({
   components: { DeleteAccountConfirm, Loading },
@@ -110,6 +112,11 @@ import Loading from "@/components/Home/Loading.vue";
       ],
     };
   },
+  computed: {
+    ...mapGetters({
+      keyword: "search/keyword",
+    }),
+  },
 })
 export default class extends Vue {
   rows = 0;
@@ -124,8 +131,23 @@ export default class extends Vue {
     accountService.toggleStatus(id);
   }
 
-  myProvider(ctx: { currentPage: number; perPage: number }, callback: any) {
-    const params = "?page=" + (ctx.currentPage - 1) + "&size=" + ctx.perPage;
+  myProvider(
+    ctx: {
+      currentPage: number;
+      perPage: number;
+      filter: {
+        keyword: string;
+      };
+    },
+    callback: any
+  ) {
+    const params =
+      "?keyword=" +
+      ctx.filter.keyword +
+      "&page=" +
+      (ctx.currentPage - 1) +
+      "&size=" +
+      ctx.perPage;
     this.isLoading = true;
     accountService
       .getListRetailerAccount(params)
