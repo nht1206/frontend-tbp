@@ -29,8 +29,4 @@ export default class extends Vue {}
 </script>
 
 <style lang="scss">
-.page-item.active .page-link {
-  background-color: #fea82f;
-  border-color: #fea82f;
-}
 </style>

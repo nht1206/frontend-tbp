@@ -62,8 +62,8 @@
         </p>
       </template>
       <template #cell(approve)="data">
-        <p :class="{ active: data.item.enable }">
-          {{ getApproveStatus(data.item.enable) }}
+        <p :class="{ active: data.item.approve }">
+          {{ getApproveStatus(data.item.approve) }}
         </p>
       </template>
       <template #cell(actions)="data">
