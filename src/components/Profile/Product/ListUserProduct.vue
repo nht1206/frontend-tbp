@@ -69,7 +69,7 @@
       <template #cell(actions)="data">
         <div class="action-area">
           <router-link
-            :to="'/chinh-sua-san-pham/' + data.item.id"
+            :to="'/cap-nhat-san-pham/' + data.item.id"
             custom
             v-slot="{ navigate }"
             ><i title="Chỉnh sửa" @click="navigate" class="fas fa-edit"></i

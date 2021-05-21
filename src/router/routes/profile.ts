@@ -6,6 +6,7 @@ import CreateRetailer from "@/components/Profile/Retailer/CreateRetailer.vue";
 import UpdateRetailer from "@/components/Profile/Retailer/UpdateRetailer.vue";
 import ListUserProduct from "@/components/Profile/Product/ListUserProduct.vue";
 import CreateProduct from "@/components/Profile/Product/CreateProduct.vue";
+import UpdateProduct from "@/components/Profile/Product/UpdateProduct.vue";
 
 export default [
   {
@@ -52,6 +53,13 @@ export default [
     component: CreateProduct,
     meta: {
       title: "Đăng sản phẩm",
+    },
+  },
+  {
+    path: "/cap-nhat-san-pham/:id",
+    component: UpdateProduct,
+    meta: {
+      title: "Cập nhật sản phẩm",
     },
   },
 ] as Array<RouteConfig>;
