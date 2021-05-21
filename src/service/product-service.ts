@@ -45,6 +45,14 @@ function getApprovedProducts(
   );
 }
 
+function getUserProducts(
+  params: string
+): Promise<AxiosResponse<Page<ProductStatisticsResponse>>> {
+  return http.get<Page<ProductStatisticsResponse>>(
+    "product/listProductForRetailer" + params
+  );
+}
+
 function getPendingProducts(
   params: string
 ): Promise<AxiosResponse<Page<ProductStatisticsResponse>>> {
@@ -95,6 +103,7 @@ export default {
   rateProduct,
   getApprovedProducts,
   getPendingProducts,
+  getUserProducts,
   createProduct,
   updateProduct,
   approveProduct,
