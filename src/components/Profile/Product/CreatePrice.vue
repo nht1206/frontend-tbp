@@ -169,13 +169,13 @@ export default class extends Vue {
     if (!this.v$.$invalid) {
       this.isLoading = true;
       priceService
-        .addNewPriceByAdmin(this.id, this.createForm)
+        .addNewPriceByRetailer(this.id, this.createForm)
         .then((res) => {
           this.successMessage = res.data.message + "";
           this.resetForm();
           this.error = "";
           this.isLoading = false;
-          this.$router.push("/cap-nhat-gia/" + this.id);
+          this.$router.push("/them-gia-san-pham/" + this.id);
         })
         .catch((err) => {
           this.error = err.response.data.message;

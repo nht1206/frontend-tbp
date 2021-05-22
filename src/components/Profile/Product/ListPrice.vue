@@ -81,16 +81,16 @@
 </template>
 
 <script lang="ts">
-import DeletePriceConfirmModal from "@/components/Admin/Modal/DeletePriceConfirmModal.vue";
 import Loading from "@/components/Home/Loading.vue";
 import User from "@/models/User";
 import priceService, { PriceResponse } from "@/service/price-service";
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import UpdatePriceModal from "@/components/Profile/Modal/UpdatePriceModal.vue";
+import DeletePriceConfirmModal from "../Modal/DeletePriceConfirmModal.vue";
 
 @Component({
-  components: { Loading, DeletePriceConfirmModal, UpdatePriceModal },
+  components: { Loading, UpdatePriceModal, DeletePriceConfirmModal },
   data() {
     return {
       fields: [
