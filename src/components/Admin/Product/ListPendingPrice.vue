@@ -4,10 +4,19 @@
       <h1 class="h3 mb-0 text-gray-800">Danh sách giá sản phẩm chưa duyệt</h1>
     </div>
 
+    <b-pagination
+      v-model="currentPage"
+      :total-rows="rows"
+      :per-page="perPage"
+      aria-controls="my-table"
+    ></b-pagination>
+
     <b-table
       striped
       hover
       responsive
+      :current-page="currentPage"
+      :per-page="perPage"
       :items="myProvider"
       :fields="fields"
       ref="table"
@@ -89,6 +98,8 @@ import UpdatePriceModal from "../Modal/UpdatePriceModal.vue";
   components: { Loading, DeletePriceConfirmModal, UpdatePriceModal },
   data() {
     return {
+      perPage: 10,
+      currentPage: 1,
       fields: [
         {
           key: "productRetailerId",
@@ -125,6 +136,7 @@ import UpdatePriceModal from "../Modal/UpdatePriceModal.vue";
 export default class extends Vue {
   selectedPrice: PriceResponse | null = null;
   isLoading = false;
+  rows = 0;
 
   formatPrice(price: number): string {
     return Intl.NumberFormat().format(price);
@@ -159,12 +171,18 @@ export default class extends Vue {
     priceService
       .getListPendingPrice()
       .then((res) => {
-        this.isLoading = false;
         const items = res.data.content;
+        if (res.data.totalElements) {
+          this.rows = res.data.totalElements;
+        } else {
+          this.rows = 0;
+        }
+        this.isLoading = false;
         callback(items);
       })
       .catch(() => {
         this.isLoading = false;
+        this.rows = 0;
         callback([]);
       });
 

@@ -192,12 +192,15 @@ export default class extends Vue {
         const items = res.data.content;
         if (res.data.totalElements) {
           this.rows = res.data.totalElements;
+        } else {
+          this.rows = 0;
         }
         this.isLoading = false;
         callback(items);
       })
       .catch(() => {
         this.isLoading = false;
+        this.rows = 0;
         callback([]);
       });
 
