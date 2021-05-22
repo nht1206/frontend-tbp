@@ -5,7 +5,11 @@
     >
       <h1 class="h4">Danh sách giá</h1>
       <div class="btn-toolbar mb-2 mb-md-0">
-        <router-link to="/them-gia-moi" custom v-slot="{ navigate }">
+        <router-link
+          :to="'/them-gia-san-pham/' + productId"
+          custom
+          v-slot="{ navigate }"
+        >
           <button @click="navigate" type="button" class="btn btn-create">
             Thêm giá mới
           </button>

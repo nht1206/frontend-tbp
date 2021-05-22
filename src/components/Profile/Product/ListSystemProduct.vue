@@ -50,9 +50,17 @@
           {{ getApproveStatus(data.item.enable) }}
         </p>
       </template>
-      <template #cell(actions)="">
+      <template #cell(actions)="data">
         <div class="action-area">
-          <button class="btn btn-create">Danh sách giá</button>
+          <router-link
+            :to="'/danh-sach-gia/' + data.item.id"
+            custom
+            v-slot="{ navigate }"
+          >
+            <button @click="navigate" class="btn btn-create">
+              Danh sách giá
+            </button>
+          </router-link>
         </div>
       </template>
     </b-table>

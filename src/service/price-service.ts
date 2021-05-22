@@ -7,8 +7,9 @@ export interface PriceResponse {
   urlProduct: string;
   latestPrice: number;
   productRetailerId: number;
-  enable: true;
-  approve: true;
+  enable: boolean;
+  approve: boolean;
+  createdBy: string;
 }
 
 function getListPrice(id: string): Promise<AxiosResponse<PriceResponse[]>> {

@@ -9,6 +9,7 @@ import ListSystemProduct from "@/components/Profile/Product/ListSystemProduct.vu
 import CreateProduct from "@/components/Profile/Product/CreateProduct.vue";
 import UpdateProduct from "@/components/Profile/Product/UpdateProduct.vue";
 import ListPrice from "@/components/Profile/Product/ListPrice.vue";
+import CreatePrice from "@/components/Profile/Product/CreatePrice.vue";
 
 export default [
   {
@@ -76,6 +77,13 @@ export default [
     component: ListPrice,
     meta: {
       title: "Cập nhật sản phẩm",
+    },
+  },
+  {
+    path: "/them-gia-san-pham/:id",
+    component: CreatePrice,
+    meta: {
+      title: "Thêm mới giá sản phẩm",
     },
   },
 ] as Array<RouteConfig>;

@@ -49,7 +49,7 @@
         <div class="action-area inline-block">
           <router-link
             title="Cập nhật giá"
-            :to="'/cap-nhat-gia/' + data.item.id"
+            :to="'/danh-sach-gia/' + data.item.id"
             custom
             v-slot="{ navigate }"
             ><i @click="navigate" class="fas fa-edit"></i

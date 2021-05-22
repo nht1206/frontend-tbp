@@ -90,13 +90,12 @@ import useVuelidate from "@vuelidate/core";
 import { helpers, required } from "@vuelidate/validators";
 import { Component, Vue } from "vue-property-decorator";
 import BasicCard from "../Card/BasicCard.vue";
-import DynamicImageInput from "./DynamicImageInput.vue";
 import priceService, { CreatePricePayload } from "@/service/price-service";
 import Retailer from "@/models/Retailer";
 import retailerService from "@/service/retailer-service";
 
 @Component({
-  components: { BasicCard, DynamicImageInput },
+  components: { BasicCard },
   setup() {
     const v$ = useVuelidate();
     return { v$ };
