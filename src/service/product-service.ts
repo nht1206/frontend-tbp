@@ -74,6 +74,7 @@ export interface ProductPayload {
   title: string;
   price?: string;
   retailerId?: string;
+  url?: string;
 }
 
 function createProduct(payload: ProductPayload): Promise<AxiosResponse<any>> {

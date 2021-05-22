@@ -56,24 +56,14 @@
         </div>
       </template>
       <template #cell(enable)="data">
-        <b-form-checkbox
-          @change="changeStatus(data.item.productRetailerId)"
-          :checked="data.item.enable"
-          switch
-          variant="warning"
-        ></b-form-checkbox>
+        <p :class="{ active: data.item.enable }">
+          {{ getStatus(data.item.enable) }}
+        </p>
       </template>
       <template #cell(approve)="data">
-        <div>
-          <p v-if="data.item.approve">Đã duyệt</p>
-          <button
-            @click="approvePrice"
-            class="btn btn-create"
-            v-if="!data.item.approve"
-          >
-            Duyệt
-          </button>
-        </div>
+        <p :class="{ active: data.item.approve }">
+          {{ getApproveStatus(data.item.approve) }}
+        </p>
       </template>
     </b-table>
     <delete-price-confirm-modal
@@ -92,15 +82,15 @@
 
 <script lang="ts">
 import DeletePriceConfirmModal from "@/components/Admin/Modal/DeletePriceConfirmModal.vue";
-import UpdatePriceModal from "@/components/Admin/Modal/UpdatePriceModal.vue";
 import Loading from "@/components/Home/Loading.vue";
 import User from "@/models/User";
 import priceService, { PriceResponse } from "@/service/price-service";
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
+import UpdatePriceModal from "@/components/Profile/Modal/UpdatePriceModal.vue";
 
 @Component({
-  components: { Loading, UpdatePriceModal, DeletePriceConfirmModal },
+  components: { Loading, DeletePriceConfirmModal, UpdatePriceModal },
   data() {
     return {
       fields: [
@@ -123,10 +113,12 @@ import { mapGetters } from "vuex";
         {
           key: "enable",
           label: "Trạng thái",
+          tdClass: "enable",
         },
         {
           key: "approve",
           label: "Trạng thái duyệt",
+          tdClass: "approve",
         },
         {
           key: "actions",
@@ -147,6 +139,22 @@ export default class extends Vue {
   isLoading = false;
 
   productId!: string;
+
+  getStatus(enable: boolean) {
+    if (enable) {
+      return "On";
+    } else {
+      return "Off";
+    }
+  }
+
+  getApproveStatus(enable: boolean) {
+    if (enable) {
+      return "Đã duyệt";
+    } else {
+      return "Đang đợi";
+    }
+  }
 
   formatPrice(price: number): string {
     return Intl.NumberFormat().format(price);
@@ -206,5 +214,23 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .logo {
   max-height: 40px;
+}
+
+.status {
+  p {
+    color: gray;
+  }
+  p.active {
+    color: greenyellow;
+  }
+}
+
+.approve {
+  p.active {
+    color: gray;
+  }
+  p {
+    color: greenyellow;
+  }
 }
 </style>

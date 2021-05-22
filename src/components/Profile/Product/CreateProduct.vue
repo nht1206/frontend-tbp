@@ -130,6 +130,23 @@
         </div>
       </div>
       <div class="form-group">
+        <label for="inputPrice">Đường dẫn</label>
+        <input
+          type="text"
+          class="form-control"
+          :class="[{ 'is-invalid': isInvalid(v$.createForm.url) }]"
+          v-model="v$.createForm.url.$model"
+          @focus="reset(v$.createForm.url)"
+          @input="reset(v$.createForm.url)"
+          id="inputPrice"
+        />
+        <div class="invalid-feedback">
+          <template v-for="error of v$.createForm.url.$errors">
+            {{ error.$message }}
+          </template>
+        </div>
+      </div>
+      <div class="form-group">
         <label for="inputPrice">Giá</label>
         <input
           type="number"
@@ -212,6 +229,12 @@ import retailerService from "@/service/retailer-service";
         price: {
           required: helpers.withMessage("Giá không được để trống!", required),
         },
+        url: {
+          required: helpers.withMessage(
+            "Đường dẫn không được để trống!",
+            required
+          ),
+        },
       },
     };
   },
@@ -238,6 +261,7 @@ export default class extends Vue {
     longDescription: "",
     retailerId: "",
     price: "",
+    url: "",
   };
 
   isInvalid(field: { $invalid: boolean; $dirty: boolean }): boolean {
@@ -263,6 +287,7 @@ export default class extends Vue {
       images: [],
       shortDescription: "",
       longDescription: "",
+      url: "",
     };
   }
 

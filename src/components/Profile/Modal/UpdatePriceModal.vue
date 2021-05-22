@@ -138,7 +138,7 @@ export default class extends Vue {
     if (!this.v$.updateForm.$invalid) {
       this.isLoading = true;
       priceService
-        .updatePriceByAdmin(
+        .updatePriceByRetailer(
           this.priceInfo.productRetailerId + "",
           this.updateForm
         )

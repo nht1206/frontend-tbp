@@ -43,8 +43,12 @@ function approvePrice(id: number) {
   return http.put("price/adminApprovePrice/" + id);
 }
 
-function updatePrice(id: string, payload: UpdatePricePayload) {
+function updatePriceByAdmin(id: string, payload: UpdatePricePayload) {
   return http.put("price/adminUpdatePrice/" + id, payload);
+}
+
+function updatePriceByRetailer(id: string, payload: UpdatePricePayload) {
+  return http.put("price/retailerUpdatePrice/" + id, payload);
 }
 
 function togglePriceStatus(id: number) {
@@ -65,7 +69,8 @@ export default {
   approvePrice,
   addNewPriceByAdmin,
   addNewPriceByRetailer,
-  updatePrice,
+  updatePriceByAdmin,
+  updatePriceByRetailer,
   togglePriceStatus,
   deletePriceByAdmin,
   deletePriceByRetailer,
