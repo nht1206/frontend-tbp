@@ -135,6 +135,19 @@
             >Sản phẩm chưa duyệt</a
           >
         </router-link>
+        <router-link
+          to="/gia-chua-duyet"
+          custom
+          v-slot="{ href, navigate, isActive }"
+        >
+          <a
+            class="collapse-item"
+            :class="{ active: isActive }"
+            :href="href"
+            @click="navigate"
+            >Giá chưa duyệt</a
+          >
+        </router-link>
       </template>
     </collapse-menu>
 

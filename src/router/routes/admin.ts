@@ -14,6 +14,7 @@ import ListPendingProduct from "@/components/Admin/Product/ListPendingProduct.vu
 import CreateProduct from "@/components/Admin/Product/CreateProduct.vue";
 import UpdateProduct from "@/components/Admin/Product/UpdateProduct.vue";
 import ListPrice from "@/components/Admin/Product/ListPrice.vue";
+import ListPendingPrice from "@/components/Admin/Product/ListPendingPrice.vue";
 import CreatePrice from "@/components/Admin/Product/CreatePrice.vue";
 import ListKeyword from "@/components/Admin/Statistics/KeywordStatistics.vue";
 import ProductStatistics from "@/components/Admin/Statistics/ProductStatistics.vue";
@@ -127,6 +128,13 @@ export default [
     component: ListPrice,
     meta: {
       title: "Chỉnh sửa giá",
+    },
+  },
+  {
+    path: "/gia-chua-duyet",
+    component: ListPendingPrice,
+    meta: {
+      title: "Danh sách giá chưa duyệt",
     },
   },
   {

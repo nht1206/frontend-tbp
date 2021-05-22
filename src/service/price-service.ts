@@ -1,6 +1,7 @@
 import { AxiosResponse } from "axios";
 import http from "@/service/http";
 import Retailer from "@/models/Retailer";
+import Page from "@/models/Page";
 
 export interface PriceResponse {
   retailer: Retailer;
@@ -16,8 +17,8 @@ function getListPrice(id: string): Promise<AxiosResponse<PriceResponse[]>> {
   return http.get<PriceResponse[]>("price/product/" + id);
 }
 
-function getListPendingPrice(): Promise<AxiosResponse<PriceResponse[]>> {
-  return http.get<PriceResponse[]>("price/approveFalse");
+function getListPendingPrice(): Promise<AxiosResponse<Page<PriceResponse>>> {
+  return http.get<Page<PriceResponse>>("price/approveFalse");
 }
 
 export interface CreatePricePayload {

@@ -1,20 +1,7 @@
 <template>
   <div>
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-      <h1 class="h3 mb-0 text-gray-800">Danh sách giá sản phẩm</h1>
-      <router-link
-        :to="'/them-gia-moi/' + productId"
-        custom
-        v-slot="{ href, navigate }"
-      >
-        <a
-          :href="href"
-          @click="navigate"
-          class="d-sm-inline-block btn btn-create"
-        >
-          Thêm giá mới</a
-        >
-      </router-link>
+      <h1 class="h3 mb-0 text-gray-800">Danh sách giá sản phẩm chưa duyệt</h1>
     </div>
 
     <b-table
@@ -139,8 +126,6 @@ export default class extends Vue {
   selectedPrice: PriceResponse | null = null;
   isLoading = false;
 
-  productId!: string;
-
   formatPrice(price: number): string {
     return Intl.NumberFormat().format(price);
   }
@@ -172,10 +157,10 @@ export default class extends Vue {
   myProvider(ctx: { currentPage: number; perPage: number }, callback: any) {
     this.isLoading = true;
     priceService
-      .getListPrice(this.productId)
+      .getListPendingPrice()
       .then((res) => {
         this.isLoading = false;
-        const items = res.data;
+        const items = res.data.content;
         callback(items);
       })
       .catch(() => {
@@ -184,10 +169,6 @@ export default class extends Vue {
       });
 
     return null;
-  }
-
-  created() {
-    this.productId = this.$route.params["id"];
   }
 }
 </script>
