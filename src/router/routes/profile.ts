@@ -8,6 +8,7 @@ import ListUserProduct from "@/components/Profile/Product/ListUserProduct.vue";
 import ListSystemProduct from "@/components/Profile/Product/ListSystemProduct.vue";
 import CreateProduct from "@/components/Profile/Product/CreateProduct.vue";
 import UpdateProduct from "@/components/Profile/Product/UpdateProduct.vue";
+import ListPrice from "@/components/Profile/Product/ListPrice.vue";
 
 export default [
   {
@@ -66,6 +67,13 @@ export default [
   {
     path: "/cap-nhat-san-pham/:id",
     component: UpdateProduct,
+    meta: {
+      title: "Cập nhật sản phẩm",
+    },
+  },
+  {
+    path: "/danh-sach-gia/:id",
+    component: ListPrice,
     meta: {
       title: "Cập nhật sản phẩm",
     },
