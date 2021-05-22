@@ -186,10 +186,12 @@ export default class extends Vue {
 
   created() {
     this.id = this.$route.params["id"];
-    retailerService.getRetailers().then((res) => {
+    retailerService.getUserRetailers().then((res) => {
       if (res.data && res.data.length > 0) {
-        this.retailers = res.data;
-        this.createForm.retailerId = res.data[0].id + "";
+        this.retailers = res.data.filter(
+          (r: any) => r.enable === true && r.approve === true
+        );
+        this.createForm.retailerId = this.retailers[0].id + "";
       }
     });
   }

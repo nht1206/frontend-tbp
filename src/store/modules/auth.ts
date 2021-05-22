@@ -54,10 +54,14 @@ export const auth: Module<AuthState, RootState> = {
           if (router.currentRoute.matched[0].path === "/admin")
             router.push("/login");
           else {
-            router.push("/");
+            if (router.currentRoute.path !== "/") {
+              router.push("/");
+            }
           }
         } else {
-          router.push("/");
+          if (router.currentRoute.path !== "/") {
+            router.push("/");
+          }
         }
         commit("setLoading", false);
         commit("loadUser");
