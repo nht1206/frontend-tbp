@@ -19,7 +19,7 @@ Vue.use(BootstrapVue);
 Vue.use(VueCompositionAPI);
 
 Vue.use(vueDebounce, {
-  listenTo: ["input", "keyup"],
+  listenTo: ["input"],
 });
 
 Vue.directive("click-outside", clickOutside);

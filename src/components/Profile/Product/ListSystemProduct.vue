@@ -20,6 +20,7 @@
       :per-page="perPage"
       :items="myProvider"
       :fields="fields"
+      :filter="{ keyword }"
       ref="table"
     >
       <template #cell(title)="data">
@@ -72,6 +73,7 @@
 import Loading from "@/components/Home/Loading.vue";
 import productService from "@/service/product-service";
 import { Component, Vue } from "vue-property-decorator";
+import { mapGetters } from "vuex";
 
 @Component({
   components: { Loading },
@@ -113,6 +115,11 @@ import { Component, Vue } from "vue-property-decorator";
       ],
     };
   },
+  computed: {
+    ...mapGetters({
+      keyword: "search/keyword",
+    }),
+  },
 })
 export default class extends Vue {
   rows = 0;
@@ -149,8 +156,17 @@ export default class extends Vue {
     }
   }
 
-  myProvider(ctx: { currentPage: number; perPage: number }, callback: any) {
-    const params = "?page=" + (ctx.currentPage - 1) + "&size=" + ctx.perPage;
+  myProvider(
+    ctx: { currentPage: number; perPage: number; filter: { keyword: string } },
+    callback: any
+  ) {
+    const params =
+      "?keyword=" +
+      ctx.filter.keyword +
+      "&page=" +
+      (ctx.currentPage - 1) +
+      "&size=" +
+      ctx.perPage;
     this.isLoading = true;
     productService
       .getApprovedProducts(params)

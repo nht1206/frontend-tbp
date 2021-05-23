@@ -4,7 +4,7 @@
       v-model="search"
       @keydown.down="onArrowDown"
       @keydown.up="onArrowUp"
-      @keydown.enter="onEnter"
+      @keydown.enter.prevent="onEnter"
       v-click-outside="clickOutSide"
       v-debounce:1500ms="getSuggestion"
       @change="openSuggestion"
@@ -78,14 +78,19 @@ export default class extends Vue {
           this.isOpen = false;
           return;
         }
-        this.isOpen = true;
       });
     }
   }
 
   setResult(result: Suggestion): void {
-    if (result.id) {
-      this.$router.push("/chi-tiet-san-pham/" + result.id);
+    this.search = result.title;
+    if (!result.id) {
+      this.arrowCounter = -1;
+      this.onSearch();
+    } else {
+      const path = `/chi-tiet-san-pham/${result.id}`;
+      if (this.$route.path !== path) this.$router.push(path);
+      this.arrowCounter = -1;
     }
     this.isOpen = false;
   }
@@ -119,12 +124,13 @@ export default class extends Vue {
   onEnter(): void {
     if (this.arrowCounter !== -1) {
       const suggestion = this.suggestions[this.arrowCounter];
+      this.search = suggestion.title;
       if (!suggestion.id) {
-        this.search = suggestion.title;
         this.arrowCounter = -1;
         this.onSearch();
       } else {
-        this.$router.push("/chi-tiet-san-pham/" + suggestion.id);
+        const path = `/chi-tiet-san-pham/${suggestion.id}`;
+        if (this.$route.path !== path) this.$router.push(path);
         this.arrowCounter = -1;
       }
     }

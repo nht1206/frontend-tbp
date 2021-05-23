@@ -24,6 +24,8 @@
         type="text"
         placeholder="Search"
         aria-label="Search"
+        v-model="keyword"
+        @keyup.enter.prevent="onSearch"
       />
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
@@ -65,6 +67,10 @@ import { mapGetters } from "vuex";
   },
 })
 export default class extends Vue {
+  keyword = "";
+  onSearch() {
+    this.$store.commit("search/setKeyword", this.keyword);
+  }
   logout() {
     this.$store.dispatch("auth/logout");
   }

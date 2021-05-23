@@ -85,6 +85,9 @@ export default class extends Vue {
     padding: 25px;
   }
   .nav-tabs {
+    .nav-item {
+      width: 50%;
+    }
     .nav-link.active {
       border-color: transparent;
       box-shadow: none;
@@ -96,8 +99,8 @@ export default class extends Vue {
     margin-top: 36px;
     color: #666666;
     .form-control {
-      border-radius: 0;
-      padding: 16px;
+      border-radius: 3px;
+      padding: 19px;
       background: #f6f6f6;
       font-size: 14px;
     }
@@ -125,7 +128,7 @@ export default class extends Vue {
   .sign-up-section {
     padding: 30px;
     .form-control {
-      padding: 10px 16px;
+      padding: 19px;
       font-size: 14px;
     }
   }
@@ -142,7 +145,6 @@ export default class extends Vue {
       padding: 23px 0;
       font-size: 20px;
       color: #999999;
-      width: 199px;
       text-transform: uppercase;
     }
     .active {

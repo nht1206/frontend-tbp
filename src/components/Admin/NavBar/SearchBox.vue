@@ -9,6 +9,7 @@
         placeholder="Tìm kiếm"
         aria-label="Search"
         v-model="keyword"
+        @keyup.enter.prevent="search"
       />
       <div class="input-group-append">
         <button @click="search" class="btn btn-search" type="button">
