@@ -106,6 +106,10 @@ import UpdatePriceModal from "../Modal/UpdatePriceModal.vue";
           label: "ID",
         },
         {
+          key: "productTitle",
+          lable: "Tên sản phẩm",
+        },
+        {
           key: "retailer",
           label: "Tên nhà bán lẻ",
         },
