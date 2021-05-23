@@ -27,7 +27,7 @@
               v-if="!products.last && !isLoadingProduct && !products.empty"
               class="col-12 text-center"
             >
-              <a @click="loadMore" class="btn wd-shop-btn"> Show more </a>
+              <a @click="loadMore" class="btn wd-shop-btn"> Xem thêm </a>
             </div>
           </div>
         </div>
@@ -71,6 +71,10 @@ import Tag from "./Tag.vue";
 export default class extends Vue {
   loadMore(): void {
     this.$store.dispatch("product/loadMore");
+  }
+
+  created() {
+    this.$store.commit("product/setCurrentOption", {});
   }
 }
 </script>

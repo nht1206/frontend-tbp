@@ -36,7 +36,7 @@ export const product: Module<ProductState, RootState> = {
   },
   actions: {
     searchProducts: (
-      { commit },
+      { commit, state },
       option: Option = {
         keyword: "",
         catId: null,
@@ -48,7 +48,13 @@ export const product: Module<ProductState, RootState> = {
         number: 0,
         numberOfElements: 0,
       });
-      productService.searchProduct(option).then((res) => {
+      const tempOption: Option = {
+        catId: option.catId || state.currentOption.catId || undefined,
+        keyword: option.keyword || state.currentOption.keyword || undefined,
+        retailerIds:
+          option.retailerIds || state.currentOption.retailerIds || undefined,
+      };
+      productService.searchProduct(tempOption).then((res) => {
         commit("setProducts", res.data);
         commit("setCurrentOption", option);
         commit("setLoading", false);
