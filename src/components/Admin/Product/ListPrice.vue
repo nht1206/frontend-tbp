@@ -30,9 +30,9 @@
           data.item.retailer.name
         }}</a>
       </template>
-      <template #cell(urlProduct)="data">
+      <template #cell(productTitle)="data">
         <a :href="data.item.urlProduct" target="_blank">{{
-          data.item.urlProduct
+          data.item.productTitle
         }}</a>
       </template>
       <template #cell(latestPrice)="data">
@@ -106,6 +106,10 @@ import UpdatePriceModal from "../Modal/UpdatePriceModal.vue";
         {
           key: "productRetailerId",
           label: "ID",
+        },
+        {
+          key: "productTitle",
+          lable: "Tên sản phẩm",
         },
         {
           key: "retailer",
