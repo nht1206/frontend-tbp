@@ -136,7 +136,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import LightSlider from "@/components/Home/LightSlider/LightSlider.vue";
 import PageLocation from "@/components/Home/PageLocation.vue";
 import PriceHistory from "./PriceHistory.vue";
@@ -164,22 +164,6 @@ export default class extends Vue {
 
   isBestPrice(price: number): boolean {
     return this.product.lowestPrice === price;
-  }
-
-  created(): void {
-    this.id = this.$route.params["id"];
-    this.isLoading = true;
-    produceService
-      .findById(this.id)
-      .then((res) => {
-        this.product = res.data;
-        this.isLoading = false;
-      })
-      .catch(() => {
-        this.$router.push("/danh-sach-san-pham");
-      });
-
-    trackingService.trackingProduct(this.id);
   }
 
   formatPrice(price: number): string {
@@ -228,6 +212,27 @@ export default class extends Vue {
       }
     });
     return desc;
+  }
+
+  @Watch("$route.params")
+  getProductInfo() {
+    this.id = this.$route.params["id"];
+    this.isLoading = true;
+    produceService
+      .findById(this.id)
+      .then((res) => {
+        this.product = res.data;
+        this.isLoading = false;
+      })
+      .catch(() => {
+        this.$router.push("/danh-sach-san-pham");
+      });
+
+    trackingService.trackingProduct(this.id);
+  }
+
+  created(): void {
+    this.getProductInfo();
   }
 }
 </script>

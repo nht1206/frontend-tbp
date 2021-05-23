@@ -43,7 +43,7 @@
 <script lang="ts">
 import Suggestion from "@/models/Suggestion";
 import productService from "@/service/product-service";
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import trackingService from "@/service/tracking-service";
 
 @Component
@@ -76,7 +76,9 @@ export default class extends Vue {
         this.suggestions = res.data;
         if (!(this.suggestions.length !== 0 && this.search !== "")) {
           this.isOpen = false;
+          return;
         }
+        this.isOpen = true;
       });
     }
   }
@@ -122,7 +124,7 @@ export default class extends Vue {
         this.arrowCounter = -1;
         this.onSearch();
       } else {
-        this.$router.push("product-detail/" + suggestion.id);
+        this.$router.push("/chi-tiet-san-pham/" + suggestion.id);
         this.arrowCounter = -1;
       }
     }
