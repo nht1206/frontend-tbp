@@ -2,6 +2,7 @@
   <nav
     id="sidebarMenu"
     class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
+    :class="{ show: sideBarShow }"
   >
     <!-- <div class="profile-userpic d-flex justify-content-center">
       <img
@@ -104,7 +105,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 
 @Component({
@@ -115,6 +116,8 @@ import { mapGetters } from "vuex";
   },
 })
 export default class extends Vue {
+  @Prop({ default: false })
+  sideBarShow!: boolean;
   getRoleName(role: string): string {
     if (role === "ROLE_ADMIN") {
       return "Admin";

@@ -51,7 +51,11 @@ export default class extends Vue {
         this.$bvModal.hide("delete-confirm-modal");
         if (this.category.categories?.length !== 0) {
           this.$store.commit("category/removeCategory", this.category.id);
-        } else {
+        }
+        if (
+          !this.category.categories ||
+          this.category.categories.length === 0
+        ) {
           this.$store.dispatch("category/loadCategories");
         }
       })

@@ -2,6 +2,7 @@
   <div>
     <nav
       class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow"
+      v-click-outside="closeSideBar"
     >
       <router-link to="/" custom v-slot="{ href }">
         <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" :href="href"
@@ -11,11 +12,7 @@
       <button
         class="navbar-toggler position-absolute d-md-none collapsed"
         type="button"
-        data-toggle="collapse"
-        data-target="#sidebarMenu"
-        aria-controls="sidebarMenu"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
+        @click="toggleSideBar"
       >
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -44,7 +41,7 @@
     </nav>
     <div class="container-fluid">
       <div class="row">
-        <side-bar></side-bar>
+        <side-bar :sideBarShow="sideBarShow"></side-bar>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
           <router-view></router-view>
         </main>
@@ -68,6 +65,15 @@ import { mapGetters } from "vuex";
 })
 export default class extends Vue {
   keyword = "";
+  sideBarShow = false;
+
+  toggleSideBar() {
+    this.sideBarShow = !this.sideBarShow;
+  }
+
+  closeSideBar() {
+    this.sideBarShow = false;
+  }
   onSearch() {
     this.$store.commit("search/setKeyword", this.keyword);
   }

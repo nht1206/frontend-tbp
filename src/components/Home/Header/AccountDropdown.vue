@@ -7,7 +7,8 @@
         @click="toggle"
         v-click-outside="close"
       >
-        {{ title }}
+        <i class="d-none d-sm-inline d-md-none fas fa-user"></i>
+        <p class="d-sm-none d-md-inline">{{ title }}</p>
       </button>
       <div class="dropdown-menu" :class="[{ show: isOpen }]">
         <slot></slot>

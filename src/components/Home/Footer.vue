@@ -44,6 +44,19 @@
                 ></router-link
               >
             </li>
+            <li>
+              <router-link to="/login" v-slot="{ href, navigate }"
+                ><a @click="navigate" :href="href">Đăng nhập</a></router-link
+              >
+            </li>
+            <li>
+              <a @click="checkLoginToNavigate('/tai-khoan')">Tài khoản</a>
+            </li>
+            <li>
+              <a @click="checkLoginToNavigate('/dang-ky-cua-hang')"
+                >Đăng ký cửa hàng</a
+              >
+            </li>
           </div>
         </div>
         <div class="col-md-3 footer-view-controller">
@@ -66,13 +79,13 @@
     						Need Help ?
     					 =========================== -->
           <div class="footer-nav">
-            <h6 class="footer-subtitle">Need Help ?</h6>
-            <ul>
+            <h6 class="footer-subtitle">Giúp đở ?</h6>
+            <!-- <ul>
               <li><a href="#">Getting Started</a></li>
-              <li><a href="contact-us.html">Contact us</a></li>
+              <li><a href="#">Contact us</a></li>
               <li><a href="#">FAQ's</a></li>
               <li><a href="#">Press</a></li>
-            </ul>
+            </ul> -->
           </div>
         </div>
         <div class="col-md-2 footer-view-controller">
@@ -80,13 +93,13 @@
     						About
     					 =========================== -->
           <div class="footer-nav">
-            <h6 class="footer-subtitle">About</h6>
-            <ul>
-              <li><a href="conditions.html">Privacy</a></li>
-              <li><a href="conditions.html">Return Policy</a></li>
-              <li><a href="conditions.html">Order &#38; Return</a></li>
-              <li><a href="conditions.html">Terms &#38; Conditions</a></li>
-            </ul>
+            <h6 class="footer-subtitle">Về The best price</h6>
+            <!-- <ul>
+              <li><a href="#">Privacy</a></li>
+              <li><a href="#">Return Policy</a></li>
+              <li><a href="#">Order &#38; Return</a></li>
+              <li><a href="#">Terms &#38; Conditions</a></li>
+            </ul> -->
           </div>
         </div>
       </div>
@@ -96,17 +109,34 @@
 
 <script lang="ts">
 import Retailer from "@/models/Retailer";
+import User from "@/models/User";
 import retailerService from "@/service/retailer-service";
 import { Component, Vue } from "vue-property-decorator";
+import { mapGetters } from "vuex";
 
-@Component
+@Component({
+  computed: {
+    ...mapGetters({
+      user: "auth/user",
+    }),
+  },
+})
 export default class extends Vue {
   retailers: Retailer[] = [];
+  user!: User;
 
   created() {
     retailerService.getRetailers().then((res) => {
       this.retailers = res.data;
     });
+  }
+
+  checkLoginToNavigate(path: string) {
+    if (!this.user) {
+      this.$bvModal.show("login-inform-modal");
+    } else {
+      this.$router.push(path);
+    }
   }
 }
 </script>
@@ -211,6 +241,9 @@ export default class extends Vue {
     }
     .footer-nav {
       text-align: left;
+      a {
+        cursor: pointer;
+      }
     }
     .wb-social-media {
       a {

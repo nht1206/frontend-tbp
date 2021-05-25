@@ -58,9 +58,7 @@
             custom
             v-slot="{ navigate }"
           >
-            <button @click="navigate" class="btn btn-create">
-              Danh sách giá
-            </button>
+            <button @click="navigate" class="btn btn-create">Xem giá</button>
           </router-link>
         </div>
       </template>
@@ -94,6 +92,7 @@ import { mapGetters } from "vuex";
         {
           key: "image",
           label: "Ảnh",
+          tdClass: "image",
         },
         {
           key: "price",
@@ -202,7 +201,10 @@ export default class extends Vue {
 
 .list-product {
   .image {
-    max-height: 100px;
+    min-width: 100px;
+    img {
+      max-height: 100px;
+    }
   }
   .title {
     width: 300px;
@@ -216,5 +218,8 @@ export default class extends Vue {
   p {
     color: greenyellow;
   }
+}
+.action-area {
+  width: 90px;
 }
 </style>

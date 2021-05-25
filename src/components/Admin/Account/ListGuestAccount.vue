@@ -89,10 +89,12 @@ import { mapGetters } from "vuex";
         {
           key: "address",
           label: "Địa chỉ",
+          tdClass: "address",
         },
         {
           key: "email",
           label: "Địa chỉ email",
+          tdClass: "email",
         },
         {
           key: "phoneNumber",
@@ -177,5 +179,14 @@ export default class extends Vue {
 }
 </script>
 
-<style scoped>
+<style lang="scss">
+.table {
+  .address {
+    max-width: 150px;
+  }
+  .email {
+    max-width: 150px;
+    word-break: break-all;
+  }
+}
 </style>
