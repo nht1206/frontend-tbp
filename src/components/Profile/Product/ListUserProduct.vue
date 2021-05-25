@@ -217,6 +217,10 @@ export default class extends Vue {
 
     return null;
   }
+
+  created() {
+    this.$store.commit("search/clear");
+  }
 }
 </script>
 
