@@ -107,7 +107,7 @@ import UpdatePriceModal from "../Modal/UpdatePriceModal.vue";
         },
         {
           key: "productTitle",
-          lable: "Tên sản phẩm",
+          label: "Tên sản phẩm",
         },
         {
           key: "retailer",

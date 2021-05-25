@@ -58,7 +58,7 @@
           <span class="badge badge-danger badge-counter">3+</span>
         </template>
         <template v-slot:items>
-          <h6 class="dropdown-header">Alerts Center</h6>
+          <h6 class="dropdown-header">Thông báo</h6>
           <a class="dropdown-item d-flex align-items-center" href="#">
             <div class="mr-3">
               <div class="icon-circle bg-primary">
@@ -66,9 +66,9 @@
               </div>
             </div>
             <div>
-              <div class="small text-gray-500">December 12, 2019</div>
+              <div class="small text-gray-500">25 Tháng 5, 2020</div>
               <span class="font-weight-bold"
-                >A new monthly report is ready to download!</span
+                >Báo cáo hằng tháng đã được cập nhập để tải về</span
               >
             </div>
           </a>
@@ -101,7 +101,7 @@
         </template>
       </dropdown-nav-item>
 
-      <!-- Nav Item - Messages -->
+      <!-- Nav Item - Messages
       <dropdown-nav-item :menuClasses="['dropdown-list']">
         <template v-slot:title>
           <i class="fa fa-envelope fa-fw"></i>
@@ -181,7 +181,7 @@
             >Read More Messages</a
           >
         </template>
-      </dropdown-nav-item>
+      </dropdown-nav-item> -->
 
       <nav-bar-divider></nav-bar-divider>
 
@@ -197,14 +197,12 @@
           />
         </template>
         <template v-slot:items>
-          <a class="dropdown-item" href="#">
-            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-            Hồ sơ cá nhân
-          </a>
-          <a class="dropdown-item" href="#">
-            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-            Cài đặt
-          </a>
+          <router-link to="/tai-khoan" custom v-slot="{ href, navigate }">
+            <a @click="navigate" class="dropdown-item" :href="href">
+              <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+              Hồ sơ cá nhân
+            </a>
+          </router-link>
           <div class="dropdown-divider"></div>
           <button v-b-modal.logout-modal class="dropdown-item">
             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

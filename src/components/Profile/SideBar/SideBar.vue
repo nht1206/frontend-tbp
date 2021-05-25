@@ -1,6 +1,7 @@
 <template>
   <nav
     id="sidebarMenu"
+    v-if="!!user"
     class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
     :class="{ show: sideBarShow }"
   >
