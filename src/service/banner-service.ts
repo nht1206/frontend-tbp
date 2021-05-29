@@ -14,8 +14,8 @@ function getAvailableBanner(): Promise<AxiosResponse<Banner[]>> {
   return http.get<Banner[]>("banner/isOn");
 }
 
-function getAllBanner(): Promise<AxiosResponse<Page<Banner>>> {
-  return http.get<Page<Banner>>("banner");
+function getAllBanner(prams: string): Promise<AxiosResponse<Page<Banner>>> {
+  return http.get<Page<Banner>>("banner" + prams);
 }
 
 function createBanner(payload: BannerPayload): Promise<AxiosResponse<any>> {

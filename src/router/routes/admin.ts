@@ -1,6 +1,7 @@
 import { RouteConfig } from "vue-router";
 import Dashboard from "@/views/Admin/Dashboard.vue";
 import ListCategory from "@/components/Admin/Category/ListCategory.vue";
+import ListBanner from "@/components/Admin/Banner/ListBanner.vue";
 import ListGuestAccount from "@/components/Admin/Account/ListGuestAccount.vue";
 import CreateGuestAccount from "@/components/Admin/Account/CreateAccount.vue";
 import EditAccount from "@/components/Admin/Account/EditAccount.vue";
@@ -30,6 +31,13 @@ export default [
     component: ListCategory,
     meta: {
       title: "Quản lý danh mục",
+    },
+  },
+  {
+    path: "/banner",
+    component: ListBanner,
+    meta: {
+      title: "Quản lý banner",
     },
   },
   {

@@ -77,7 +77,7 @@
             >
               <span class="sr-only">Loading...</span>
             </div>
-            Thêm sản phẩm
+            Thêm giá
           </button>
         </div>
       </template>

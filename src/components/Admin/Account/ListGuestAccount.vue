@@ -29,6 +29,7 @@
       :items="myProvider"
       :fields="fields"
       :filter="{ keyword }"
+      ref="table"
     >
       <template #cell(actions)="data">
         <div class="action-area">
