@@ -5,7 +5,7 @@
     >
       <h1 class="h4">Danh sách banner</h1>
       <div class="btn-toolbar mb-2 mb-md-0">
-        <router-link to="/tao-banner" custom v-slot="{ navigate }">
+        <router-link to="/them-banner" custom v-slot="{ navigate }">
           <button @click="navigate" type="button" class="btn btn-create">
             Tạo mới banner
           </button>
