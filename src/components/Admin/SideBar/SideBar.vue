@@ -169,7 +169,15 @@
             >Quản lý danh mục</a
           >
         </router-link>
-        <a class="collapse-item" href="#.html">Quản lý banner</a>
+        <router-link to="/banner" custom v-slot="{ href, navigate, isActive }">
+          <a
+            class="collapse-item"
+            :class="{ active: isActive }"
+            :href="href"
+            @click="navigate"
+            >Quản lý banner</a
+          >
+        </router-link>
       </template>
     </collapse-menu>
 

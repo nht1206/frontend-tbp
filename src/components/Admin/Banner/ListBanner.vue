@@ -102,6 +102,10 @@ export default class extends Vue {
     this.selectedId = id;
   }
 
+  changeStatus(id: number) {
+    bannerService.toggleStatus(id);
+  }
+
   refreshTable() {
     (this.$refs.table as any).refresh();
   }

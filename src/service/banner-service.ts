@@ -27,11 +27,11 @@ function updateBanner(payload: BannerPayload): Promise<AxiosResponse<any>> {
 }
 
 function toggleStatus(id: number): Promise<AxiosResponse<any>> {
-  return http.put("banner/toggleStatus" + id);
+  return http.put("banner/toggleStatus/" + id);
 }
 
 function deleteBanner(id: number): Promise<AxiosResponse<any>> {
-  return http.delete("banner" + id);
+  return http.delete("banner/" + id);
 }
 
 export default {
