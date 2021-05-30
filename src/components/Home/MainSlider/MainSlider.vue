@@ -40,7 +40,11 @@
             <p class="slider-content">
               {{ banner.description }}
             </p>
-            <a :href="banner.redirectUrl" class="btn wd-shop-btn slider-btn">
+            <a
+              :href="banner.redirectUrl"
+              target="_blank"
+              class="btn wd-shop-btn slider-btn"
+            >
               Đến gian hàng <i class="fa fa-arrow-right" aria-hidden="true"></i>
             </a>
           </template>
