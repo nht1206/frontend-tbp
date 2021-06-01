@@ -33,10 +33,12 @@ const routes: Array<RouteConfig> = [
           if (user) {
             next();
           } else {
+            store.dispatch("auth/logout");
             next({ path: "/" });
           }
         })
         .catch(() => {
+          store.dispatch("auth/logout");
           next({ path: "/" });
         });
     },
@@ -58,12 +60,14 @@ const routes: Array<RouteConfig> = [
             if (user?.role === "ROLE_ADMIN") {
               next();
             } else {
+              store.dispatch("auth/logout");
               next({ path: "/" });
             }
           }
           next();
         })
         .catch(() => {
+          store.dispatch("auth/logout");
           next({ path: "/login" });
         });
     },

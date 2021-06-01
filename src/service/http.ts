@@ -1,3 +1,4 @@
+import store from "@/store";
 import axios from "axios";
 import storageService from "./storage-service";
 
@@ -10,5 +11,17 @@ axios.interceptors.request.use(function (config) {
   }
   return config;
 });
+
+axios.interceptors.response.use(
+  (response) => {
+    if (response.status === 401) {
+      store.dispatch("auth/logout");
+    }
+    return response;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 export default axios;

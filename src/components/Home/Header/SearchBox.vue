@@ -6,7 +6,7 @@
       @keydown.up="onArrowUp"
       @keydown.enter.prevent="onEnter"
       v-click-outside="clickOutSide"
-      v-debounce:1500ms="getSuggestion"
+      v-debounce:500ms="getSuggestion"
       @change="openSuggestion"
       type="text"
       class="form-control"
@@ -71,6 +71,7 @@ export default class extends Vue {
   }
 
   getSuggestion(): void {
+    this.isOpen = true;
     if (this.search) {
       productService.getSuggestion(this.search).then((res) => {
         this.suggestions = res.data;

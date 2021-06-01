@@ -3,6 +3,7 @@ import Dashboard from "@/views/Admin/Dashboard.vue";
 import ListCategory from "@/components/Admin/Category/ListCategory.vue";
 import ListBanner from "@/components/Admin/Banner/ListBanner.vue";
 import CreateBanner from "@/components/Admin/Banner/CreateBanner.vue";
+import UpdateBanner from "@/components/Admin/Banner/UpdateBanner.vue";
 import ListGuestAccount from "@/components/Admin/Account/ListGuestAccount.vue";
 import CreateGuestAccount from "@/components/Admin/Account/CreateAccount.vue";
 import EditAccount from "@/components/Admin/Account/EditAccount.vue";
@@ -44,6 +45,13 @@ export default [
   {
     path: "/them-banner",
     component: CreateBanner,
+    meta: {
+      title: "Thêm mới banner",
+    },
+  },
+  {
+    path: "/chinh-sua-banner/:id",
+    component: UpdateBanner,
     meta: {
       title: "Thêm mới banner",
     },
