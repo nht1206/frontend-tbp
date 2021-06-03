@@ -173,8 +173,14 @@ export default class extends Vue {
     }
   }
 
-  onApproved() {
+  onApproved(id: string) {
     (this.$refs.table as any).refresh();
+    this.$store.commit("toast/setToastInfo", {
+      message: `Sản phẩm có id: ${id} đã được duyệt thành công`,
+      title: "Duyệt sản phẩm thành công",
+      variant: "success",
+    });
+    this.$bvToast.show("messageToast");
   }
 
   myProvider(

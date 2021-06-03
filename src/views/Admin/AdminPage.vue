@@ -11,6 +11,7 @@
         </div>
       </div>
     </div>
+    <message-toast></message-toast>
   </div>
 </template>
 
@@ -21,9 +22,10 @@ import { Component, Vue } from "vue-property-decorator";
 
 import "@/assets/styles/sb-admin-2.min.css";
 import "@/assets/js/sb-admin-2.min";
+import MessageToast from "@/components/Admin/Toast/MessageToast.vue";
 
 @Component({
-  components: { SideBar, NavBar },
+  components: { SideBar, NavBar, MessageToast },
 })
 export default class extends Vue {}
 </script>
@@ -33,5 +35,4 @@ export default class extends Vue {}
   background-color: #fea82f;
   border-color: #fea82f;
 }
-
 </style>

@@ -57,7 +57,10 @@
       </template>
     </b-table>
     <loading :isLoading="isLoading"></loading>
-    <delete-account-confirm :id="selectedId"></delete-account-confirm>
+    <delete-account-confirm
+      @deleted="onDeleted"
+      :id="selectedId"
+    ></delete-account-confirm>
   </div>
 </template>
 
@@ -133,6 +136,16 @@ export default class extends Vue {
 
   changeStatus(id: number) {
     accountService.toggleStatus(id);
+  }
+
+  refreshTable() {
+    (this.$refs.table as any).refresh();
+  }
+
+  onDeleted(id: number | null) {
+    if (id) {
+      this.refreshTable();
+    }
   }
 
   myProvider(

@@ -133,6 +133,15 @@ export default class extends Vue {
     this.success = "";
   }
 
+  makeToast() {
+    this.$store.commit("toast/setToastInfo", {
+      message: `Giá có id: ${this.priceInfo.productRetailerId} đã được cập nhật thành công`,
+      title: "Cập nhật giá thành công",
+      variant: "success",
+    });
+    this.$bvToast.show("messageToast");
+  }
+
   submitUpdate(): void {
     this.v$.updateForm.$touch();
     if (!this.v$.updateForm.$invalid) {

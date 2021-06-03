@@ -194,7 +194,7 @@ export default class extends Vue {
       .then(() => {
         this.isApproving = false;
         this.$bvModal.hide("product-detail-view");
-        this.$emit("approved");
+        this.$emit("approved", this.id);
       })
       .catch(() => {
         this.isApproving = false;

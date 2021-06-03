@@ -76,7 +76,10 @@
       :id="selectedId"
       @deleted="onDeleted"
     ></delete-retailer-confirm-modal>
-    <retailer-detail-modal :retailer="selectedRetailer"></retailer-detail-modal>
+    <retailer-detail-modal
+      :isApprove="true"
+      :retailer="selectedRetailer"
+    ></retailer-detail-modal>
     <loading :isLoading="isLoading"></loading>
   </div>
 </template>

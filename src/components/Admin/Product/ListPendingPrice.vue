@@ -153,6 +153,12 @@ export default class extends Vue {
   approvePrice(id: number) {
     priceService.approvePrice(id).then(() => {
       (this.$refs.table as any).refresh();
+      this.$store.commit("toast/setToastInfo", {
+        message: `Giá có id: ${id} đã được duyệt thành công`,
+        title: "Duyệt giá sản phẩm thành công",
+        variant: "success",
+      });
+      this.$bvToast.show("messageToast");
     });
   }
 

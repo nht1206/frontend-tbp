@@ -42,6 +42,16 @@ export default class extends Vue {
   category!: Category;
 
   isLoading = false;
+
+  makeToast() {
+    this.$store.commit("toast/setToastInfo", {
+      message: `Danh mục có id: ${this.category.id} đã được xóa thành công`,
+      title: "Xóa danh mục thành công",
+      variant: "success",
+    });
+    this.$bvToast.show("messageToast");
+  }
+
   confirm(): void {
     this.isLoading = true;
     categoryService
@@ -58,6 +68,8 @@ export default class extends Vue {
         ) {
           this.$store.dispatch("category/loadCategories");
         }
+        this.$emit("deleted", this.category.id);
+        this.makeToast();
       })
       .catch(() => {
         this.isLoading = false;

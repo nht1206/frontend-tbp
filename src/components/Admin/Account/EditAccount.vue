@@ -104,7 +104,7 @@
           </div>
 
           <button
-            @click="createHandle"
+            @click="updateHandle"
             :disabled="isSignupDisabled"
             type="submit"
             class="btn btn-create"
@@ -254,7 +254,16 @@ export default class extends Vue {
     };
   }
 
-  createHandle(): void {
+  makeToast() {
+    this.$store.commit("toast/setToastInfo", {
+      message: `Tài khoản "${this.editAccountForm.username}" đã được cập nhật thành công`,
+      title: "Cập nhật tài khoản thành công",
+      variant: "success",
+    });
+    this.$bvToast.show("messageToast");
+  }
+
+  updateHandle(): void {
     if (!this.isFormChanged()) {
       this.error = "Thông tin chưa được thay đổi!";
       return;
@@ -266,12 +275,11 @@ export default class extends Vue {
         .editAccount(this.account.id, this.editAccountForm)
         .then((res) => {
           this.successMessage = res.data.message + "";
-          this.resetForm();
           this.error = "";
           this.isLoading = false;
-          this.$router.push(
-            this.$route.redirectedFrom || "/tai-khoan-nguoi-dung"
-          );
+          this.$router.go(-1);
+          this.makeToast();
+          this.resetForm();
         })
         .catch((err) => {
           this.error = err.response.data.message;

@@ -44,6 +44,16 @@ export default class extends Vue {
   isLoading = false;
 
   error = "";
+
+  makeToast() {
+    this.$store.commit("toast/setToastInfo", {
+      message: `Tài khoản có id: ${this.id} đã được xóa thành công`,
+      title: "Xóa tài khoản thành công",
+      variant: "success",
+    });
+    this.$bvToast.show("messageToast");
+  }
+
   confirm(): void {
     this.isLoading = true;
     accountService
@@ -51,6 +61,8 @@ export default class extends Vue {
       .then(() => {
         this.isLoading = false;
         this.$bvModal.hide("delete-account-confirm-modal");
+        this.$emit("deleted", this.id);
+        this.makeToast();
       })
       .catch((err) => {
         this.error = err.response.data.message;

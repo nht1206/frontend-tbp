@@ -44,6 +44,16 @@ export default class extends Vue {
   isLoading = false;
 
   error = "";
+
+  makeToast() {
+    this.$store.commit("toast/setToastInfo", {
+      message: `Giá có id: ${this.id} đã được xóa thành công`,
+      title: "Xóa Giá thành công",
+      variant: "success",
+    });
+    this.$bvToast.show("messageToast");
+  }
+
   confirm(): void {
     this.isLoading = true;
     priceService
@@ -52,6 +62,7 @@ export default class extends Vue {
         this.isLoading = false;
         this.$bvModal.hide("delete-price-confirm-modal");
         this.$emit("deleted", this.id);
+        this.makeToast();
       })
       .catch((err) => {
         this.error = err.response.data.message;

@@ -5,7 +5,6 @@
     @shown="resetData"
   >
     <form>
-      <div v-if="!!success" class="alert alert-success">{{ success }}</div>
       <div v-if="!!error" class="alert alert-danger">{{ error }}</div>
       <div class="form-group">
         <label for="inputTitle">Tên danh mục</label>
@@ -108,8 +107,6 @@ export default class extends Vue {
 
   error = "";
 
-  success = "";
-
   isLoading = false;
 
   categoryForm: CreateSubCategoryPayload = {
@@ -135,22 +132,27 @@ export default class extends Vue {
       parentId: this.parentId,
     };
     this.error = "";
-    this.success = "";
+  }
+
+  makeToast() {
+    this.$store.commit("toast/setToastInfo", {
+      message: `Danh mục "${this.categoryForm.title}" đã được tạo thành công`,
+      title: "Tạo danh mục thành công",
+      variant: "success",
+    });
+    this.$bvToast.show("messageToast");
   }
 
   submitCreate(): void {
     this.v$.categoryForm.$touch();
     if (!this.v$.categoryForm.$invalid) {
-      //   this.$bvModal.hide("create-category-modal");
       this.isLoading = true;
       categoryService
         .createSubCategory(this.categoryForm)
         .then((res) => {
           this.isLoading = false;
-          this.success = res.data.message;
-          setTimeout(() => {
-            this.success = "";
-          }, 5000);
+          this.$bvModal.hide("create-sub-category-modal");
+          this.makeToast();
           this.categoryForm = {
             title: "",
             description: "",

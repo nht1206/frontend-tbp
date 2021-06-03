@@ -6,9 +6,6 @@
           <div v-if="error" class="alert alert-danger" role="alert">
             {{ error }}
           </div>
-          <div v-if="successMessage" class="alert alert-success" role="alert">
-            {{ successMessage }}
-          </div>
           <div class="form-group">
             <label for="selectRetailer">Nhà bán lẻ</label>
             <select
@@ -166,6 +163,15 @@ export default class extends Vue {
     this.v$.createForm.images.$model = images;
   }
 
+  makeToast() {
+    this.$store.commit("toast/setToastInfo", {
+      message: `Giá "${this.createForm.price}" cho nhà bán lẻ có id: ${this.createForm.retailerId} đã được thêm thành công`,
+      title: "Thêm giá thành công",
+      variant: "success",
+    });
+    this.$bvToast.show("messageToast");
+  }
+
   createHandle(): void {
     this.v$.createForm.$touch();
     if (!this.v$.$invalid) {
@@ -173,11 +179,11 @@ export default class extends Vue {
       priceService
         .addNewPriceByAdmin(this.id, this.createForm)
         .then((res) => {
-          this.successMessage = res.data.message + "";
-          this.resetForm();
-          this.error = "";
           this.isLoading = false;
           this.$router.push("/cap-nhat-gia/" + this.id);
+          this.makeToast();
+          this.resetForm();
+          this.error = "";
         })
         .catch((err) => {
           this.error = err.response.data.message;

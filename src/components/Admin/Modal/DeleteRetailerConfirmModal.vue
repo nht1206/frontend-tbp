@@ -44,6 +44,16 @@ export default class extends Vue {
   isLoading = false;
 
   error = "";
+
+  makeToast() {
+    this.$store.commit("toast/setToastInfo", {
+      message: `Nhà bán lẻ có id: ${this.id} đã được xóa thành công`,
+      title: "Xóa nhà bán lẻ thành công",
+      variant: "success",
+    });
+    this.$bvToast.show("messageToast");
+  }
+
   confirm(): void {
     this.isLoading = true;
     retailerService

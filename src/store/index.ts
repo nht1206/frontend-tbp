@@ -4,6 +4,7 @@ import { cart } from "./modules/cart";
 import { retailer } from "./modules/retailer";
 import { auth } from "./modules/auth";
 import { search } from "./modules/search";
+import { toast } from "./modules/toast";
 import Vue from "vue";
 import Vuex from "vuex";
 
@@ -17,5 +18,6 @@ export default new Vuex.Store({
     retailer,
     auth,
     search,
+    toast,
   },
 });

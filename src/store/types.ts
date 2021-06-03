@@ -35,3 +35,11 @@ export interface AuthState {
 export interface SearchState {
   keyword: string;
 }
+
+export interface ToastState {
+  toastInfo: {
+    title: string;
+    message: string;
+    variant: string;
+  };
+}

@@ -210,6 +210,15 @@ export default class extends Vue {
     };
   }
 
+  makeToast() {
+    this.$store.commit("toast/setToastInfo", {
+      message: `Nhà bán lẻ "${this.updateForm.name}" đã được cập nhật thành công`,
+      title: "Cập nhật nhà bán lẻ thành công",
+      variant: "success",
+    });
+    this.$bvToast.show("messageToast");
+  }
+
   createHandle(): void {
     this.v$.updateForm.$touch();
     if (!this.v$.$invalid) {

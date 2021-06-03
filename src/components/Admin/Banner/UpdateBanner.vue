@@ -6,9 +6,6 @@
           <div v-if="error" class="alert alert-danger" role="alert">
             {{ error }}
           </div>
-          <div v-if="successMessage" class="alert alert-success" role="alert">
-            {{ successMessage }}
-          </div>
           <div class="form-group">
             <label for="inputName">Tiêu đề</label>
             <input
@@ -147,8 +144,6 @@ export default class extends Vue {
 
   isLoading = false;
 
-  successMessage: string | null = "";
-
   updateForm: BannerPayload = {
     title: "",
     description: "",
@@ -180,6 +175,15 @@ export default class extends Vue {
     };
   }
 
+  makeToast() {
+    this.$store.commit("toast/setToastInfo", {
+      message: `Banner "${this.updateForm.title}" đã được cập nhật thành công`,
+      title: "Cập nhật banner thành công",
+      variant: "success",
+    });
+    this.$bvToast.show("messageToast");
+  }
+
   updateHandle(): void {
     this.v$.updateForm.$touch();
     if (!this.v$.$invalid) {
@@ -187,11 +191,11 @@ export default class extends Vue {
       bannerService
         .updateBanner(this.id, this.updateForm)
         .then((res) => {
-          this.successMessage = res.data.message + "";
-          this.resetForm();
           this.error = "";
           this.isLoading = false;
           this.$router.go(-1);
+          this.makeToast();
+          this.resetForm();
         })
         .catch((err) => {
           this.error = err.response.data.message;

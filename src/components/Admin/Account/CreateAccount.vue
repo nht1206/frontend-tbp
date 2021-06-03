@@ -234,6 +234,7 @@ export default class extends Vue {
 
   reset(field: { $reset: () => void }): void {
     field.$reset();
+    this.error = null;
   }
 
   resetForm() {
@@ -249,6 +250,15 @@ export default class extends Vue {
     };
   }
 
+  makeToast() {
+    this.$store.commit("toast/setToastInfo", {
+      message: `Tài khoản "${this.signupForm.username}" đã được tạo thành công`,
+      title: "Tạo tài khoản thành công",
+      variant: "success",
+    });
+    this.$bvToast.show("messageToast");
+  }
+
   createHandle(): void {
     this.v$.signupForm.$touch();
     if (!this.v$.$invalid) {
@@ -257,10 +267,11 @@ export default class extends Vue {
         .createGuestAccount(this.signupForm)
         .then((res) => {
           this.successMessage = res.data.message + "";
-          this.resetForm();
           this.error = null;
           this.isLoading = false;
           this.$router.go(-1);
+          this.makeToast();
+          this.resetForm();
         })
         .catch((err) => {
           this.error = err.response.data.message;

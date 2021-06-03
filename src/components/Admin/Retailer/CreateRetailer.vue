@@ -199,6 +199,15 @@ export default class extends Vue {
     };
   }
 
+  makeToast() {
+    this.$store.commit("toast/setToastInfo", {
+      message: `Nhà bán lẻ "${this.createForm.name}" đã được tạo thành công`,
+      title: "Tạo nhà bán lẻ thành công",
+      variant: "success",
+    });
+    this.$bvToast.show("messageToast");
+  }
+
   createHandle(): void {
     this.v$.createForm.$touch();
     if (!this.v$.$invalid) {
@@ -207,10 +216,11 @@ export default class extends Vue {
         .createRetailer(this.createForm)
         .then((res) => {
           this.successMessage = res.data.message + "";
-          this.resetForm();
-          this.error = "";
           this.isLoading = false;
           this.$router.go(-1);
+          this.makeToast();
+          this.resetForm();
+          this.error = "";
         })
         .catch((err) => {
           this.error = err.response.data.message;

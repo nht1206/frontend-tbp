@@ -228,6 +228,15 @@ export default class extends Vue {
     this.v$.createForm.images.$model = images;
   }
 
+  makeToast() {
+    this.$store.commit("toast/setToastInfo", {
+      message: `Sản phẩm "${this.createForm.title}" đã được tạo thành công`,
+      title: "Tạo sản phẩm thành công",
+      variant: "success",
+    });
+    this.$bvToast.show("messageToast");
+  }
+
   createHandle(): void {
     this.v$.createForm.$touch();
     if (!this.v$.$invalid) {
@@ -236,10 +245,11 @@ export default class extends Vue {
         .createProduct(this.createForm)
         .then((res) => {
           this.successMessage = res.data.message + "";
-          this.resetForm();
-          this.error = "";
           this.isLoading = false;
           this.$router.go(-1);
+          this.makeToast();
+          this.resetForm();
+          this.error = "";
         })
         .catch((err) => {
           this.error = err.response.data.message;

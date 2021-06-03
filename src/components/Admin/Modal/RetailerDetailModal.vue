@@ -65,7 +65,7 @@ export default class extends Vue {
         .then(() => {
           this.isLoading = false;
           this.$bvModal.hide("retailer-detail-modal");
-          this.$emit("approved");
+          this.$emit("approved", this.retailer?.id);
         })
         .catch(() => {
           this.isLoading = false;

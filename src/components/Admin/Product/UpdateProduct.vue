@@ -234,6 +234,15 @@ export default class extends Vue {
     this.v$.updateForm.images.$model = images;
   }
 
+  makeToast() {
+    this.$store.commit("toast/setToastInfo", {
+      message: `Sản phẩm "${this.updateForm.title}" đã được cập nhật thành công`,
+      title: "Cập nhật sản phẩm thành công",
+      variant: "success",
+    });
+    this.$bvToast.show("messageToast");
+  }
+
   updateHandle(): void {
     this.v$.updateForm.$touch();
     if (!this.v$.$invalid) {
@@ -241,12 +250,11 @@ export default class extends Vue {
       productService
         .updateProduct(this.id, this.updateForm)
         .then((res) => {
-          console.log(this.updateForm.images);
-          this.successMessage = res.data.message + "";
-          this.resetForm();
-          this.error = "";
           this.isLoading = false;
           this.$router.push("/san-pham-da-duyet");
+          this.makeToast();
+          this.resetForm();
+          this.error = "";
         })
         .catch((err) => {
           this.error = err.response.data.message;
