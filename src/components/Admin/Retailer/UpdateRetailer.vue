@@ -87,7 +87,11 @@
               @focus="reset(v$.updateForm.userId)"
               @input="reset(v$.updateForm.userId)"
               id="inputUserId"
+              aria-describedby="ownerIdHelp"
             />
+            <small id="ownerIdHelp" class="form-text">
+              Mặc định sẻ là id của admin
+            </small>
             <div class="invalid-feedback">
               <template v-for="error of v$.updateForm.userId.$errors">
                 {{ error.$message }}
@@ -242,11 +246,12 @@ export default class extends Vue {
       retailerService
         .updateRetailer(this.id, this.updateForm)
         .then((res) => {
+          this.isLoading = false;
+          this.$router.go(-1);
+          this.makeToast();
           this.successMessage = res.data.message + "";
           this.resetForm();
           this.error = "";
-          this.isLoading = false;
-          this.$router.go(-1);
         })
         .catch((err) => {
           this.error = err.response.data.message;

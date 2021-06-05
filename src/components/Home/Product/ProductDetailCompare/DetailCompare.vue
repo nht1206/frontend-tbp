@@ -41,7 +41,7 @@
                   </div>
                   <ul
                     class="full-specifiction"
-                    v-html="renderDescription(p.shortDescription)"
+                    v-html="renderDescription(p.longDescription)"
                   ></ul>
                 </div>
               </td>

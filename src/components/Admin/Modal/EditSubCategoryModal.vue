@@ -153,7 +153,7 @@ export default class extends Vue {
       categoryService
         .updateSubCategory(this.category.id, this.categoryForm)
         .then((res) => {
-          this.isLoading = true;
+          this.isLoading = false;
           this.$store.dispatch("category/loadCategories");
           this.$bvModal.hide("edit-sub-category-modal");
           this.makeToast();

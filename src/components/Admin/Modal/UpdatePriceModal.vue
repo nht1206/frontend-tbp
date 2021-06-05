@@ -74,7 +74,7 @@ import priceService, {
   UpdatePricePayload,
 } from "@/service/price-service";
 import useVuelidate from "@vuelidate/core";
-import { required, helpers } from "@vuelidate/validators";
+import { required, helpers, minLength, maxLength } from "@vuelidate/validators";
 import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component({
@@ -92,6 +92,14 @@ import { Component, Prop, Vue } from "vue-property-decorator";
           required: helpers.withMessage(
             "Đường dẫn không được để trống!",
             required
+          ),
+          minLength: helpers.withMessage(
+            "Độ dài đường dẫn ít nhất 50 ký tự",
+            minLength(50)
+          ),
+          maxLength: helpers.withMessage(
+            "Độ dài đường dẫn tối đa 255 ký tự",
+            maxLength(255)
           ),
         },
       },
@@ -131,15 +139,6 @@ export default class extends Vue {
     };
     this.error = "";
     this.success = "";
-  }
-
-  makeToast() {
-    this.$store.commit("toast/setToastInfo", {
-      message: `Giá có id: ${this.priceInfo.productRetailerId} đã được cập nhật thành công`,
-      title: "Cập nhật giá thành công",
-      variant: "success",
-    });
-    this.$bvToast.show("messageToast");
   }
 
   submitUpdate(): void {

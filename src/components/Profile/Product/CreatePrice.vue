@@ -89,7 +89,7 @@ import Retailer from "@/models/Retailer";
 import priceService, { CreatePricePayload } from "@/service/price-service";
 import retailerService from "@/service/retailer-service";
 import useVuelidate from "@vuelidate/core";
-import { helpers, required } from "@vuelidate/validators";
+import { helpers, maxLength, minLength, required } from "@vuelidate/validators";
 import { Component, Vue } from "vue-property-decorator";
 
 @Component({
@@ -103,7 +103,7 @@ import { Component, Vue } from "vue-property-decorator";
       createForm: {
         retailerId: {
           required: helpers.withMessage(
-            "Tiêu đề không được để trống!",
+            "Nhà bán lẻ không được để trống!",
             required
           ),
         },
@@ -114,6 +114,14 @@ import { Component, Vue } from "vue-property-decorator";
           required: helpers.withMessage(
             "Đường dẫn không được để trống!",
             required
+          ),
+          minLength: helpers.withMessage(
+            "Độ dài đường dẫn ít nhất 50 ký tự!",
+            minLength(50)
+          ),
+          maxLength: helpers.withMessage(
+            "Độ dài đường dẫn tối đa 255 ký tự!",
+            maxLength(255)
           ),
         },
       },

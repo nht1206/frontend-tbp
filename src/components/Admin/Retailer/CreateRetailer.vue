@@ -87,7 +87,11 @@
               @focus="reset(v$.createForm.userId)"
               @input="reset(v$.createForm.userId)"
               id="inputUserId"
+              aria-describedby="ownerIdHelp"
             />
+            <small id="ownerIdHelp" class="form-text">
+              Mặc định sẻ là id của admin
+            </small>
             <div class="invalid-feedback">
               <template v-for="error of v$.createForm.userId.$errors">
                 {{ error.$message }}

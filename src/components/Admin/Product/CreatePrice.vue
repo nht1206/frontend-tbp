@@ -84,7 +84,7 @@
 
 <script lang="ts">
 import useVuelidate from "@vuelidate/core";
-import { helpers, required } from "@vuelidate/validators";
+import { helpers, maxLength, minLength, required } from "@vuelidate/validators";
 import { Component, Vue } from "vue-property-decorator";
 import BasicCard from "../Card/BasicCard.vue";
 import priceService, { CreatePricePayload } from "@/service/price-service";
@@ -113,6 +113,14 @@ import retailerService from "@/service/retailer-service";
           required: helpers.withMessage(
             "Đường dẫn không được để trống!",
             required
+          ),
+          minLength: helpers.withMessage(
+            "Độ dài đường dẫn ít nhất 50 ký tự!",
+            minLength(50)
+          ),
+          maxLength: helpers.withMessage(
+            "Độ dài đường dẫn tối đa 255 ký tự!",
+            maxLength(255)
           ),
         },
       },
