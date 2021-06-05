@@ -171,6 +171,14 @@ import BasicCard from "../Card/BasicCard.vue";
         },
         fullName: {
           required: helpers.withMessage("Tên không được để trống!", required),
+          minLength: helpers.withMessage(
+            "Họ tên phải từ 5 ký tự",
+            minLength(5)
+          ),
+          maxLength: helpers.withMessage(
+            "Họ tên có tối đa 30 ký tự",
+            maxLength(30)
+          ),
         },
         email: {
           required: helpers.withMessage("Email không được để trống!", required),
@@ -181,11 +189,27 @@ import BasicCard from "../Card/BasicCard.vue";
             "Địa chỉ không được để trống!",
             required
           ),
+          minLength: helpers.withMessage(
+            "Địa chỉ phải từ 5 ký tự",
+            minLength(5)
+          ),
+          maxLength: helpers.withMessage(
+            "Địa chỉ có tối đa 50 ký tự",
+            maxLength(50)
+          ),
         },
         phoneNumber: {
           required: helpers.withMessage(
             "Số điện thoại không được để trống!",
             required
+          ),
+          minLength: helpers.withMessage(
+            "Số điện thoại không đúng định dạng",
+            minLength(9)
+          ),
+          maxLength: helpers.withMessage(
+            "Số điện thoại không đúng định dạng",
+            maxLength(11)
           ),
         },
         password: {

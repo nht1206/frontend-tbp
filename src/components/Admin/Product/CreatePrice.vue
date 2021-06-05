@@ -102,7 +102,7 @@ import retailerService from "@/service/retailer-service";
       createForm: {
         retailerId: {
           required: helpers.withMessage(
-            "Tiêu đề không được để trống!",
+            "Nhà bán lẻ không được để trống!",
             required
           ),
         },

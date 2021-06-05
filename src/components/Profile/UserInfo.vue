@@ -168,7 +168,13 @@ import User from "@/models/User";
 import accountService from "@/service/account-service";
 import authService from "@/service/auth-service";
 import useVuelidate from "@vuelidate/core";
-import { helpers, minLength, required, sameAs } from "@vuelidate/validators";
+import {
+  helpers,
+  maxLength,
+  minLength,
+  required,
+  sameAs,
+} from "@vuelidate/validators";
 import { Component, Vue } from "vue-property-decorator";
 
 interface ChangePasswordForm {
@@ -191,8 +197,12 @@ interface ChangePasswordForm {
             required
           ),
           minLength: helpers.withMessage(
-            "Mật khẩu hiện tại phải từ 8 ký tự",
+            "Mật khẩu phải từ 8 ký tự",
             minLength(8)
+          ),
+          maxLength: helpers.withMessage(
+            "Mật khẩu có tối đa 16 ký tự",
+            maxLength(16)
           ),
         },
         newPassword: {
@@ -201,8 +211,12 @@ interface ChangePasswordForm {
             required
           ),
           minLength: helpers.withMessage(
-            "Mật khẩu mới phải từ 8 ký tự",
+            "Mật khẩu phải từ 8 ký tự",
             minLength(8)
+          ),
+          maxLength: helpers.withMessage(
+            "Mật khẩu có tối đa 16 ký tự",
+            maxLength(16)
           ),
         },
         confirmPassword: {
@@ -211,8 +225,12 @@ interface ChangePasswordForm {
             required
           ),
           minLength: helpers.withMessage(
-            "Xác nhận mật khẩu mới phải từ 8 ký tự",
+            "Mật khẩu mới phải từ 8 ký tự",
             minLength(8)
+          ),
+          maxLength: helpers.withMessage(
+            "Mật khẩu có tối đa 16 ký tự",
+            maxLength(16)
           ),
         },
       },

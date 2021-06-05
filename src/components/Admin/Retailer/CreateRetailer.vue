@@ -134,10 +134,10 @@ import BasicCard from "../Card/BasicCard.vue";
       createForm: {
         name: {
           required: helpers.withMessage("Tên không được để trống!", required),
-          minLength: helpers.withMessage("Tên phải từ 8 ký tự", minLength(8)),
+          minLength: helpers.withMessage("Tên phải từ 5 ký tự", minLength(5)),
           maxLength: helpers.withMessage(
-            "Tên chỉ có tối đa 16 ký tự",
-            maxLength(16)
+            "Tên chỉ có tối đa 50 ký tự",
+            maxLength(50)
           ),
         },
         description: {
@@ -145,11 +145,27 @@ import BasicCard from "../Card/BasicCard.vue";
         },
         logo: {
           required: helpers.withMessage("Logo không được để trống!", required),
+          minLength: helpers.withMessage(
+            "Đường dẫn logo phải từ 10 ký tự",
+            minLength(10)
+          ),
+          maxLength: helpers.withMessage(
+            "Đường dẫn logo có tối đa 255 ký tự",
+            maxLength(255)
+          ),
         },
         homePage: {
           required: helpers.withMessage(
             "Trang chủ không được để trống!",
             required
+          ),
+          minLength: helpers.withMessage(
+            "Đường dẫn trang chủ phải từ 10 ký tự",
+            minLength(10)
+          ),
+          maxLength: helpers.withMessage(
+            "Đường dẫn trang chủ có tối đa 255 ký tự",
+            maxLength(255)
           ),
         },
         userId: {},

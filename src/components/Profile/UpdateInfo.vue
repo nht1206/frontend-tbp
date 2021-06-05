@@ -103,7 +103,7 @@ import User from "@/models/User";
 import accountService from "@/service/account-service";
 import authService from "@/service/auth-service";
 import useVuelidate from "@vuelidate/core";
-import { helpers, required } from "@vuelidate/validators";
+import { helpers, maxLength, minLength, required } from "@vuelidate/validators";
 import { Component, Vue } from "vue-property-decorator";
 
 export interface UpdateInfoForm {
@@ -125,17 +125,41 @@ export interface UpdateInfoForm {
             "Họ tên không được để trống!",
             required
           ),
+          minLength: helpers.withMessage(
+            "Họ tên có ít nhất 5 ký tự",
+            minLength(5)
+          ),
+          maxLength: helpers.withMessage(
+            "Họ tên có tối đa 30 ký tự",
+            maxLength(30)
+          ),
         },
         phoneNumber: {
           required: helpers.withMessage(
             "Số điện thoại không được để trống!",
             required
           ),
+          minLength: helpers.withMessage(
+            "Số điện thoại có từ 9 - 11 ký tự",
+            minLength(9)
+          ),
+          maxLength: helpers.withMessage(
+            "Số điện thoại có từ 9 - 11 ký tự",
+            maxLength(11)
+          ),
         },
         address: {
           required: helpers.withMessage(
             "Địa chỉ không được để trống!",
             required
+          ),
+          minLength: helpers.withMessage(
+            "Địa chỉ có ít nhất 5 ký tự",
+            minLength(5)
+          ),
+          maxLength: helpers.withMessage(
+            "Địa chỉ có tối đa 50 ký tự",
+            maxLength(50)
           ),
         },
       },

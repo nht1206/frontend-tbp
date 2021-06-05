@@ -189,7 +189,7 @@ import categoryService from "@/service/category-service";
 import brandService from "@/service/brand-service";
 import productService, { ProductPayload } from "@/service/product-service";
 import useVuelidate from "@vuelidate/core";
-import { helpers, minLength, required } from "@vuelidate/validators";
+import { helpers, maxLength, minLength, required } from "@vuelidate/validators";
 import { Component, Vue } from "vue-property-decorator";
 import DynamicImageInput from "@/components/Admin/Product/DynamicImageInput.vue";
 import Retailer from "@/models/Retailer";
@@ -209,12 +209,28 @@ import retailerService from "@/service/retailer-service";
             "Tiêu đề không được để trống!",
             required
           ),
+          minLength: helpers.withMessage(
+            "Tiêu đề có ít nhất 10 ký tự!",
+            minLength(10)
+          ),
+          maxLength: helpers.withMessage(
+            "Tiêu đề có tối đa 255 ký tự!",
+            maxLength(255)
+          ),
         },
         shortDescription: {
           required: helpers.withMessage("Mô tả không được để trống!", required),
+          minLength: helpers.withMessage(
+            "Mô tả có ít nhất 10 ký tự!",
+            minLength(10)
+          ),
         },
         longDescription: {
           required: helpers.withMessage("Mô tả không được để trống!", required),
+          minLength: helpers.withMessage(
+            "Mô tả có ít nhất 10 ký tự!",
+            minLength(10)
+          ),
         },
         images: {
           required: helpers.withMessage("Bắt buộc ít nhất 3 ảnh!", required),
@@ -233,6 +249,14 @@ import retailerService from "@/service/retailer-service";
           required: helpers.withMessage(
             "Đường dẫn không được để trống!",
             required
+          ),
+          minLength: helpers.withMessage(
+            "Đường dẫn có ít nhất 50 ký tự!",
+            minLength(50)
+          ),
+          maxLength: helpers.withMessage(
+            "Đường dẫn có ít nhất 50 ký tự!",
+            maxLength(255)
           ),
         },
       },

@@ -142,7 +142,7 @@ import categoryService from "@/service/category-service";
 import brandService from "@/service/brand-service";
 import productService, { ProductPayload } from "@/service/product-service";
 import useVuelidate from "@vuelidate/core";
-import { helpers, minLength, required } from "@vuelidate/validators";
+import { helpers, maxLength, minLength, required } from "@vuelidate/validators";
 import { Component, Vue } from "vue-property-decorator";
 import BasicCard from "../Card/BasicCard.vue";
 import DynamicImageInput from "./DynamicImageInput.vue";
@@ -161,12 +161,28 @@ import DynamicImageInput from "./DynamicImageInput.vue";
             "Tiêu đề không được để trống!",
             required
           ),
+          minLength: helpers.withMessage(
+            "Tiêu đề có ít nhất 10 ký tự!",
+            minLength(10)
+          ),
+          maxLength: helpers.withMessage(
+            "Tiêu đề có tối đa 255 ký tự!",
+            maxLength(255)
+          ),
         },
         shortDescription: {
           required: helpers.withMessage("Mô tả không được để trống!", required),
+          minLength: helpers.withMessage(
+            "Mô tả có ít nhất 10 ký tự!",
+            minLength(10)
+          ),
         },
         longDescription: {
           required: helpers.withMessage("Mô tả không được để trống!", required),
+          minLength: helpers.withMessage(
+            "Mô tả có ít nhất 10 ký tự!",
+            minLength(10)
+          ),
         },
         images: {
           required: helpers.withMessage("Bắt buộc ít nhất 3 ảnh!", required),
