@@ -10,6 +10,7 @@ export default interface Product {
   longDescription: string;
   images: string[];
   rate: number;
+  rated: boolean;
   lowestPrice: number;
   highestPrice: number;
   prices: {

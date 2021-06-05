@@ -165,6 +165,10 @@ export default class extends Vue {
       this.$bvModal.show("login-inform-modal");
       return;
     }
+    if (this.selectedProduct && this.selectedProduct.rated) {
+      this.$bvModal.show("inform-modal");
+      return;
+    }
     this.isRated = true;
     this.selectedRate = rate;
     productService.rateProduct(this.selectedProduct.id, { rate: rate });

@@ -23,8 +23,8 @@
         :category="selectedCategory"
       ></edit-sub-category-modal>
       <delete-confirm-modal :category="selectedCategory"></delete-confirm-modal>
-      <div class="col-md-4" v-for="c in categories" :key="c.id">
-        <dropdown-card :title="c.title">
+      <div class="card-columns">
+        <dropdown-card v-for="c in categories" :key="c.id" :title="c.title">
           <template v-slot:dropdown-menu>
             <div class="dropdown-header">Hành động</div>
             <a
@@ -129,6 +129,29 @@ export default class extends Vue {
       margin: 0 3px;
       color: #fea82f;
     }
+  }
+}
+@media (min-width: 576px) {
+  .card-columns {
+    column-count: 1;
+  }
+}
+
+@media (min-width: 768px) {
+  .card-columns {
+    column-count: 1;
+  }
+}
+
+@media (min-width: 992px) {
+  .card-columns {
+    column-count: 2;
+  }
+}
+
+@media (min-width: 1200px) {
+  .card-columns {
+    column-count: 3;
   }
 }
 </style>

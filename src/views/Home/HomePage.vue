@@ -9,6 +9,7 @@
     <Footer></Footer>
     <ScrollUp></ScrollUp>
     <login-inform-modal></login-inform-modal>
+    <inform-modal message="Bạn đã đánh giá sản phẩm này"></inform-modal>
   </div>
 </template>
 
@@ -30,6 +31,7 @@ import "jquery-circle-progress/dist/circle-progress";
 import "@/assets/styles/animate.css";
 import trackingService from "@/service/tracking-service";
 import LoginInformModal from "@/components/Home/modal/LoginInformModal.vue";
+import InformModal from "@/components/Home/modal/InformModal.vue";
 
 @Component({
   components: {
@@ -41,6 +43,7 @@ import LoginInformModal from "@/components/Home/modal/LoginInformModal.vue";
     ProductViewModal,
     ScrollUp,
     LoginInformModal,
+    InformModal,
   },
 })
 export default class Home extends Vue {
