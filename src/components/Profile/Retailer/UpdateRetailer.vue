@@ -1,7 +1,16 @@
 <template>
   <div>
     <div
-      class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+      class="
+        d-flex
+        justify-content-between
+        flex-wrap flex-md-nowrap
+        align-items-center
+        pt-3
+        pb-2
+        mb-3
+        border-bottom
+      "
     >
       <h1 class="h4">Chỉnh sửa cửa hàng</h1>
     </div>
@@ -200,7 +209,6 @@ export default class extends Vue {
         .updateRetailerByOwner(this.id, this.updateForm)
         .then((res) => {
           this.successMessage = res.data.message + "";
-          this.$router.push("/cua-hang");
           this.isLoading = false;
         })
         .catch((err) => {

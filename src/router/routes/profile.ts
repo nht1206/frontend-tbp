@@ -8,6 +8,7 @@ import ListUserProduct from "@/components/Profile/Product/ListUserProduct.vue";
 import ListSystemProduct from "@/components/Profile/Product/ListSystemProduct.vue";
 import CreateProduct from "@/components/Profile/Product/CreateProduct.vue";
 import UpdateProduct from "@/components/Profile/Product/UpdateProduct.vue";
+import ListProductPrice from "@/components/Profile/Product/ListProductPrice.vue";
 import ListPrice from "@/components/Profile/Product/ListPrice.vue";
 import CreatePrice from "@/components/Profile/Product/CreatePrice.vue";
 
@@ -74,9 +75,16 @@ export default [
   },
   {
     path: "/danh-sach-gia/:id",
+    component: ListProductPrice,
+    meta: {
+      title: "Danh sách giá sản phẩm",
+    },
+  },
+  {
+    path: "/danh-sach-gia",
     component: ListPrice,
     meta: {
-      title: "Cập nhật sản phẩm",
+      title: "Danh sách giá đã đăng",
     },
   },
   {

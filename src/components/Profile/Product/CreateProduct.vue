@@ -1,17 +1,31 @@
 <template>
   <div class="mb-3">
     <div
-      class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+      class="
+        d-flex
+        justify-content-between
+        flex-wrap flex-md-nowrap
+        align-items-center
+        pt-3
+        pb-2
+        mb-3
+        border-bottom
+      "
     >
       <h1 class="h4">Đăng sản phẩm</h1>
     </div>
-    <div>
+    <p v-if="!hasAnyRetailer">
+      Bạn chưa đăng ký cửa hàng nào hoặc hiện tại cửa hàng của bạn chưa được
+      duyệt
+    </p>
+    <div v-if="hasAnyRetailer">
       <div v-if="error" class="alert alert-danger" role="alert">
         {{ error }}
       </div>
       <div v-if="successMessage" class="alert alert-success" role="alert">
         {{ successMessage }}
       </div>
+
       <div class="form-group">
         <label for="inputTitle">Tiêu đề</label>
         <input
@@ -292,6 +306,10 @@ export default class extends Vue {
     return field.$invalid && field.$dirty;
   }
 
+  get hasAnyRetailer() {
+    return this.retailers.length !== 0;
+  }
+
   get isCreateDisabled() {
     return this.isLoading || !!this.error;
   }
@@ -328,9 +346,7 @@ export default class extends Vue {
         .then((res) => {
           this.successMessage = res.data.message + "";
           this.resetForm();
-          this.error = "";
           this.isLoading = false;
-          this.$router.push("/san-pham-cua-ban");
         })
         .catch((err) => {
           this.error = err.response.data.message;
@@ -353,7 +369,10 @@ export default class extends Vue {
       }
     });
     retailerService.getUserRetailers().then((res) => {
-      if (res.data && res.data.length > 0) {
+      this.retailers = res.data.filter(
+        (r: any) => r.enable === true && r.approve === true
+      );
+      if (this.retailers.length > 0) {
         this.retailers = res.data.filter(
           (r: any) => r.enable === true && r.approve === true
         );

@@ -1,7 +1,16 @@
 <template>
   <div class="mb-3">
     <div
-      class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+      class="
+        d-flex
+        justify-content-between
+        flex-wrap flex-md-nowrap
+        align-items-center
+        pt-3
+        pb-2
+        mb-3
+        border-bottom
+      "
     >
       <h1 class="h4">Cập nhật sản phẩm</h1>
     </div>
@@ -256,9 +265,7 @@ export default class extends Vue {
           console.log(this.updateForm.images);
           this.successMessage = res.data.message + "";
           this.resetForm();
-          this.error = "";
           this.isLoading = false;
-          this.$router.push("/san-pham-cua-ban");
         })
         .catch((err) => {
           this.error = err.response.data.message;

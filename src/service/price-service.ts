@@ -35,6 +35,10 @@ function addNewPriceByRetailer(id: string, payload: CreatePricePayload) {
   return http.post("price/retailerCreateNewPrice/" + id, payload);
 }
 
+function getRetailerPrices() {
+  return http.get("price/getPagePriceForRetailer");
+}
+
 export interface UpdatePricePayload {
   price: string;
   url: string;
@@ -75,4 +79,5 @@ export default {
   togglePriceStatus,
   deletePriceByAdmin,
   deletePriceByRetailer,
+  getRetailerPrices,
 };

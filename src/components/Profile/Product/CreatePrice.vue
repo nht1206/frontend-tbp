@@ -1,86 +1,101 @@
 <template>
   <div>
     <div
-      class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+      class="
+        d-flex
+        justify-content-between
+        flex-wrap flex-md-nowrap
+        align-items-center
+        pt-3
+        pb-2
+        mb-3
+        border-bottom
+      "
     >
       <h1 class="h4">Thêm giá mới</h1>
     </div>
-    <div v-if="error" class="alert alert-danger" role="alert">
-      {{ error }}
-    </div>
-    <div v-if="successMessage" class="alert alert-success" role="alert">
-      {{ successMessage }}
-    </div>
-    <div class="form-group">
-      <label for="selectRetailer">Nhà bán lẻ</label>
-      <select
-        class="form-control"
-        :class="[{ 'is-invalid': isInvalid(v$.createForm.retailerId) }]"
-        v-model="v$.createForm.retailerId.$model"
-        @focus="reset(v$.createForm.retailerId)"
-        @input="reset(v$.createForm.retailerId)"
-        id="selectRetailer"
-      >
-        <option v-for="r in retailers" :key="r.id" :value="r.id">
-          {{ r.name }}
-        </option>
-      </select>
-      <div class="invalid-feedback">
-        <template v-for="error of v$.createForm.retailerId.$errors">
-          {{ error.$message }}
-        </template>
+    <p v-if="!hasAnyRetailer">
+      Bạn chưa đăng ký cửa hàng nào hoặc hiện tại cửa hàng của bạn chưa được
+      duyệt
+    </p>
+    <div v-if="hasAnyRetailer">
+      <div v-if="error" class="alert alert-danger" role="alert">
+        {{ error }}
       </div>
-    </div>
-    <div class="form-group">
-      <label for="inputPrice">Giá</label>
-      <input
-        type="number"
-        class="form-control"
-        :class="[{ 'is-invalid': isInvalid(v$.createForm.price) }]"
-        v-model="v$.createForm.price.$model"
-        @focus="reset(v$.createForm.price)"
-        @input="reset(v$.createForm.price)"
-        id="inputPrice"
-      />
-      <div class="invalid-feedback">
-        <template v-for="error of v$.createForm.price.$errors">
-          {{ error.$message }}
-        </template>
+      <div v-if="successMessage" class="alert alert-success" role="alert">
+        {{ successMessage }}
       </div>
-    </div>
-    <div class="form-group">
-      <label for="inputUrl">Đường dẫn</label>
-      <input
-        type="text"
-        class="form-control"
-        :class="[{ 'is-invalid': isInvalid(v$.createForm.url) }]"
-        v-model="v$.createForm.url.$model"
-        @focus="reset(v$.createForm.url)"
-        @input="reset(v$.createForm.url)"
-        id="inputUrl"
-      />
-      <div class="invalid-feedback">
-        <template v-for="error of v$.createForm.url.$errors">
-          {{ error.$message }}
-        </template>
+      <div class="form-group">
+        <label for="selectRetailer">Nhà bán lẻ</label>
+        <select
+          class="form-control"
+          :class="[{ 'is-invalid': isInvalid(v$.createForm.retailerId) }]"
+          v-model="v$.createForm.retailerId.$model"
+          @focus="reset(v$.createForm.retailerId)"
+          @input="reset(v$.createForm.retailerId)"
+          id="selectRetailer"
+        >
+          <option v-for="r in retailers" :key="r.id" :value="r.id">
+            {{ r.name }}
+          </option>
+        </select>
+        <div class="invalid-feedback">
+          <template v-for="error of v$.createForm.retailerId.$errors">
+            {{ error.$message }}
+          </template>
+        </div>
       </div>
-    </div>
+      <div class="form-group">
+        <label for="inputPrice">Giá</label>
+        <input
+          type="number"
+          class="form-control"
+          :class="[{ 'is-invalid': isInvalid(v$.createForm.price) }]"
+          v-model="v$.createForm.price.$model"
+          @focus="reset(v$.createForm.price)"
+          @input="reset(v$.createForm.price)"
+          id="inputPrice"
+        />
+        <div class="invalid-feedback">
+          <template v-for="error of v$.createForm.price.$errors">
+            {{ error.$message }}
+          </template>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputUrl">Đường dẫn</label>
+        <input
+          type="text"
+          class="form-control"
+          :class="[{ 'is-invalid': isInvalid(v$.createForm.url) }]"
+          v-model="v$.createForm.url.$model"
+          @focus="reset(v$.createForm.url)"
+          @input="reset(v$.createForm.url)"
+          id="inputUrl"
+        />
+        <div class="invalid-feedback">
+          <template v-for="error of v$.createForm.url.$errors">
+            {{ error.$message }}
+          </template>
+        </div>
+      </div>
 
-    <button
-      @click="createHandle"
-      :disabled="isCreateDisabled"
-      type="submit"
-      class="btn btn-create"
-    >
-      <div
-        v-if="isLoading"
-        class="spinner-border spinner-border-sm"
-        role="status"
+      <button
+        @click="createHandle"
+        :disabled="isCreateDisabled"
+        type="submit"
+        class="btn btn-create"
       >
-        <span class="sr-only">Loading...</span>
-      </div>
-      Thêm sản phẩm
-    </button>
+        <div
+          v-if="isLoading"
+          class="spinner-border spinner-border-sm"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+        Thêm sản phẩm
+      </button>
+    </div>
   </div>
 </template>
 
@@ -153,6 +168,10 @@ export default class extends Vue {
     return this.isLoading || !!this.error;
   }
 
+  get hasAnyRetailer() {
+    return this.retailers.length !== 0;
+  }
+
   reset(field: { $reset: () => void }): void {
     field.$reset();
     this.error = "";
@@ -181,9 +200,7 @@ export default class extends Vue {
         .then((res) => {
           this.successMessage = res.data.message + "";
           this.resetForm();
-          this.error = "";
           this.isLoading = false;
-          this.$router.push("/them-gia-san-pham/" + this.id);
         })
         .catch((err) => {
           this.error = err.response.data.message;
@@ -195,10 +212,10 @@ export default class extends Vue {
   created() {
     this.id = this.$route.params["id"];
     retailerService.getUserRetailers().then((res) => {
-      if (res.data && res.data.length > 0) {
-        this.retailers = res.data.filter(
-          (r: any) => r.enable === true && r.approve === true
-        );
+      this.retailers = res.data.filter(
+        (r: any) => r.enable === true && r.approve === true
+      );
+      if (this.retailers.length > 0) {
         this.createForm.retailerId = this.retailers[0].id + "";
       }
     });

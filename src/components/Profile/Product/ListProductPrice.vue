@@ -1,31 +1,25 @@
 <template>
   <div>
     <div
-      class="
-        d-flex
-        justify-content-between
-        flex-wrap flex-md-nowrap
-        align-items-center
-        pt-3
-        pb-2
-        mb-3
-        border-bottom
-      "
+      class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
     >
-      <h1 class="h4">Danh sách giá của bạn</h1>
+      <h1 class="h4">Danh sách giá</h1>
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <router-link
+          :to="'/them-gia-san-pham/' + productId"
+          custom
+          v-slot="{ navigate }"
+        >
+          <button @click="navigate" type="button" class="btn btn-create">
+            Thêm giá mới
+          </button>
+        </router-link>
+      </div>
     </div>
-    <b-pagination
-      v-model="currentPage"
-      :total-rows="rows"
-      :per-page="perPage"
-      aria-controls="my-table"
-    ></b-pagination>
     <b-table
       striped
       hover
       responsive
-      :current-page="currentPage"
-      :per-page="perPage"
       :items="myProvider"
       :fields="fields"
       ref="table"
@@ -46,7 +40,7 @@
         >
       </template>
       <template #cell(actions)="data">
-        <div class="action-area">
+        <div v-if="isOwner(data.item.createdBy)" class="action-area">
           <i
             title="Chỉnh sửa"
             v-b-modal.edit-price-modal
@@ -99,16 +93,10 @@ import DeletePriceConfirmModal from "../Modal/DeletePriceConfirmModal.vue";
   components: { Loading, UpdatePriceModal, DeletePriceConfirmModal },
   data() {
     return {
-      perPage: 10,
-      currentPage: 1,
       fields: [
         {
           key: "productRetailerId",
           label: "ID",
-        },
-        {
-          key: "productTitle",
-          label: "Tên sản phẩm",
         },
         {
           key: "retailer",
@@ -146,10 +134,11 @@ import DeletePriceConfirmModal from "../Modal/DeletePriceConfirmModal.vue";
   },
 })
 export default class extends Vue {
-  rows = 0;
   user!: User;
   selectedPrice: PriceResponse | null = null;
   isLoading = false;
+
+  productId!: string;
 
   getStatus(enable: boolean) {
     if (enable) {
@@ -175,6 +164,10 @@ export default class extends Vue {
     this.selectedPrice = price;
   }
 
+  isOwner(username: string) {
+    return this.user.username === username;
+  }
+
   changeStatus(id: number) {
     priceService.togglePriceStatus(id);
   }
@@ -198,24 +191,22 @@ export default class extends Vue {
   myProvider(ctx: { currentPage: number; perPage: number }, callback: any) {
     this.isLoading = true;
     priceService
-      .getRetailerPrices()
+      .getListPrice(this.productId)
       .then((res) => {
-        const items = res.data.content;
-        if (res.data.totalElements) {
-          this.rows = res.data.totalElements;
-        } else {
-          this.rows = 0;
-        }
         this.isLoading = false;
+        const items = res.data;
         callback(items);
       })
       .catch(() => {
         this.isLoading = false;
-        this.rows = 0;
         callback([]);
       });
 
     return null;
+  }
+
+  created() {
+    this.productId = this.$route.params["id"];
   }
 }
 </script>
